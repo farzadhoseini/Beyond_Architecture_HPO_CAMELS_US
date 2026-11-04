@@ -1,35 +1,41 @@
-# 2026 CAMELS-US GitHub release: scientific provenance and preservation
+# CAMELS-US 2026 release — verified provenance and preservation
 
-**Target repository:** `farzadhoseini/Beyond_Architecture_HPO_CAMELS_US`  
-**Data DOI (Zenodo V3):** https://doi.org/10.5281/zenodo.23945464  
-**Staged initial branch:** `release/camels-2026-additive-v3`  
-**Verified initial addition commit:** `5399fe872aeb7f78cee829ff93b6aa5255da6179`
+**Current research title:** Beyond Architecture: Optimization and Hydrologic Regime Reveal Performance Headroom in Deep-Learning Rainfall–Runoff Modelling  
+**Canonical GitHub URL:** https://github.com/farzadhoseini/Beyond_Architecture_HPO_CAMELS_US  
+**Zenodo V3 DOI:** https://doi.org/10.5281/zenodo.23945464  
+**Maintainer:** Farzad Hosseini
 
-## Preservation decision
+## Release state (4 November 2026)
 
-The original experiments remain in `codes/CAMELS_US_clean_HPO_repro_package/`, `codes/Older_experiment_codes/` and `codes/camels_final_figure_code_v11/`, with original basin and cluster metadata untouched. All 2026 source, configurations, freeze summaries and supporting files belong under **`codes/revision_2026/`**. The original Git history remains intact; no destructive rewrite, force-push, or replacement repo is needed.
+The CAMELS-US additive 2026 revision was fast-forward integrated into the **existing** repository's `main` branch. The user-side Git log verified commit `4f28270a01e5ef798615f04496c6d5f9039b9cfc` on the live remote `main` before this final documentation follow-up. The repository rename and GitHub About update are administrative changes to the **same repository**, not the creation of a replacement repository. This document does not claim that the manuscript itself has been accepted or published.
 
-## Historical versus 2026 additions
+A comparison of the prior and post-merge source snapshots (`Cluster-Wise-HPO-CAMELS-US-main(1).zip` and `(2).zip`) found **237 newly added files, zero deletions, and exactly one modification to an original file: the root README**. All other historical files were byte-for-byte unchanged. The 2026 research sources are stored separately at `codes/revision_2026/`.
 
-The new layer contains Top-18 controls, Top-10 and hydrologically informed constituent decomposition, F4 cluster-local routing, and V17 figure/table production assets. The initial branch added 235 files and no deletions, with a single modification to the legacy root README. The final documentation patch corrects the README and CI/citation metadata, including one outdated HI17 seed-count statement.
+## Preservation of original benchmark
 
-## Data inventory (Zenodo version 3)
+The original HPO/random-search and ensemble code remains at the same paths:
 
-- 10 unchanged inherited V2 archive files.
-- `CAMELS_US_Revision_2026_Analysis_Data_v3_additions.zip` (2026 revision artifacts).
-- `CAMELS_US_Top18_Additional8_Raw_10Seed_v3.zip` (eight additional selected configurations × ten seeds; 80 raw-run outputs).
+- `codes/CAMELS_US_clean_HPO_repro_package/`
+- `codes/Older_experiment_codes/`
+- `codes/camels_final_figure_code_v11/`
 
-The complete 12-file draft was independently verified by the user-side upload script before publication. The stable version DOI is `10.5281/zenodo.23945464`.
+Original cluster metadata, geographical inputs, historical figure sources and previous experiment notebooks remain unchanged. Historical file names and internal model identifiers have not been renamed to match the 2026 display labels.
 
-## Quality checks and limitations
+## Additions in 2026
 
-- The 2026 source collection originally staged **233 manifest-checked files** plus two documentation/provenance files, totaling **235 added files**. The present patch keeps that source collection bit-for-bit unchanged except for the specifically corrected **new** HI17 README, and adds publication-facing documentation. It does not change model predictions, checkpoints, or evaluation source code.
-- 25 added `.py` files passed a local Python AST syntax parse; two `.ipynb` files parsed as valid Notebook JSON. This is a **static syntax check**, not an end-to-end execution test.
-- Several experimental scripts and YAML files embed original IH Windows paths. These are preserved for traceability; portable execution requires path and dependency setup.
-- V17 prepares 35 figure files and 34 LaTeX table environments. The tables are frozen from a canonical manuscript snapshot, **not** all recomputed from raw data.
-- The archival HI17 constituent availability table shows 15 × 10 seeds, 1 × 8 seeds and 1 × 7 seeds. The earlier HI17 README said 16 × 10 and 1 × 5, which was inconsistent with the frozen result inventory. Its **documentation only** is corrected in this patch.
-- Internal historical experiment identifiers are preserved, even where the current paper uses different display labels.
+The new `codes/revision_2026/` layer contains (i) Top-18 sensitivity controls and selected run configurations, (ii) Top-10 and hydrologically informed constituent analyses, (iii) cluster-local hard-routing/F4 controls, and (iv) V17 figure and table pipelines with archived manifests and frozen analysis outputs.
 
-## Release gates
+The Zenodo V3 record retains **10 files from V2** and adds the following two archives, for **12 files in total**:
 
-Before merging into `main`, run `CAMELS_GITHUB_2026_SAFE_RELEASE.ps1 -Mode Audit`; ensure the source manifest matches, the diff has no deletions and no old scientific files are changed, and no independent changes to `main` are silently lost. Update the repository name and GitHub About description separately using the owner's authenticated shell, and then review the merge. The script does **not** automatically merge into `main`.
+1. `CAMELS_US_Revision_2026_Analysis_Data_v3_additions.zip`
+2. `CAMELS_US_Top18_Additional8_Raw_10Seed_v3.zip` — 8 additional configurations x 10 seeds, 80 final runs.
+
+## Scientific boundaries and audit status
+
+- The HI17 constituent inventory contains **15 configurations with 10 available final seeds, one with 8, and one with 7**. Missing seeds are not imputed; see the frozen availability inventory and seed-matched protocol.
+- The V17 source bundle contains **35 figure manifest entries** (17 main, 18 supplementary) and **34 table manifest entries** (11 main, 23 supplementary). The 34 tables are **frozen LaTeX environments**; the repository does not claim every table is recalculated from raw predictions in a fresh environment.
+- Local static validation of the post-merge source ZIP found 52 syntactically valid Python files, 8 structurally valid notebooks, and 80 parseable Top-18 YAML files. This is **not** independent end-to-end retraining or execution verification.
+- Some original workstation absolute paths, file names containing `HESS`, and obsolete wording embedded in frozen experiment outputs are preserved for reproducibility and scientific traceability.
+- **Important:** `codes/revision_2026/figures_tables_v17/canonical_manuscript/main_current.tex` and `supp_current.tex` are frozen V17 mapping snapshots; they still contain earlier title/terminology, and the main snapshot retains old code/data URLs. They must **not** be used as the final submission manuscript. Update and check the actual final manuscript separately; do not modify frozen snapshots without an explicit audited re-freeze.
+
+For pre-submission data/code link checks and manuscript readiness, see [`SUBMISSION_RELEASE_CHECKLIST.md`](SUBMISSION_RELEASE_CHECKLIST.md).
