@@ -1,0 +1,55 @@
+FIXED INPUT / TARGET CONFIGURATION
+
+Dataset: camels_us
+Forcing products: ['daymet', 'maurer', 'nldas']
+Dynamic inputs (ordered):
+  01. prcp(mm/day)_daymet
+  02. srad(W/m2)_daymet
+  03. tmax(C)_daymet
+  04. tmin(C)_daymet
+  05. vp(Pa)_daymet
+  06. PRCP(mm/day)_nldas
+  07. SRAD(W/m2)_nldas
+  08. Tmax(C)_nldas
+  09. Tmin(C)_nldas
+  10. Vp(Pa)_nldas
+  11. PRCP(mm/day)_maurer
+  12. SRAD(W/m2)_maurer
+  13. Tmax(C)_maurer
+  14. Tmin(C)_maurer
+  15. Vp(Pa)_maurer
+
+Static attributes (ordered):
+  01. elev_mean
+  02. slope_mean
+  03. area_gages2
+  04. frac_forest
+  05. lai_max
+  06. lai_diff
+  07. gvf_max
+  08. gvf_diff
+  09. soil_depth_pelletier
+  10. soil_depth_statsgo
+  11. soil_porosity
+  12. soil_conductivity
+  13. max_water_content
+  14. sand_frac
+  15. silt_frac
+  16. clay_frac
+  17. carbonate_rocks_frac
+  18. geol_permeability
+  19. p_mean
+  20. pet_mean
+  21. aridity
+  22. frac_snow
+  23. high_prec_freq
+  24. high_prec_dur
+  25. low_prec_freq
+  26. low_prec_dur
+
+Target: ['QObs(mm/d)']
+clip_targets_to_zero: ['QObs(mm/d)']
+train_data_file: /home/projects/nhlstm/neural-files/DataBank/camels-data/train_data/train_data.p
+
+Normalization statement already documented in manuscript: dynamic-input normalization is estimated from the training period and applied unchanged to validation and test data.
+Static-attribute scaling should be described only as supported by the frozen preprocessing/scaler metadata; this script does not infer an undocumented scaler rule.

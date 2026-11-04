@@ -1,0 +1,2 @@
+column,n_rows,min,median,max,n_eq_3,n_lt_3,n_gt_3
+n_members,5310,2.0,3.0,3.0,4685,625,0

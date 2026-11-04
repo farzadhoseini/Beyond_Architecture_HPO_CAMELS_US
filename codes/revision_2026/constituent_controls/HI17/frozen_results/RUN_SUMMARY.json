@@ -1,0 +1,53 @@
+{
+  "status": "PASS",
+  "version": "2.0.0-10seed-protocol-publication-gate",
+  "design": "17 unique HI configurations represented by 18 cluster-conditioned selection slots, evaluated across the prespecified 10-seed final protocol using every archived final realization available for each constituent. Pooled-HI-vs-constituent comparisons are seed-matched to that constituent; no missing realization is imputed.",
+  "prespecified_final_seeds": [
+    191889,
+    307443,
+    328237,
+    385445,
+    473461,
+    643969,
+    665980,
+    845563,
+    985957,
+    993061
+  ],
+  "n_selection_slots": 18,
+  "n_unique_constituents": 17,
+  "constituent_ids_are_validation_ranks": false,
+  "constituent_seed_availability_counts": {
+    "7": 1,
+    "8": 1,
+    "10": 15
+  },
+  "pooled_hi_10seed_mean_nse": 0.7759663893948184,
+  "pooled_hi_10seed_median_nse": 0.8154400081729388,
+  "constituent_mean_nse_min": 0.6879647790756324,
+  "constituent_mean_nse_median": 0.7355207165415446,
+  "constituent_mean_nse_max": 0.754683313443519,
+  "constituent_median_nse_min": 0.763627234722507,
+  "constituent_median_nse_median": 0.7798462717344119,
+  "constituent_median_nse_max": 0.7941060534615251,
+  "n_constituents_pooledHI_positive_median_paired_NSE": 17,
+  "n_constituents_pooledHI_winrate_over_50_NSE": 17,
+  "n_constituents_pooledHI_positive_median_paired_KGE": 10,
+  "n_constituents_pooledHI_positive_median_paired_Pearson": 17,
+  "n_constituents_pooledHI_positive_median_paired_RMSE": 17,
+  "n_seed_constituent_pairs": 165,
+  "seed_constituent_pairs_pooled_mean_NSE_better": 165,
+  "seed_constituent_pairs_pooled_median_NSE_better": 165,
+  "rebuild": {
+    "n_basin_seed": 5310,
+    "max_abs_diff": 7.62939453125e-06,
+    "mean_abs_diff": 1.381578060721427e-08
+  },
+  "kratzert_context_status": "PASS_CANONICAL",
+  "kratzert_mean_nse": 0.753310895064344,
+  "kratzert_median_nse": 0.792027673125267,
+  "n_constituents_mean_nse_above_kratzert": 1,
+  "n_constituents_median_nse_above_kratzert": 2,
+  "n_constituents_positive_median_paired_NSE_vs_kratzert": 2,
+  "n_constituents_winrate_over_50_NSE_vs_kratzert": 2
+}

@@ -1,0 +1,62 @@
+CAMELS-US HI17 CONSTITUENT DECOMPOSITION — 10-SEED PROTOCOL — MANUSCRIPT READY
+==============================================================================================
+
+DESIGN
+The hydrologically informed framework contains 18 cluster-conditioned selection slots and 17 unique regionally trained configurations. Constituent performance is evaluated using every archived final realization available within the prespecified 10-seed protocol; no missing realization is imputed or replaced. Pooled-HI-versus-constituent comparisons use exactly the same final-seed subset available for that constituent. HI-CFG-01...HI-CFG-17 are arbitrary source-token-sorted identifiers, NOT validation ranks.
+
+PRIMARY AGGREGATION
+Metrics are calculated per basin x seed and then averaged arithmetically across all archived final seeds available for that constituent. The frozen pooled HI ensemble is evaluated across all 10 final seeds. For each constituent-level paired comparison, pooled HI is re-aggregated over the identical seed subset used by that constituent. The raw available-member pointwise median is independently rebuilt for every basin and all 10 seeds and must match the frozen pooled ensemble before analysis proceeds.
+
+Pooled HI 10-seed: mean NSE=0.775966; median NSE=0.815440
+17 individual HI constituents, across-basin mean NSE range=0.687965 to 0.754683; median across constituents=0.735521
+17 individual HI constituents, across-basin median NSE range=0.763627 to 0.794106; median across constituents=0.779846
+Pooled HI has positive median paired NSE effect versus 17/17 constituents; basin win rate >50% versus 17/17.
+Pooled HI positive median effects: KGE 10/17; Pearson-r 17/17; RMSE 17/17.
+Seed-level descriptive dominance: pooled HI regional mean NSE better in 165/165 available seed-constituent pairs; regional median NSE better in 165/165.
+
+POOLED HI VS EACH CONSTITUENT — NSE
+constituent_id source_model  n_matched_final_seeds   win_rate  mean_effect  median_effect     ci95_lo     ci95_hi    wilcoxon_p  wilcoxon_fdr_p  wilcoxon_global_fdr_p
+     HI-CFG-01  0106_011613                     10 0.96233522  0.052377411    0.040245883 0.038571932 0.043111072 1.9780539e-86   3.7910422e-86           8.406729e-86
+     HI-CFG-02  0310_170514                     10 0.89830508  0.048365949    0.021729663 0.020434055 0.023942449 1.5352943e-69   2.0470591e-69          2.1306125e-69
+     HI-CFG-03  0610_215522                     10 0.96610169  0.040200097     0.03122733 0.028907568 0.032947538 9.3148992e-86   1.2419866e-85          2.6392214e-85
+     HI-CFG-04  0805_111707                     10 0.98305085  0.045744718    0.034691438 0.032668757 0.037111688 7.1889045e-87   1.4377809e-86          4.0737125e-86
+     HI-CFG-05  1308_140214                     10 0.96233522  0.032774078    0.027025722 0.025575869 0.028168472 3.6397785e-82    4.853038e-82          6.8751372e-82
+     HI-CFG-06  1309_231901                     10 0.94538606  0.040445673    0.033333243  0.03090978 0.034617883 1.9835568e-84   2.6447424e-84          4.6510987e-84
+     HI-CFG-07  1403_052952                     10 0.89265537  0.021283076    0.017033026 0.015729908 0.018878812 2.8080814e-66   3.7441085e-66          3.8189907e-66
+     HI-CFG-08  1805_070641                     10 0.97740113  0.046157905    0.038977722 0.036790641 0.040624152 2.6058718e-87     4.81102e-87           2.214991e-86
+     HI-CFG-09  2003_170836                     10 0.96045198  0.036372641    0.031213084  0.02923733 0.033267528 2.2395678e-84   2.9860903e-84          5.0763536e-84
+     HI-CFG-10  2004_130315                     10 0.87570621  0.022980273    0.017078159  0.01601979 0.018611592 3.6583239e-59   4.8777652e-59          4.8777652e-59
+     HI-CFG-11  2004_184308                     10 0.92278719   0.08800161    0.020853438 0.019341764 0.022925523 2.5421135e-77   3.3894847e-77          4.0200865e-77
+     HI-CFG-12  2007_021425                     10 0.95480226   0.07384763    0.028544152 0.025801164 0.031054589 8.9626113e-83   1.7925223e-82          1.8468411e-82
+     HI-CFG-13  2205_004220                      8 0.96798493  0.074729948     0.03679796 0.034985905 0.039320391 9.8347979e-83   1.3113064e-82          1.9669596e-82
+     HI-CFG-14  2209_124425                     10 0.92467043  0.030616992      0.0247745 0.023623784 0.026602552 7.4756088e-75   9.9674784e-75          1.1296476e-74
+     HI-CFG-15  2410_055814                      7 0.93032015  0.035214283    0.029957059 0.027819601 0.031436925  2.185917e-76   2.9145559e-76          3.3782353e-76
+     HI-CFG-16  3007_142601                     10 0.96610169  0.033987754    0.029787188 0.028408069 0.031035869  1.141437e-80   1.5219161e-80          1.9901979e-80
+     HI-CFG-17  3007_231303                     10 0.98305085   0.04965902    0.041403654 0.039358441 0.043727617 1.5908119e-86   2.1210826e-86          7.2116808e-86
+
+KRATZERT CONTEXT
+Kratzert reference: mean NSE=0.753311; median NSE=0.792028
+HI constituents with across-basin mean NSE above Kratzert: 1/17
+HI constituents with across-basin median NSE above Kratzert: 2/17
+HI constituents with positive median paired NSE effect vs Kratzert: 2/17
+constituent_id source_model  n_constituent_final_seeds   win_rate    mean_effect  median_effect       ci95_lo        ci95_hi  wilcoxon_global_fdr_p
+     HI-CFG-01  0106_011613                         10  0.1393597   -0.029721916   -0.020575572  -0.022432156   -0.018556575          3.6449456e-57
+     HI-CFG-02  0310_170514                         10 0.45386064   -0.025710455  -0.0016885335 -0.0035654388 -8.6022816e-05          3.8762008e-05
+     HI-CFG-03  0610_215522                         10 0.24482109   -0.017544602   -0.011588991  -0.012876462  -0.0094790756          1.3513176e-34
+     HI-CFG-04  0805_111707                         10 0.20338983   -0.023089224   -0.014669442  -0.016410507   -0.012895587          9.1688301e-45
+     HI-CFG-05  1308_140214                         10 0.27118644   -0.010118584  -0.0078930497 -0.0095034488  -0.0064568226          5.9570225e-28
+     HI-CFG-06  1309_231901                         10 0.18832392   -0.017790179   -0.013700634  -0.015243702   -0.011826647          2.9524962e-40
+     HI-CFG-07  1403_052952                         10 0.58003766   0.0013724184   0.0018731605 0.00091954938   0.0029552786           0.0018332647
+     HI-CFG-08  1805_070641                         10 0.15065913   -0.023502411   -0.020142679  -0.022292403   -0.017953452          8.9664882e-56
+     HI-CFG-09  2003_170836                         10 0.21845574   -0.013717146   -0.011584157  -0.013269712  -0.0098210835          1.2537395e-41
+     HI-CFG-10  2004_130315                         10 0.56120527 -0.00032477913   0.0016581392  0.0005880287   0.0027082622          0.00029998845
+     HI-CFG-11  2004_184308                         10  0.4519774   -0.065346116  -0.0016118027  -0.003845281 -0.00011898795           2.750532e-05
+     HI-CFG-12  2007_021425                         10 0.31450094   -0.051192136  -0.0077369501 -0.0099198533  -0.0061449626          1.3163325e-25
+     HI-CFG-13  2205_004220                          8 0.19962335   -0.051895405   -0.016976758  -0.019010086   -0.014784006          3.1252711e-49
+     HI-CFG-14  2209_124425                         10 0.31826742   -0.007961498  -0.0062118386 -0.0073710591  -0.0048534241          2.4608331e-17
+     HI-CFG-15  2410_055814                          7 0.26365348   -0.012797856   -0.010938692  -0.012706515  -0.0091141395          1.3898913e-28
+     HI-CFG-16  3007_142601                         10 0.23728814   -0.011332259  -0.0099199037  -0.011683927  -0.0079033791            6.04364e-36
+     HI-CFG-17  3007_231303                         10 0.11299435   -0.027003526   -0.023008343  -0.025769098     -0.0211701          5.7556579e-68
+
+INTERPRETATION BOUNDARY
+This experiment evaluates pooled hydrologically informed aggregation against its own 17 unique selected constituents within the full prespecified 10-seed protocol, using all archived final realizations and exact seed matching within each pooled-versus-constituent comparison. It tests whether pooled performance is reproduced by individual selected configurations in isolation. It does NOT isolate HPO causally, and it does NOT turn the arbitrary HI-CFG identifiers into validation ranks.

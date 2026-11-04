@@ -1,0 +1,123 @@
+{
+  "generated": "2026-09-14T06:34:14.110928",
+  "experiment": {
+    "name": "CAMELS-US Top18 control",
+    "primary_comparison": "Top18-median vs Top10-median",
+    "secondary_comparison": "Top18-mean",
+    "n_basins": 531,
+    "n_seeds": 10,
+    "top10_members": 10,
+    "top18_members": 18,
+    "test_start": "1989-10-01",
+    "test_end": "1999-09-30",
+    "test_days": 3652
+  },
+  "primary_results": [
+    {
+      "metric": "FHV",
+      "direction": "zero",
+      "Top18_median": -16.962701827287674,
+      "Top10_median": -16.374216973781586,
+      "raw_delta_Top18_minus_Top10": -0.2891246229410171,
+      "pct_basins_improved": 34.65160075329567,
+      "wilcoxon_p": 3.359824453181176e-13
+    },
+    {
+      "metric": "FLV",
+      "direction": "zero",
+      "Top18_median": -2.010579763212617,
+      "Top10_median": -2.922844718497804,
+      "raw_delta_Top18_minus_Top10": -0.2199439461427914,
+      "pct_basins_improved": 42.93785310734463,
+      "wilcoxon_p": 0.026017543160321
+    },
+    {
+      "metric": "FMS",
+      "direction": "zero",
+      "Top18_median": -7.665344768698679,
+      "Top10_median": -6.935979207905321,
+      "raw_delta_Top18_minus_Top10": -0.6575538158492669,
+      "pct_basins_improved": 54.23728813559322,
+      "wilcoxon_p": 2.453141660617086e-27
+    },
+    {
+      "metric": "KGE",
+      "direction": "higher",
+      "Top18_median": 0.7745004958942405,
+      "Top10_median": 0.7713353105266483,
+      "raw_delta_Top18_minus_Top10": 4.372948891795403e-05,
+      "pct_basins_improved": 50.282485875706215,
+      "wilcoxon_p": 0.6269865889569562
+    },
+    {
+      "metric": "MAPE",
+      "direction": "lower",
+      "Top18_median": 34.08309922136728,
+      "Top10_median": 34.72105860710144,
+      "raw_delta_Top18_minus_Top10": -0.5596865642814457,
+      "pct_basins_improved": 70.4331450094162,
+      "wilcoxon_p": 0.0006059254508307
+    },
+    {
+      "metric": "Missed-Peaks",
+      "direction": "lower",
+      "Top18_median": 0.33,
+      "Top10_median": 0.3333333333333333,
+      "raw_delta_Top18_minus_Top10": 0.0,
+      "pct_basins_improved": 34.83992467043315,
+      "wilcoxon_p": 0.0534798858972269
+    },
+    {
+      "metric": "NSE",
+      "direction": "higher",
+      "Top18_median": 0.8144955113530159,
+      "Top10_median": 0.811913825571537,
+      "raw_delta_Top18_minus_Top10": 0.0020594522356987,
+      "pct_basins_improved": 76.27118644067797,
+      "wilcoxon_p": 9.059616120465588e-32
+    },
+    {
+      "metric": "Peak-MAPE",
+      "direction": "lower",
+      "Top18_median": 34.37680368838103,
+      "Top10_median": 34.90717736157504,
+      "raw_delta_Top18_minus_Top10": -0.1420864692101133,
+      "pct_basins_improved": 59.88700564971752,
+      "wilcoxon_p": 2.5075919243055615e-07
+    },
+    {
+      "metric": "Peak-Timing",
+      "direction": "lower",
+      "Top18_median": 0.238095238095238,
+      "Top10_median": 0.2368421052631578,
+      "raw_delta_Top18_minus_Top10": 0.0,
+      "pct_basins_improved": 24.858757062146893,
+      "wilcoxon_p": 0.0177404103042885
+    },
+    {
+      "metric": "Pearson-r",
+      "direction": "higher",
+      "Top18_median": 0.9139211773872375,
+      "Top10_median": 0.9123978614807128,
+      "raw_delta_Top18_minus_Top10": 0.0012538731098175,
+      "pct_basins_improved": 81.73258003766477,
+      "wilcoxon_p": 5.0741736302106506e-46
+    },
+    {
+      "metric": "RMSE",
+      "direction": "lower",
+      "Top18_median": 1.0563485524866665,
+      "Top10_median": 1.0620358291930985,
+      "raw_delta_Top18_minus_Top10": -0.0061136857502029,
+      "pct_basins_improved": 76.27118644067797,
+      "wilcoxon_p": 8.479372917995782e-37
+    }
+  ],
+  "normalized_highflow_bins": {
+    "old_artifact_exists": true,
+    "exact_top18_reproduction": false,
+    "reason": "Exact Top18 normalized-bin extension not auto-generated because the original bin-construction code is not present in the supplied training notebook. Existing artifact preserved; no new bin definition is invented.",
+    "old_size_gb": 1.1450850199908018
+  },
+  "audit_messages": []
+}

@@ -1,3 +1,9 @@
+# Beyond Architecture: Optimization and Hydrologic Regime Reveal Performance Headroom in Deep-Learning Rainfallâ€“Runoff Modelling
+
+**Current manuscript (2026).** New revision analyses and figure/table builders are in [codes/revision_2026](codes/revision_2026/README_2026_REVISION.md). The original code and datasets below are preserved as the reproducibility foundation and historical record.
+
+---
+
 \# Cluster-Wise Hyperparameter Optimization Enhances Regional Rainfall–Runoff Modeling with Deep Learning: A Robust CAMELS-US Benchmark
 
 

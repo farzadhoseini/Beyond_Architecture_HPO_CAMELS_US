@@ -1,0 +1,16 @@
+{
+  "latest_old_f4_run": "F:\\Experiments\\CAMELS_US\\Clean_4_upload\\Revision_2026_Top18_4Framework\\ensemble_framework_bot_runs\\CAMELS_F4_ONLY_eval_20260823_053741_v13",
+  "publishable_old_F4": false,
+  "old_F4_member_count_summary": {
+    "column": "n_members",
+    "n_rows": 5310,
+    "min": 2.0,
+    "median": 3.0,
+    "max": 3.0,
+    "n_eq_3": 4685,
+    "n_lt_3": 625,
+    "n_gt_3": 0
+  },
+  "recommended_test": "HI Cluster-Routed Top-3: for each basin use only the three regionally trained configurations selected from validation performance within that basin's fixed hydrologic cluster; pointwise median within each seed; metrics per seed; arithmetic mean of 10 seed-level metrics per basin.",
+  "required_publishable_gate": "531 basins x 10 seeds = 5310 basin-seed ensembles, exactly 3 cluster-associated prediction members available for every basin-seed; source-config -> final-run mapping must come from explicit manifest/config evidence, not positional fallback."
+}

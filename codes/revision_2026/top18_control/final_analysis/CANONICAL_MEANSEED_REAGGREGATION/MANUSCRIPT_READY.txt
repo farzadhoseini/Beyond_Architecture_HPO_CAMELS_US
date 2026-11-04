@@ -1,0 +1,49 @@
+==============================================================================
+CAMELS-US CANONICAL MEAN-ACROSS-SEEDS RESULTS
+==============================================================================
+
+Aggregation: compute each metric separately for each of 10 seeds, then take the arithmetic mean across seeds for each basin.
+
+A) CANONICAL WHOLE-DOMAIN NSE CHECK
+------------------------------------------------------------------------------
+Kratzert reference           mean=0.753311  median=0.792028
+Top-10                       mean=0.769031  median=0.812214
+Hydrologically informed      mean=0.775966  median=0.815440
+Top-18                       mean=0.771255  median=0.814441
+
+B) TOP-18 vs TOP-10 — MANUSCRIPT S17 / TABLE 11 VALUES
+------------------------------------------------------------------------------
+Positive paired effect ALWAYS means Top-18 is better.
+
+NSE        | wins=418/531 (78.72%) | mean effect=+0.002224 | median effect=+0.001986 | 95% CI=[+0.001713, +0.002313] | raw P=1.00009e-42 | FDR P=1.33346e-42 | sign P=3.90456e-42
+KGE        | wins=243/531 (45.76%) | mean effect=+0.000592 | median effect=-0.000442 | 95% CI=[-0.001036, +0.000011] | raw P=0.679167 | FDR P=0.679167 | sign P=0.0561034
+Pearson-r  | wins=459/531 (86.44%) | mean effect=+0.001733 | median effect=+0.001247 | 95% CI=[+0.001151, +0.001474] | raw P=1.58004e-57 | FDR P=6.32014e-57 | sign P=5.70677e-70
+RMSE       | wins=417/531 (78.53%) | mean effect=+0.007356 | median effect=+0.005873 | 95% CI=[+0.005088, +0.006546] | raw P=5.33748e-45 | FDR P=1.0675e-44 | sign P=1.4376e-41
+
+C) S19 — CLUSTER MEDIAN NSE CONTRASTS
+------------------------------------------------------------------------------
+delta Top18-Top10 > 0 favors Top-18; delta HI-Top18 > 0 favors hydrologically informed.
+
+C1: Top10=0.768237, Top18=0.768601, HI=0.761122, d(Top18-Top10)=+0.000365, d(HI-Top18)=-0.007480
+C2: Top10=0.815486, Top18=0.819341, HI=0.818312, d(Top18-Top10)=+0.003855, d(HI-Top18)=-0.001029
+C3: Top10=0.628646, Top18=0.641474, HI=0.683808, d(Top18-Top10)=+0.012828, d(HI-Top18)=+0.042334
+C4: Top10=0.881833, Top18=0.882966, HI=0.880805, d(Top18-Top10)=+0.001133, d(HI-Top18)=-0.002161
+C5: Top10=0.872561, Top18=0.875097, HI=0.871612, d(Top18-Top10)=+0.002536, d(HI-Top18)=-0.003485
+C6: Top10=0.768065, Top18=0.772215, HI=0.775056, d(Top18-Top10)=+0.004150, d(HI-Top18)=+0.002841
+
+D) HYDROLOGICALLY INFORMED vs TOP-18 — WHOLE-DOMAIN NSE
+------------------------------------------------------------------------------
+wins=238/531 (44.82%), mean effect=+0.004711, median effect=-0.000917, 95% CI=[-0.001824, -0.000289], Wilcoxon P=0.676271, sign P=0.0190241
+
+E) S18 SEED-LEVEL CHECK
+------------------------------------------------------------------------------
+NSE: Top-18 better in 10/10 seed-level regional medians.
+KGE: Top-18 better in 2/10 seed-level regional medians.
+RMSE: Top-18 better in 9/10 seed-level regional medians.
+
+F) INTERPRETATION GATE
+------------------------------------------------------------------------------
+NSE: median paired effect=+0.001986; 78.72% basins improved.
+KGE: median paired effect=-0.000442; 45.76% basins improved.
+
+Use THESE values, not the previous median-across-seed Top-18 control values, for manuscript finalization.

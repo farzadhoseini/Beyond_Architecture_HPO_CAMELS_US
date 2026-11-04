@@ -1,0 +1,10 @@
+{
+  "main": {
+    "filename": "main_current.tex",
+    "sha256": "6a51b1a85fea571e059f82d0fe4da8b7084f9a02218f7a3dcd628c7db9375636"
+  },
+  "supp": {
+    "filename": "supp_current.tex",
+    "sha256": "93e1b481e24cad87684b466cd4bdce7a553fe5bb6bf923479a6b74b677f3203a"
+  }
+}

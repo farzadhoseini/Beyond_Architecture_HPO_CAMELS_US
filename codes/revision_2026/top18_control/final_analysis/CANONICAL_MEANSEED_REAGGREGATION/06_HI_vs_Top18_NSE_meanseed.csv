@@ -1,0 +1,2 @@
+first_model,reference_model,metric,n_basins,wins,losses,ties,win_rate_pct,mean_effect,median_effect,ci95_median_low,ci95_median_high,wilcoxon_stat,wilcoxon_raw_p,sign_test_p
+Cluster-wise,Top18,NSE,531,238,293,0,44.8210922787194,0.004711465142569076,-0.0009169768542052203,-0.0018243201076983961,-0.00028919577598574,69146.0,0.6762705922867971,0.01902412710778839

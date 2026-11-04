@@ -1,0 +1,240 @@
+[
+  {
+    "document": "main",
+    "order": 1,
+    "label": "tab:camels_attribute_summary",
+    "environment": "table",
+    "filename": "tab_camels_attribute_summary.tex"
+  },
+  {
+    "document": "main",
+    "order": 2,
+    "label": "tab:camels_cluster_summary",
+    "environment": "table",
+    "filename": "tab_camels_cluster_summary.tex"
+  },
+  {
+    "document": "main",
+    "order": 3,
+    "label": "tab:hpo_space",
+    "environment": "table",
+    "filename": "tab_hpo_space.tex"
+  },
+  {
+    "document": "main",
+    "order": 4,
+    "label": "tab:paired_nse_references",
+    "environment": "table",
+    "filename": "tab_paired_nse_references.tex"
+  },
+  {
+    "document": "main",
+    "order": 5,
+    "label": "tab:threshold_coverage",
+    "environment": "table",
+    "filename": "tab_threshold_coverage.tex"
+  },
+  {
+    "document": "main",
+    "order": 6,
+    "label": "tab:hydro_selection_regimes",
+    "environment": "table",
+    "filename": "tab_hydro_selection_regimes.tex"
+  },
+  {
+    "document": "main",
+    "order": 7,
+    "label": "tab:wy_nse_by_year",
+    "environment": "table",
+    "filename": "tab_wy_nse_by_year.tex"
+  },
+  {
+    "document": "main",
+    "order": 8,
+    "label": "tab:seasonal_nse_frameworks",
+    "environment": "table",
+    "filename": "tab_seasonal_nse_frameworks.tex"
+  },
+  {
+    "document": "main",
+    "order": 9,
+    "label": "tab:cluster_absolute_nse",
+    "environment": "table",
+    "filename": "tab_cluster_absolute_nse.tex"
+  },
+  {
+    "document": "main",
+    "order": 10,
+    "label": "tab:selected_architecture_context",
+    "environment": "table",
+    "filename": "tab_selected_architecture_context.tex"
+  },
+  {
+    "document": "main",
+    "order": 11,
+    "label": "tab:top18_size_control",
+    "environment": "table",
+    "filename": "tab_top18_size_control.tex"
+  },
+  {
+    "document": "supp",
+    "order": 1,
+    "label": "tab:supp_overall_summary",
+    "environment": "table",
+    "filename": "tab_supp_overall_summary.tex"
+  },
+  {
+    "document": "supp",
+    "order": 2,
+    "label": "tab:supp_cluster_summary_long",
+    "environment": "table",
+    "filename": "tab_supp_cluster_summary_long.tex"
+  },
+  {
+    "document": "supp",
+    "order": 3,
+    "label": "tab:supp_cluster_categorical",
+    "environment": "table",
+    "filename": "tab_supp_cluster_categorical.tex"
+  },
+  {
+    "document": "supp",
+    "order": 4,
+    "label": "tab:supp_cluster_provenance",
+    "environment": "table",
+    "filename": "tab_supp_cluster_provenance.tex"
+  },
+  {
+    "document": "supp",
+    "order": 5,
+    "label": "tab:supp_seed_robustness_exact",
+    "environment": "table",
+    "filename": "tab_supp_seed_robustness_exact.tex"
+  },
+  {
+    "document": "supp",
+    "order": 6,
+    "label": "tab:supp_paired_nse_seed_sensitivity",
+    "environment": "table",
+    "filename": "tab_supp_paired_nse_seed_sensitivity.tex"
+  },
+  {
+    "document": "supp",
+    "order": 7,
+    "label": "tab:supp_absolute_wholeperiod",
+    "environment": "table",
+    "filename": "tab_supp_absolute_wholeperiod.tex"
+  },
+  {
+    "document": "supp",
+    "order": 8,
+    "label": "tab:supp_threshold_transitions",
+    "environment": "table",
+    "filename": "tab_supp_threshold_transitions.tex"
+  },
+  {
+    "document": "supp",
+    "order": 9,
+    "label": "tab:supp_paired_hess_allmetrics",
+    "environment": "table",
+    "filename": "tab_supp_paired_hess_allmetrics.tex"
+  },
+  {
+    "document": "supp",
+    "order": 10,
+    "label": "tab:supp_paired_kratzert_allmetrics",
+    "environment": "table",
+    "filename": "tab_supp_paired_kratzert_allmetrics.tex"
+  },
+  {
+    "document": "supp",
+    "order": 11,
+    "label": "tab:supp_hess_regime_effects",
+    "environment": "table",
+    "filename": "tab_supp_hess_regime_effects.tex"
+  },
+  {
+    "document": "supp",
+    "order": 12,
+    "label": "tab:supp_hess_architecture_all",
+    "environment": "table",
+    "filename": "tab_supp_hess_architecture_all.tex"
+  },
+  {
+    "document": "supp",
+    "order": 13,
+    "label": "tab:supp_hess_kratzert_fingerprint",
+    "environment": "table",
+    "filename": "tab_supp_hess_kratzert_fingerprint.tex"
+  },
+  {
+    "document": "supp",
+    "order": 14,
+    "label": "tab:supp_hess_protocol_audit",
+    "environment": "table",
+    "filename": "tab_supp_hess_protocol_audit.tex"
+  },
+  {
+    "document": "supp",
+    "order": 15,
+    "label": "tab:supp_hess_cluster_nse",
+    "environment": "table",
+    "filename": "tab_supp_hess_cluster_nse.tex"
+  },
+  {
+    "document": "supp",
+    "order": 16,
+    "label": "tab:supp_hess_cluster_kge",
+    "environment": "table",
+    "filename": "tab_supp_hess_cluster_kge.tex"
+  },
+  {
+    "document": "supp",
+    "order": 17,
+    "label": "tab:supp_top18_paired",
+    "environment": "table",
+    "filename": "tab_supp_top18_paired.tex"
+  },
+  {
+    "document": "supp",
+    "order": 18,
+    "label": "tab:supp_top18_seeds",
+    "environment": "table",
+    "filename": "tab_supp_top18_seeds.tex"
+  },
+  {
+    "document": "supp",
+    "order": 19,
+    "label": "tab:supp_top18_clusters",
+    "environment": "table",
+    "filename": "tab_supp_top18_clusters.tex"
+  },
+  {
+    "document": "supp",
+    "order": 20,
+    "label": "tab:supp_cluster_routing_overall",
+    "environment": "table*",
+    "filename": "tab_supp_cluster_routing_overall.tex"
+  },
+  {
+    "document": "supp",
+    "order": 21,
+    "label": "tab:supp_cluster_routing_clusters",
+    "environment": "table",
+    "filename": "tab_supp_cluster_routing_clusters.tex"
+  },
+  {
+    "document": "supp",
+    "order": 22,
+    "label": "tab:supp_constituent_decomposition",
+    "environment": "table",
+    "filename": "tab_supp_constituent_decomposition.tex"
+  },
+  {
+    "document": "supp",
+    "order": 23,
+    "label": "tab:fixed_inputs",
+    "environment": "table",
+    "filename": "tab_fixed_inputs.tex"
+  }
+]

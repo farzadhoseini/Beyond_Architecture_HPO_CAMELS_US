@@ -1,0 +1,60 @@
+CAMELS-US TOP-10 CONSTITUENT DECOMPOSITION — MANUSCRIPT READY
+==================================================================================
+
+DESIGN
+All ten validation-selected configurations that constitute global Top-10 are evaluated individually, each across the same 10 final random seeds. No constituent is chosen from test-period performance and no global Rank-1 identity is required. CFG-01...CFG-10 are arbitrary fingerprint-sorted identifiers, NOT validation ranks.
+
+PRIMARY AGGREGATION
+Metric per basin x seed; arithmetic mean across the 10 seed-level metric values for each basin. The frozen Top-10 ensemble remains the pointwise median of the same ten configurations within each seed.
+
+Top-10 ensemble: mean NSE=0.769031; median NSE=0.812214
+Ten individual optimized constituents, across-basin mean NSE range=0.687965 to 0.741979; median across configurations=0.711920
+Ten individual optimized constituents, across-basin median NSE range=0.760790 to 0.786288; median across configurations=0.778129
+Top-10 has positive median paired NSE effect versus 10/10 individual constituents; basin win rate >50% versus 10/10.
+Kratzert reference: mean NSE=0.753311; median NSE=0.792028
+Individual constituents with across-basin mean NSE above Kratzert: 0/10
+Individual constituents with across-basin median NSE above Kratzert: 0/10
+Individual constituents with positive median paired NSE effect vs Kratzert: 0/10
+Individual constituents with basin win rate >50% vs Kratzert: 0/10
+
+CONSTITUENT NSE ABSOLUTE SUMMARY
+method short_fingerprint  across_basin_mean  across_basin_median      q25      q75
+CFG-01      20407c7c94e8           0.741979             0.780332 0.709101 0.831942
+CFG-02      388fa6a32620           0.730435             0.785531 0.697513 0.844565
+CFG-03      3e05442f187f           0.687965             0.786288 0.702956 0.844100
+CFG-04      43f76dc10626           0.702119             0.776347 0.696628 0.837805
+CFG-05      52c2b17e68d1           0.706964             0.775946 0.687342 0.832705
+CFG-06      70f973b97ac5           0.714323             0.782957 0.694597 0.841141
+CFG-07      b556d65874e5           0.709517             0.764615 0.679561 0.823597
+CFG-08      bbd9ef3847fd           0.719096             0.779911 0.702053 0.834092
+CFG-09      de35e31b037f           0.719739             0.760790 0.683593 0.814881
+CFG-10      eb095d5bf00b           0.707853             0.763773 0.675973 0.824284
+
+TOP-10 VS EACH CONSTITUENT — NSE
+constituent_id   win_rate  mean_effect  median_effect     ci95_lo     ci95_hi    wilcoxon_p  wilcoxon_fdr_p  wilcoxon_global_fdr_p
+        CFG-01 0.90207156  0.027052153    0.028102428  0.02633142 0.030007425  1.645252e-60   2.1936693e-60          2.1936693e-60
+        CFG-02 0.94915254  0.038595678    0.019549252 0.017729255 0.021616888 1.9703498e-81   2.6271331e-81          3.7530473e-81
+        CFG-03 0.93785311   0.08106601    0.019747301 0.018587119 0.021299845 1.1631454e-77   1.5508606e-77          1.6616363e-77
+        CFG-04 0.95291902   0.06691203     0.02752979 0.025268907 0.029875305 3.1422424e-82   4.1896565e-82          6.9827608e-82
+        CFG-05 0.95291902  0.062066675    0.032142761 0.030004846 0.034365013  1.170826e-81   1.5611013e-81          2.3416519e-81
+        CFG-06 0.94915254  0.054707829    0.022709936 0.021407911 0.023776072 4.5508272e-79   6.0677696e-79          6.7419662e-79
+        CFG-07 0.97740113  0.059513821    0.037587839 0.035319672 0.039912992 2.0340657e-86   2.7120876e-86          8.1362629e-86
+        CFG-08 0.95291902  0.049934317    0.028181819 0.025941143 0.030426894 1.6466958e-80   2.1955944e-80           2.744493e-80
+        CFG-09 0.96233522  0.049291775    0.042989836 0.039948377 0.045287865 2.3055091e-81   3.0740121e-81          4.1918347e-81
+        CFG-10 0.96798493  0.061177946    0.037417549   0.0346007  0.04008706 8.3340198e-86    1.666804e-85          2.5643138e-85
+
+EACH CONSTITUENT VS KRATZERT — NSE
+constituent_id    win_rate  mean_effect  median_effect       ci95_lo        ci95_hi    wilcoxon_p  wilcoxon_fdr_p  wilcoxon_global_fdr_p
+        CFG-01  0.23728814 -0.011332259  -0.0099199037  -0.011683927  -0.0079033791 2.3108035e-36   3.0810714e-36          7.7026785e-36
+        CFG-02  0.43879473 -0.022875785  -0.0023104054 -0.0046870283 -0.00081172412 2.9337926e-06    1.173517e-05          3.7855388e-06
+        CFG-03   0.4519774 -0.065346116  -0.0016118027  -0.003845281 -0.00011898795  2.143797e-05    4.287594e-05          2.6797462e-05
+        CFG-04  0.31450094 -0.051192136  -0.0077369501 -0.0099198533  -0.0061449626 6.7752408e-26    1.732693e-25          1.5056091e-25
+        CFG-05   0.2693032 -0.046346781   -0.014631966  -0.017191734   -0.012488126 1.5966171e-38   6.3864684e-38          5.8058804e-38
+        CFG-06  0.40489642 -0.038987935  -0.0047709239 -0.0073322756  -0.0021662945  1.052024e-10   2.1040479e-10          1.5028914e-10
+        CFG-07  0.21845574 -0.043793927   -0.018966544  -0.022051769   -0.015587906 5.7395663e-48   1.1479133e-47          4.5916531e-47
+        CFG-08  0.31826742 -0.034214423   -0.010110058  -0.012766404  -0.0077076202 8.4808737e-23   1.6961747e-22          1.6961747e-22
+        CFG-09 0.097928437 -0.033571881   -0.027167683  -0.030198104   -0.024233357 3.5341291e-69   1.4136517e-68          1.4136517e-67
+        CFG-10  0.23917137 -0.045458052   -0.018242247  -0.022184017   -0.013892625 7.2405436e-47   1.4481087e-46          3.8332602e-46
+
+INTERPRETATION RULE
+This control separates two questions without identifying a test-selected single winner: (1) whether validation-selected optimized individual configurations already improve on the external regional reference, and (2) how much the fixed Top-10 median ensemble improves over its own optimized constituents. Do not call any CFG identifier Rank-1.

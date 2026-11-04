@@ -1,0 +1,6 @@
+item,path,exists,size_MB
+cluster_map,F:\Experiments\CAMELS_US\Clean_4_upload\camels_531_master_attributes_clusters.csv,True,0.452
+all_hi_predictions,F:\Experiments\CAMELS_US\Clean_4_upload\Pickles\All_Cluster_wise_Configs_CAMELSUS_test.p,True,6161.913
+hi_global_ensemble,F:\Experiments\CAMELS_US\Clean_4_upload\Pickles\ensemble_Cluster_wise_CAMELSUS_test.p,True,373.723
+obs,F:\Experiments\CAMELS_US\Clean_4_upload\Pickles\Obs_test.p,True,37.316
+current_canonical,F:\Experiments\CAMELS_US\Clean_4_upload\Revision_2026_Top18_4Framework\Top18_vs_Top10_Final_Analysis\CANONICAL_MEANSEED_REAGGREGATION\01_basin_mean_across_10_seeds.csv,True,2.58

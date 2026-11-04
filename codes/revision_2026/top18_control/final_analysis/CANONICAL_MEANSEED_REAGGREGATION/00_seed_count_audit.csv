@@ -1,0 +1,17 @@
+method,metric,n_basins,min_rows_per_basin,max_rows_per_basin,min_finite_per_basin,max_finite_per_basin,min_unique_seeds,max_unique_seeds
+Benchmark,NSE,531,10,10,10,10,10,10
+Benchmark,KGE,531,10,10,10,10,10,10
+Benchmark,Pearson-r,531,10,10,10,10,10,10
+Benchmark,RMSE,531,10,10,10,10,10,10
+Top10,NSE,531,10,10,10,10,10,10
+Top10,KGE,531,10,10,10,10,10,10
+Top10,Pearson-r,531,10,10,10,10,10,10
+Top10,RMSE,531,10,10,10,10,10,10
+Cluster-wise,NSE,531,10,10,10,10,10,10
+Cluster-wise,KGE,531,10,10,10,10,10,10
+Cluster-wise,Pearson-r,531,10,10,10,10,10,10
+Cluster-wise,RMSE,531,10,10,10,10,10,10
+Top18,NSE,531,10,10,10,10,10,10
+Top18,KGE,531,10,10,10,10,10,10
+Top18,Pearson-r,531,10,10,10,10,10,10
+Top18,RMSE,531,10,10,10,10,10,10

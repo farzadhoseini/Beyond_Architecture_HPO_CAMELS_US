@@ -1,0 +1,239 @@
+model,metric,seed_aggregation,threshold,n,n_meeting,share_meeting
+HESS CARDformer,KGE,single_published_run,0.0,531,483,0.9096045197740112
+HESS CARDformer,KGE,single_published_run,0.5,531,80,0.15065913370998116
+HESS CARDformer,KGE,single_published_run,0.7,531,4,0.007532956685499058
+HESS CARDformer,KGE,single_published_run,0.8,531,0,0.0
+HESS CARDformer,KGE,single_published_run,0.9,531,0,0.0
+HESS CARDformer,NSE,single_published_run,0.0,531,450,0.847457627118644
+HESS CARDformer,NSE,single_published_run,0.5,531,31,0.0583804143126177
+HESS CARDformer,NSE,single_published_run,0.7,531,0,0.0
+HESS CARDformer,NSE,single_published_run,0.8,531,0,0.0
+HESS CARDformer,NSE,single_published_run,0.9,531,0,0.0
+HESS CARDformer,R2,single_published_run,0.5,531,52,0.09792843691148775
+HESS CARDformer,R2,single_published_run,0.7,531,2,0.003766478342749529
+HESS CARDformer,R2,single_published_run,0.8,531,0,0.0
+HESS CARDformer,R2,single_published_run,0.9,531,0,0.0
+HESS Crossformer,KGE,single_published_run,0.0,531,497,0.935969868173258
+HESS Crossformer,KGE,single_published_run,0.5,531,420,0.7909604519774012
+HESS Crossformer,KGE,single_published_run,0.7,531,298,0.5612052730696798
+HESS Crossformer,KGE,single_published_run,0.8,531,165,0.3107344632768362
+HESS Crossformer,KGE,single_published_run,0.9,531,21,0.03954802259887006
+HESS Crossformer,NSE,single_published_run,0.0,531,504,0.9491525423728814
+HESS Crossformer,NSE,single_published_run,0.5,531,445,0.8380414312617702
+HESS Crossformer,NSE,single_published_run,0.7,531,298,0.5612052730696798
+HESS Crossformer,NSE,single_published_run,0.8,531,117,0.22033898305084745
+HESS Crossformer,NSE,single_published_run,0.9,531,6,0.011299435028248588
+HESS Crossformer,R2,single_published_run,0.5,531,486,0.9152542372881356
+HESS Crossformer,R2,single_published_run,0.7,531,346,0.6516007532956686
+HESS Crossformer,R2,single_published_run,0.8,531,150,0.2824858757062147
+HESS Crossformer,R2,single_published_run,0.9,531,14,0.026365348399246705
+HESS DLinear,KGE,single_published_run,0.0,531,452,0.8512241054613936
+HESS DLinear,KGE,single_published_run,0.5,531,146,0.2749529190207156
+HESS DLinear,KGE,single_published_run,0.7,531,12,0.022598870056497175
+HESS DLinear,KGE,single_published_run,0.8,531,2,0.003766478342749529
+HESS DLinear,KGE,single_published_run,0.9,531,0,0.0
+HESS DLinear,NSE,single_published_run,0.0,531,410,0.7721280602636534
+HESS DLinear,NSE,single_published_run,0.5,531,77,0.14500941619585686
+HESS DLinear,NSE,single_published_run,0.7,531,3,0.005649717514124294
+HESS DLinear,NSE,single_published_run,0.8,531,0,0.0
+HESS DLinear,NSE,single_published_run,0.9,531,0,0.0
+HESS DLinear,R2,single_published_run,0.5,531,120,0.22598870056497175
+HESS DLinear,R2,single_published_run,0.7,531,26,0.04896421845574388
+HESS DLinear,R2,single_published_run,0.8,531,0,0.0
+HESS DLinear,R2,single_published_run,0.9,531,0,0.0
+HESS ETSformer,KGE,single_published_run,0.0,531,512,0.9642184557438794
+HESS ETSformer,KGE,single_published_run,0.5,531,429,0.807909604519774
+HESS ETSformer,KGE,single_published_run,0.7,531,242,0.455743879472693
+HESS ETSformer,KGE,single_published_run,0.8,531,79,0.1487758945386064
+HESS ETSformer,KGE,single_published_run,0.9,531,0,0.0
+HESS ETSformer,NSE,single_published_run,0.0,531,506,0.9529190207156308
+HESS ETSformer,NSE,single_published_run,0.5,531,423,0.7966101694915254
+HESS ETSformer,NSE,single_published_run,0.7,531,203,0.3822975517890772
+HESS ETSformer,NSE,single_published_run,0.8,531,77,0.14500941619585686
+HESS ETSformer,NSE,single_published_run,0.9,531,5,0.009416195856873822
+HESS ETSformer,R2,single_published_run,0.5,531,459,0.864406779661017
+HESS ETSformer,R2,single_published_run,0.7,531,273,0.5141242937853108
+HESS ETSformer,R2,single_published_run,0.8,531,99,0.1864406779661017
+HESS ETSformer,R2,single_published_run,0.9,531,9,0.01694915254237288
+HESS Informer,KGE,single_published_run,0.0,531,460,0.8662900188323918
+HESS Informer,KGE,single_published_run,0.5,531,350,0.6591337099811676
+HESS Informer,KGE,single_published_run,0.7,531,205,0.3860640301318267
+HESS Informer,KGE,single_published_run,0.8,531,111,0.20903954802259886
+HESS Informer,KGE,single_published_run,0.9,531,19,0.035781544256120526
+HESS Informer,NSE,single_published_run,0.0,531,484,0.911487758945386
+HESS Informer,NSE,single_published_run,0.5,531,413,0.7777777777777778
+HESS Informer,NSE,single_published_run,0.7,531,247,0.4651600753295669
+HESS Informer,NSE,single_published_run,0.8,531,97,0.18267419962335216
+HESS Informer,NSE,single_published_run,0.9,531,6,0.011299435028248588
+HESS Informer,R2,single_published_run,0.5,531,487,0.9171374764595104
+HESS Informer,R2,single_published_run,0.7,531,345,0.6497175141242938
+HESS Informer,R2,single_published_run,0.8,531,148,0.2787193973634652
+HESS Informer,R2,single_published_run,0.9,531,15,0.02824858757062147
+HESS LSTM,KGE,single_published_run,0.0,531,526,0.9905838041431262
+HESS LSTM,KGE,single_published_run,0.5,531,490,0.9227871939736346
+HESS LSTM,KGE,single_published_run,0.7,531,400,0.7532956685499058
+HESS LSTM,KGE,single_published_run,0.8,531,268,0.504708097928437
+HESS LSTM,KGE,single_published_run,0.9,531,52,0.09792843691148775
+HESS LSTM,NSE,single_published_run,0.0,531,530,0.9981167608286252
+HESS LSTM,NSE,single_published_run,0.5,531,496,0.9340866290018832
+HESS LSTM,NSE,single_published_run,0.7,531,414,0.7796610169491526
+HESS LSTM,NSE,single_published_run,0.8,531,263,0.4952919020715631
+HESS LSTM,NSE,single_published_run,0.9,531,34,0.064030131826742
+HESS LSTM,R2,single_published_run,0.5,531,510,0.96045197740113
+HESS LSTM,R2,single_published_run,0.7,531,449,0.8455743879472694
+HESS LSTM,R2,single_published_run,0.8,531,305,0.5743879472693032
+HESS LSTM,R2,single_published_run,0.9,531,59,0.1111111111111111
+HESS Non-stationary Transformer,KGE,single_published_run,0.0,531,459,0.864406779661017
+HESS Non-stationary Transformer,KGE,single_published_run,0.5,531,350,0.6591337099811676
+HESS Non-stationary Transformer,KGE,single_published_run,0.7,531,169,0.3182674199623352
+HESS Non-stationary Transformer,KGE,single_published_run,0.8,531,74,0.1393596986817326
+HESS Non-stationary Transformer,KGE,single_published_run,0.9,531,12,0.022598870056497175
+HESS Non-stationary Transformer,NSE,single_published_run,0.0,531,505,0.9510357815442562
+HESS Non-stationary Transformer,NSE,single_published_run,0.5,531,430,0.8097928436911488
+HESS Non-stationary Transformer,NSE,single_published_run,0.7,531,285,0.536723163841808
+HESS Non-stationary Transformer,NSE,single_published_run,0.8,531,118,0.2222222222222222
+HESS Non-stationary Transformer,NSE,single_published_run,0.9,531,9,0.01694915254237288
+HESS Non-stationary Transformer,R2,single_published_run,0.5,531,485,0.9133709981167608
+HESS Non-stationary Transformer,R2,single_published_run,0.7,531,382,0.71939736346516
+HESS Non-stationary Transformer,R2,single_published_run,0.8,531,194,0.3653483992467043
+HESS Non-stationary Transformer,R2,single_published_run,0.9,531,15,0.02824858757062147
+HESS Pyraformer,KGE,single_published_run,0.0,531,464,0.8738229755178908
+HESS Pyraformer,KGE,single_published_run,0.5,531,359,0.6760828625235404
+HESS Pyraformer,KGE,single_published_run,0.7,531,177,0.3333333333333333
+HESS Pyraformer,KGE,single_published_run,0.8,531,71,0.1337099811676083
+HESS Pyraformer,KGE,single_published_run,0.9,531,11,0.02071563088512241
+HESS Pyraformer,NSE,single_published_run,0.0,531,489,0.9209039548022598
+HESS Pyraformer,NSE,single_published_run,0.5,531,424,0.7984934086629002
+HESS Pyraformer,NSE,single_published_run,0.7,531,250,0.4708097928436911
+HESS Pyraformer,NSE,single_published_run,0.8,531,80,0.15065913370998116
+HESS Pyraformer,NSE,single_published_run,0.9,531,8,0.015065913370998116
+HESS Pyraformer,R2,single_published_run,0.5,531,480,0.903954802259887
+HESS Pyraformer,R2,single_published_run,0.7,531,353,0.664783427495292
+HESS Pyraformer,R2,single_published_run,0.8,531,134,0.2523540489642185
+HESS Pyraformer,R2,single_published_run,0.9,531,11,0.02071563088512241
+HESS Reformer,KGE,single_published_run,0.0,531,448,0.8436911487758946
+HESS Reformer,KGE,single_published_run,0.5,531,338,0.6365348399246704
+HESS Reformer,KGE,single_published_run,0.7,531,194,0.3653483992467043
+HESS Reformer,KGE,single_published_run,0.8,531,115,0.21657250470809794
+HESS Reformer,KGE,single_published_run,0.9,531,12,0.022598870056497175
+HESS Reformer,NSE,single_published_run,0.0,531,477,0.8983050847457628
+HESS Reformer,NSE,single_published_run,0.5,531,384,0.7231638418079096
+HESS Reformer,NSE,single_published_run,0.7,531,197,0.3709981167608286
+HESS Reformer,NSE,single_published_run,0.8,531,71,0.1337099811676083
+HESS Reformer,NSE,single_published_run,0.9,531,5,0.009416195856873822
+HESS Reformer,R2,single_published_run,0.5,531,474,0.8926553672316384
+HESS Reformer,R2,single_published_run,0.7,531,303,0.5706214689265536
+HESS Reformer,R2,single_published_run,0.8,531,122,0.2297551789077213
+HESS Reformer,R2,single_published_run,0.9,531,8,0.015065913370998116
+HESS Transformer,KGE,single_published_run,0.0,531,449,0.8455743879472694
+HESS Transformer,KGE,single_published_run,0.5,531,338,0.6365348399246704
+HESS Transformer,KGE,single_published_run,0.7,531,204,0.384180790960452
+HESS Transformer,KGE,single_published_run,0.8,531,107,0.2015065913370998
+HESS Transformer,KGE,single_published_run,0.9,531,26,0.04896421845574388
+HESS Transformer,NSE,single_published_run,0.0,531,485,0.9133709981167608
+HESS Transformer,NSE,single_published_run,0.5,531,421,0.7928436911487758
+HESS Transformer,NSE,single_published_run,0.7,531,260,0.4896421845574388
+HESS Transformer,NSE,single_published_run,0.8,531,106,0.19962335216572505
+HESS Transformer,NSE,single_published_run,0.9,531,8,0.015065913370998116
+HESS Transformer,R2,single_published_run,0.5,531,492,0.9265536723163842
+HESS Transformer,R2,single_published_run,0.7,531,373,0.7024482109227872
+HESS Transformer,R2,single_published_run,0.8,531,181,0.3408662900188324
+HESS Transformer,R2,single_published_run,0.9,531,21,0.03954802259887006
+HESS iTransformer,KGE,single_published_run,0.0,531,474,0.8926553672316384
+HESS iTransformer,KGE,single_published_run,0.5,531,117,0.22033898305084745
+HESS iTransformer,KGE,single_published_run,0.7,531,8,0.015065913370998116
+HESS iTransformer,KGE,single_published_run,0.8,531,0,0.0
+HESS iTransformer,KGE,single_published_run,0.9,531,0,0.0
+HESS iTransformer,NSE,single_published_run,0.0,531,443,0.8342749529190208
+HESS iTransformer,NSE,single_published_run,0.5,531,78,0.14689265536723164
+HESS iTransformer,NSE,single_published_run,0.7,531,1,0.0018832391713747645
+HESS iTransformer,NSE,single_published_run,0.8,531,0,0.0
+HESS iTransformer,NSE,single_published_run,0.9,531,0,0.0
+HESS iTransformer,R2,single_published_run,0.5,531,183,0.3446327683615819
+HESS iTransformer,R2,single_published_run,0.7,531,5,0.009416195856873822
+HESS iTransformer,R2,single_published_run,0.8,531,0,0.0
+HESS iTransformer,R2,single_published_run,0.9,531,0,0.0
+Cluster-wise,KGE,mean_10_seeds,0.0,531,527,0.992467043314501
+Cluster-wise,KGE,mean_10_seeds,0.5,531,487,0.9171374764595104
+Cluster-wise,KGE,mean_10_seeds,0.7,531,377,0.7099811676082862
+Cluster-wise,KGE,mean_10_seeds,0.8,531,230,0.4331450094161959
+Cluster-wise,KGE,mean_10_seeds,0.9,531,45,0.0847457627118644
+Cluster-wise,NSE,mean_10_seeds,0.0,531,530,0.9981167608286252
+Cluster-wise,NSE,mean_10_seeds,0.5,531,501,0.943502824858757
+Cluster-wise,NSE,mean_10_seeds,0.7,531,437,0.8229755178907722
+Cluster-wise,NSE,mean_10_seeds,0.8,531,300,0.5649717514124294
+Cluster-wise,NSE,mean_10_seeds,0.9,531,53,0.09981167608286252
+Cluster-wise,R2,mean_10_seeds,0.5,531,515,0.9698681732580038
+Cluster-wise,R2,mean_10_seeds,0.7,531,464,0.8738229755178908
+Cluster-wise,R2,mean_10_seeds,0.8,531,350,0.6591337099811676
+Cluster-wise,R2,mean_10_seeds,0.9,531,85,0.160075329566855
+Kratzert,KGE,mean_10_seeds,0.0,531,526,0.9905838041431262
+Kratzert,KGE,mean_10_seeds,0.5,531,485,0.9133709981167608
+Kratzert,KGE,mean_10_seeds,0.7,531,382,0.71939736346516
+Kratzert,KGE,mean_10_seeds,0.8,531,244,0.4595103578154426
+Kratzert,KGE,mean_10_seeds,0.9,531,26,0.04896421845574388
+Kratzert,NSE,mean_10_seeds,0.0,531,530,0.9981167608286252
+Kratzert,NSE,mean_10_seeds,0.5,531,498,0.9378531073446328
+Kratzert,NSE,mean_10_seeds,0.7,531,415,0.7815442561205274
+Kratzert,NSE,mean_10_seeds,0.8,531,246,0.4632768361581921
+Kratzert,NSE,mean_10_seeds,0.9,531,29,0.054613935969868174
+Kratzert,R2,mean_10_seeds,0.5,531,507,0.9548022598870056
+Kratzert,R2,mean_10_seeds,0.7,531,445,0.8380414312617702
+Kratzert,R2,mean_10_seeds,0.8,531,292,0.5499058380414312
+Kratzert,R2,mean_10_seeds,0.9,531,45,0.0847457627118644
+Top-10,KGE,mean_10_seeds,0.0,531,524,0.9868173258003766
+Top-10,KGE,mean_10_seeds,0.5,531,484,0.911487758945386
+Top-10,KGE,mean_10_seeds,0.7,531,371,0.6986817325800376
+Top-10,KGE,mean_10_seeds,0.8,531,226,0.4256120527306968
+Top-10,KGE,mean_10_seeds,0.9,531,41,0.07721280602636535
+Top-10,NSE,mean_10_seeds,0.0,531,530,0.9981167608286252
+Top-10,NSE,mean_10_seeds,0.5,531,501,0.943502824858757
+Top-10,NSE,mean_10_seeds,0.7,531,429,0.807909604519774
+Top-10,NSE,mean_10_seeds,0.8,531,292,0.5499058380414312
+Top-10,NSE,mean_10_seeds,0.9,531,55,0.10357815442561205
+Top-10,R2,mean_10_seeds,0.5,531,511,0.9623352165725048
+Top-10,R2,mean_10_seeds,0.7,531,460,0.8662900188323918
+Top-10,R2,mean_10_seeds,0.8,531,346,0.6516007532956686
+Top-10,R2,mean_10_seeds,0.9,531,81,0.15254237288135594
+Cluster-wise,KGE,median_10_seeds,0.0,531,527,0.992467043314501
+Cluster-wise,KGE,median_10_seeds,0.5,531,487,0.9171374764595104
+Cluster-wise,KGE,median_10_seeds,0.7,531,377,0.7099811676082862
+Cluster-wise,KGE,median_10_seeds,0.8,531,230,0.4331450094161959
+Cluster-wise,KGE,median_10_seeds,0.9,531,46,0.08662900188323917
+Cluster-wise,NSE,median_10_seeds,0.0,531,530,0.9981167608286252
+Cluster-wise,NSE,median_10_seeds,0.5,531,501,0.943502824858757
+Cluster-wise,NSE,median_10_seeds,0.7,531,436,0.8210922787193974
+Cluster-wise,NSE,median_10_seeds,0.8,531,301,0.5668549905838042
+Cluster-wise,NSE,median_10_seeds,0.9,531,53,0.09981167608286252
+Cluster-wise,R2,median_10_seeds,0.5,531,514,0.967984934086629
+Cluster-wise,R2,median_10_seeds,0.7,531,464,0.8738229755178908
+Cluster-wise,R2,median_10_seeds,0.8,531,351,0.6610169491525424
+Cluster-wise,R2,median_10_seeds,0.9,531,85,0.160075329566855
+Kratzert,KGE,median_10_seeds,0.0,531,526,0.9905838041431262
+Kratzert,KGE,median_10_seeds,0.5,531,488,0.9190207156308852
+Kratzert,KGE,median_10_seeds,0.7,531,383,0.7212806026365348
+Kratzert,KGE,median_10_seeds,0.8,531,249,0.4689265536723164
+Kratzert,KGE,median_10_seeds,0.9,531,33,0.062146892655367235
+Kratzert,NSE,median_10_seeds,0.0,531,530,0.9981167608286252
+Kratzert,NSE,median_10_seeds,0.5,531,495,0.9322033898305084
+Kratzert,NSE,median_10_seeds,0.7,531,420,0.7909604519774012
+Kratzert,NSE,median_10_seeds,0.8,531,249,0.4689265536723164
+Kratzert,NSE,median_10_seeds,0.9,531,31,0.0583804143126177
+Kratzert,R2,median_10_seeds,0.5,531,507,0.9548022598870056
+Kratzert,R2,median_10_seeds,0.7,531,445,0.8380414312617702
+Kratzert,R2,median_10_seeds,0.8,531,296,0.5574387947269304
+Kratzert,R2,median_10_seeds,0.9,531,47,0.08851224105461393
+Top-10,KGE,median_10_seeds,0.0,531,525,0.9887005649717514
+Top-10,KGE,median_10_seeds,0.5,531,483,0.9096045197740112
+Top-10,KGE,median_10_seeds,0.7,531,368,0.6930320150659134
+Top-10,KGE,median_10_seeds,0.8,531,226,0.4256120527306968
+Top-10,KGE,median_10_seeds,0.9,531,40,0.07532956685499058
+Top-10,NSE,median_10_seeds,0.0,531,529,0.9962335216572504
+Top-10,NSE,median_10_seeds,0.5,531,499,0.9397363465160076
+Top-10,NSE,median_10_seeds,0.7,531,431,0.8116760828625236
+Top-10,NSE,median_10_seeds,0.8,531,295,0.5555555555555556
+Top-10,NSE,median_10_seeds,0.9,531,56,0.10546139359698682
+Top-10,R2,median_10_seeds,0.5,531,511,0.9623352165725048
+Top-10,R2,median_10_seeds,0.7,531,460,0.8662900188323918
+Top-10,R2,median_10_seeds,0.8,531,347,0.6534839924670434
+Top-10,R2,median_10_seeds,0.9,531,85,0.160075329566855

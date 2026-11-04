@@ -1,0 +1,30 @@
+{
+  "status": "PASS",
+  "design": "All ten validation-selected Top-10 constituent configurations evaluated individually across the same 10 final seeds; no test-based choice among constituents.",
+  "constituent_ids_are_ranks": false,
+  "n_constituents": 10,
+  "top10_mean_nse": 0.769030788675207,
+  "top10_median_nse": 0.8122135748830808,
+  "constituent_across_basin_mean_nse_min": 0.6879647790756324,
+  "constituent_across_basin_mean_nse_median": 0.7119199639920576,
+  "constituent_across_basin_mean_nse_max": 0.7419786357627017,
+  "constituent_across_basin_median_nse_min": 0.7607896179574263,
+  "constituent_across_basin_median_nse_median": 0.7781286653706305,
+  "constituent_across_basin_median_nse_max": 0.7862878772455277,
+  "n_constituents_top10_positive_median_paired_NSE": 10,
+  "n_constituents_top10_winrate_over_50_NSE": 10,
+  "kratzert_status": "PASS_CANONICAL",
+  "dynamic_input_count": 15,
+  "static_attribute_count": 26,
+  "forcings": [
+    "daymet",
+    "maurer",
+    "nldas"
+  ],
+  "kratzert_mean_nse": 0.753310895064344,
+  "kratzert_median_nse": 0.792027673125267,
+  "n_constituents_mean_nse_above_kratzert": 0,
+  "n_constituents_median_nse_above_kratzert": 0,
+  "n_constituents_positive_median_paired_NSE_vs_kratzert": 0,
+  "n_constituents_winrate_over_50_NSE_vs_kratzert": 0
+}

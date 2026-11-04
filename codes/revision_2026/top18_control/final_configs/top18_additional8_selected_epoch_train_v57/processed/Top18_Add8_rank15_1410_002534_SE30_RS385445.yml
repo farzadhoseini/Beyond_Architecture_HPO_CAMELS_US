@@ -1,0 +1,110 @@
+batch_size: 128
+cache_validation_data: true
+clip_gradient_norm: 1
+clip_targets_to_zero:
+- QObs(mm/d)
+commit_hash: null
+data_dir: F:\Experiments\CAMELS_US\Clean_4_upload\Train_Data
+dataset: camels_us
+device: cuda:0
+dynamic_inputs:
+- prcp(mm/day)_daymet
+- srad(W/m2)_daymet
+- tmax(C)_daymet
+- tmin(C)_daymet
+- vp(Pa)_daymet
+- PRCP(mm/day)_nldas
+- SRAD(W/m2)_nldas
+- Tmax(C)_nldas
+- Tmin(C)_nldas
+- Vp(Pa)_nldas
+- PRCP(mm/day)_maurer
+- SRAD(W/m2)_maurer
+- Tmax(C)_maurer
+- Tmin(C)_maurer
+- Vp(Pa)_maurer
+epochs: 30
+experiment_name: Top18_Add8_rank15_1410_002534_SE30_RS385445
+forcings:
+- daymet
+- maurer
+- nldas
+head: regression
+hidden_size: 256
+initial_forget_bias: 1
+learning_rate:
+  0: 0.001
+  10: 0.0005
+  25: 0.001
+log_interval: 5
+log_tensorboard: true
+loss: RMSE
+metrics:
+- NSE
+- KGE
+- MSE
+- RMSE
+- Alpha-NSE
+- Beta-NSE
+- Beta-KGE
+- Pearson-r
+- FHV
+- FMS
+- FLV
+- Peak-Timing
+- Peak-MAPE
+- Missed-Peaks
+model: cudalstm
+num_workers: 1
+number_of_basins: 531
+optimizer: Adam
+output_activation: linear
+output_dropout: 0.2
+predict_last_n: 1
+save_validation_results: true
+save_weights_every: 30
+seed: 385445
+seq_length: 365
+static_attributes:
+- elev_mean
+- slope_mean
+- area_gages2
+- frac_forest
+- lai_max
+- lai_diff
+- gvf_max
+- gvf_diff
+- soil_depth_pelletier
+- soil_depth_statsgo
+- soil_porosity
+- soil_conductivity
+- max_water_content
+- sand_frac
+- silt_frac
+- clay_frac
+- carbonate_rocks_frac
+- geol_permeability
+- p_mean
+- pet_mean
+- aridity
+- frac_snow
+- high_prec_freq
+- high_prec_dur
+- low_prec_freq
+- low_prec_dur
+target_noise_std: 0.05
+target_variables:
+- QObs(mm/d)
+test_basin_file: F:\Experiments\CAMELS_US\Clean_4_upload\531_basin_list.txt
+test_end_date: 30/09/1999
+test_start_date: 01/10/1989
+train_basin_file: F:\Experiments\CAMELS_US\Clean_4_upload\531_basin_list.txt
+train_data_file: F:\Experiments\CAMELS_US\Clean_4_upload\Train_Data\train_data\train_data.p
+train_end_date: 30/09/2008
+train_start_date: 01/10/1999
+validate_every: null
+validate_n_random_basins: -1
+validation_basin_file: F:\Experiments\CAMELS_US\Clean_4_upload\531_basin_list.txt
+validation_end_date: 30/09/1989
+validation_start_date: 01/10/1980
+run_dir: F:\Experiments\CAMELS_US\Clean_4_upload\Revision_2026_Top18_4Framework\runs\top18_additional8_selected_epoch_train_v57
