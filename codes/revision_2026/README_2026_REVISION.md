@@ -1,15 +1,30 @@
-# 2026 revision add-on (non-destructive)
+# CAMELS-US 2026 manuscript revision — additive research layer
 
-This directory is an **additive** scientific revision layer for the existing CAMELS-US HPO repository. The original HPO notebooks, benchmark code, input lists, and legacy reproducibility scripts remain available and MUST NOT be removed.
+**Study:** Beyond Architecture: Optimization and Hydrologic Regime Reveal Performance Headroom in Deep-Learning Rainfall–Runoff Modelling.
 
-**Paper:** Beyond Architecture: Optimization and Hydrologic Regime Reveal Performance Headroom in Deep-Learning Rainfall–Runoff Modelling.
+**Published research data:** https://doi.org/10.5281/zenodo.23945464
 
-The original Zenodo archive (version 2) remains the data foundation. Zenodo version 3 must IMPORT every unchanged v2 file and add the separate `CAMELS_US_Revision_2026_Analysis_Data_v3_additions.zip`. Do not replace original data with the much smaller revision archive.
+This directory **adds** work performed for the 2026 manuscript to the existing CAMELS-US benchmark. It does not change, delete, or supersede the original HPO notebooks, ensemble scripts, historical model outputs, input metadata or the previous figure pipeline.
 
-Included: Top-18 size sensitivity, cluster-local hard routing, Top-10 and HI17 constituent decompositions, V17 35-figure/34-table code and its frozen Liu/HESS basin-metric inputs (with display labels corrected to Liu-LSTM).
+## Components
 
-**Limits and provenance:** The V17 table builder emits 34 frozen LaTeX tables from a bundled earlier canonical manuscript; not all 34 are independently recalculated from raw model outputs. The V17 full builder deletes/rebuilds its configured result directory, so do NOT execute it against a production directory without staging a safe copy. The earlier canonical manuscript inside V17 is historic builder input and is not the locked final text. `MANUSCRIPT_FREEZE_SHA256.json` gives the SHA-256 of the final submitted PDFs.
+- `top18_control/`: eight additional training configurations across ten final seeds, an 18-member sensitivity ensemble, Top-10 comparisons, preserved selection configs, and frozen aggregate results. The 4.18-GB raw archive resides in Zenodo V3, not GitHub.
+- `constituent_controls/Top10/`: evaluation of all ten individual validation-selected Top-10 configurations. Constituent IDs are *not* inferred HPO rankings.
+- `constituent_controls/HI17/`: 18 cluster-conditioned selection slots corresponding to 17 distinct scientific configurations. Pooled-ensemble vs member comparisons use seed-matched available realizations.
+- `hard_routing/`: cluster-local routing and F4 controls, including code, local-run wrappers, preflight mapping and results.
+- `figures_tables_v17/`: manuscript production scripts and frozen source inputs for 35 figures (17 main and 18 supplementary) and 34 tables (11 main and 23 supplementary).
 
-Some 17 HI constituents have only 7 or 8 available final realizations for individual constituent analysis. This is documented in the final matched-seed analysis; do not label these controls as uniformly 10-seed. Distinguish the full 10-seed pooled ensemble from seed-matched constituent comparisons.
+## Scientific and technical boundaries
 
-**Validation release gate:** Verify the 35 final figures and 34 final tables, all selected HPO and final-seed manifests, the original v2 Zenodo file import, the delta archive checksum, and a clean GitHub add-only diff. Do not assert full raw-to-manuscript reproducibility until raw training/prediction archive dependencies are independently verified.
+1. **HI17 seed availability:** The definitive frozen files `constituent_controls/HI17/frozen_results/02_constituent_seed_availability.csv` and `RUN_SUMMARY.json` show **15 configurations with 10 available final seeds, one with 8, and one with 7**. This corrects an outdated sentence in the first release of the HI17 README. No missing model realization is imputed; paired comparisons are seed matched.
+2. **Top-18 scope:** The added archive documents **eight additional configurations × ten seeds**. The earlier Top-10 data remain in the existing Zenodo data files. The combined Top-18 comparison is not evidence of a separate 180-run retraining campaign.
+3. **Publication labels versus internal keys:** `Hydrologically informed` and `Liu-LSTM` are used in the present manuscript where appropriate. Historical keys such as `Cluster-wise` or `HESS` are preserved internally when changing them would break source-to-result lineage.
+4. **Frozen table provenance:** The V17 `build_tables_v17.py` builds 34 LaTeX table environments from the bundled canonical frozen manuscript. This is not the same as reconstructing every numerical value from the raw time series. See `figures_tables_v17/TABLE_AUDIT_V17.md` for the explicit FDR-rounding correction.
+5. **Execution safety:** Several scripts contain absolute paths configured for the IH Windows workstation; adapt these before independent execution. The V17 full builder may delete/recreate its configured output directory. Never point it at irreplaceable results.
+6. **Reproducibility claim:** Frozen scripts, selected configurations and analysis outputs are archived and traceable. Independent bitwise reproduction of the full experiment from scratch has not been established by this repository alone.
+
+## Source preservation
+
+The original code stays at the original top-level `codes/` paths. This directory is an explicit add-on so that comparisons against the initial benchmark remain possible. The published Zenodo V3 has 10 inherited V2 files plus `CAMELS_US_Revision_2026_Analysis_Data_v3_additions.zip` and `CAMELS_US_Top18_Additional8_Raw_10Seed_v3.zip` (12 total).
+
+See the root README and `RELEASE_2026_PROVENANCE.md` for citation and release information.

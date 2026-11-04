@@ -1,100 +1,77 @@
-# Beyond Architecture: Optimization and Hydrologic Regime Reveal Performance Headroom in Deep-Learning Rainfallâ€“Runoff Modelling
+# Beyond Architecture: Optimization and Hydrologic Regime Reveal Performance Headroom in Deep-Learning Rainfall–Runoff Modelling
 
-**Current manuscript (2026).** New revision analyses and figure/table builders are in [codes/revision_2026](codes/revision_2026/README_2026_REVISION.md). The original code and datasets below are preserved as the reproducibility foundation and historical record.
+**Research code and reproducibility materials for the CAMELS-US study (2026).** This repository contains both the **original cluster-wise HPO benchmark implementation** and the **additive 2026 manuscript revision experiments**. The historical experiment code and outputs have **not** been replaced or removed.
 
----
+**Maintainer:** Farzad Hosseini  
+**Research data, model outputs, and additional experiments:** [Zenodo version 3 — DOI 10.5281/zenodo.23945464](https://doi.org/10.5281/zenodo.23945464)  
+**Repository URL:** https://github.com/farzadhoseini/Beyond_Architecture_HPO_CAMELS_US
 
-\# Cluster-Wise Hyperparameter Optimization Enhances Regional Rainfall–Runoff Modeling with Deep Learning: A Robust CAMELS-US Benchmark
+## Scientific scope
 
+The research examines how the optimization and selection of regional LSTM models, hydrological-regime information, and ensemble design affect out-of-sample rainfall–runoff modelling across **531 CAMELS-US catchments**. The 2026 extensions include analysis of individual ensemble members, hydrologically informed selection, hard-routing controls, and a Top-18 sensitivity experiment relative to the pre-existing Top-10 ensemble.
 
+The baseline workflow is retained to preserve the provenance of the original experiment. The 2026 work is **additive**, not a replacement training campaign.
 
-This repository contains the cleaned code used for the CAMELS-US cluster-wise hyperparameter optimization benchmark.
-
-
-
-\## Study overview
-
-
-
-The workflow supports:
-
-
-
-1\. preparation of CAMELS-US basin/cluster metadata,
-
-2\. random-search hyperparameter optimization of regional LSTM models,
-
-3\. selection of best-performing models,
-
-4\. construction of model ensembles,
-
-5\. generation of final prediction and metric files used for paper figures and analysis.
-
-
-
-\## Repository structure
-
-
+## Repository organization
 
 ```text
+codes/
+  CAMELS_US_clean_HPO_repro_package/       Original HPO, evaluation, and ensemble code
+  Older_experiment_codes/                Historical notebooks and experimental utilities
+  camels_final_figure_code_v11/          Historical figure-building pipeline (v11)
+  revision_2026/                         Additive experiments and manuscript revision
+    constituent_controls/
+      Top10/                             Individual Top-10 member comparisons
+      HI17/                              Hydrologically informed member decomposition
+    hard_routing/                        Cluster-local F4 hard-routing experiments
+    top18_control/                       Top-18 vs Top-10, 8 additional configs x 10 seeds
+    figures_tables_v17/                 Final paper figure/table production package
+    README_2026_REVISION.md              Experiment guide and scientific caveats
+531_basin_list.txt                       Catchment identifiers
+camels_531_master_attributes_clusters.csv
+CAMELS_US_Clusters.xlsx
+bad_basins_clusterwise_nse_lt_0p5.csv
+misc/shapefiles/                       Original geographic support files
+LICENSE
+CITATION.cff
+RELEASE_2026_PROVENANCE.md
+```
 
-final\_codes/
+The folder `codes/revision_2026/` was added on a separate release branch, without modifying any pre-existing scientific code. Historical directory and file names remain as scientific provenance; labels embedded in the older experiments should not be silently changed.
 
-├── codes/                         # Main modelling, HPO, ensemble and evaluation scripts/notebooks
+## What was added in the 2026 revision?
 
-├── misc/                          # Supporting utilities and metadata
+| Component | Purpose | Source in this repository |
+|---|---|---|
+| Top-18 sensitivity | Check the marginal gain from an 18-member ensemble versus the existing Top-10 across 10 seeds | [`top18_control/`](codes/revision_2026/top18_control/) |
+| Top-10 constituents | Compare each of 10 validation-selected configurations against the pooled ensemble | [`constituent_controls/Top10/`](codes/revision_2026/constituent_controls/Top10/) |
+| Hydrologically informed constituents | Examine 17 unique selected configurations and the benefit of pooling, with seed-matched comparisons | [`constituent_controls/HI17/`](codes/revision_2026/constituent_controls/HI17/) |
+| Hard routing | Evaluate cluster-local routing and associated member-count / performance checks | [`hard_routing/`](codes/revision_2026/hard_routing/) |
+| Paper assets | Figure and table construction for 17 main + 18 supplementary figures and 11 main + 23 supplementary tables | [`figures_tables_v17/`](codes/revision_2026/figures_tables_v17/) |
 
-├── 531\_basin\_list.txt             # List of CAMELS-US basins used in the benchmark
+**Important HI17 availability:** The archived constituent-level final runs are **not uniformly 10-seed**: 15 of the 17 configurations have 10 available seeds, one has 8, and one has 7. The relevant analysis uses seed-matched comparisons rather than imputing missing runs. The detailed inventory is at [`02_constituent_seed_availability.csv`](codes/revision_2026/constituent_controls/HI17/frozen_results/02_constituent_seed_availability.csv).
 
-├── bad\_basins\_clusterwise\_nse\_lt\_0p5.csv
+## Data and reproducibility
 
-├── camels\_531\_master\_attributes\_clusters.csv
+This GitHub repository is a **code and selected analysis-artifact repository**. The underlying model checkpoints and complete prediction archives are deposited on Zenodo, rather than duplicated into Git.
 
-├── CAMELS\_US\_Clusters.xlsx
+**Dataset DOI:** https://doi.org/10.5281/zenodo.23945464
 
-├── README.md
+The published Zenodo version-3 record includes **12 files**: 10 files retained intact from the preceding dataset version and these two additions:
 
-└── .gitignore
+1. `CAMELS_US_Revision_2026_Analysis_Data_v3_additions.zip` — the additional analysis resources and supporting experiment artifacts.
+2. `CAMELS_US_Top18_Additional8_Raw_10Seed_v3.zip` — the archived raw outputs and supporting material for the **80 additional Top-18 runs** (eight added configurations across ten seeds). This is the *additional eight configurations*, not a replacement for the pre-existing Top-10 archive.
 
-Data requirements
+For the original benchmark workflow, first consult `codes/CAMELS_US_clean_HPO_repro_package/CAMELS_US_clean_HPO_data_checklist.md` and obtain the official CAMELS-US meteorological forcing, catchment attributes, and streamflow data under their applicable conditions.
 
-The repository does not include the full CAMELS-US dataset.
-Users should download CAMELS-US from the official data source and place the required forcing, streamflow, and attribute files following the paths described in the notebooks/scripts.
+For the 2026 controls, consult [`codes/revision_2026/README_2026_REVISION.md`](codes/revision_2026/README_2026_REVISION.md) and the README files in each subdirectory. Several scripts were originally written for the IH research workstation and contain machine-specific paths. **Configure those paths and dependencies for your own environment before running them.**
 
-Required input information includes:
+**Scientific provenance boundary:** The final V17 table builder extracts and freezes 34 LaTeX table environments from a canonical manuscript snapshot; it does **not** independently recompute every published table from raw training/prediction data. Figure and table scripts are provided with their inputs and audit manifests, but a fully automated, machine-independent end-to-end reproduction from training is not claimed. The V17 builder may clear its configured output directory; run it only in a safe isolated working copy.
 
-CAMELS-US basin IDs,
-meteorological forcing data,
-observed streamflow data,
-CAMELS catchment attributes,
-cluster assignment file,
-train/validation/test split configuration.
-Workflow
+## License, attribution, and citation
 
-The cleaned workflow starts from the HPO stage and continues to final prediction/metric pickle generation.
+Code in this repository is distributed under the repository's existing [Apache-2.0 license](LICENSE). External input datasets and third-party materials retain their respective licenses and attribution requirements.
 
-A typical run consists of:
+If you use the underlying data or frozen benchmark results, cite the [Zenodo version-3 dataset](https://doi.org/10.5281/zenodo.23945464). When the associated manuscript is published, cite that paper as well. The previous Zenodo versions remain in the version history for provenance; older PDFs retained in the deposit are **historical records and not the current 2026 manuscript**.
 
-run random-search HPO,
-collect and rank trained configurations,
-select best models per cluster/family,
-build ensembles,
-evaluate on the test period,
-export final prediction and metric files.
-
-Paper figures are generated separately using the final figure package.
-
-Citation
-
-The code developed for this study is publicly available at https://github.
-com/farzadhoseini/Cluster-Wise-HPO-CAMELS-US. The benchmark results generated during the current work are publicly available at https:
-//doi.org/10.5281/zenodo.20421012.
-
-If you use this repository, please cite the associated paper:
-
-Cluster-Wise Hyperparameter Optimization Enhances Regional Rainfall–Runoff Modeling with Deep Learning: A Robust CAMELS-US Benchmark
-
-Author
-
-Farzad Hosseini Hossein Abadi
-GitHub: farzadhoseini
+For scope, provenance and documented experimental limitations, see [`RELEASE_2026_PROVENANCE.md`](RELEASE_2026_PROVENANCE.md).

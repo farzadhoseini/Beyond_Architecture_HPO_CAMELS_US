@@ -14,8 +14,10 @@ Design
   191889, 307443, 328237, 385445, 473461, 643969, 665980, 845563, 985957, 993061.
 - No training and no test-based constituent selection.
 - No missing realization is imputed or replaced.
-- Sixteen constituents have all 10 archived final realizations; one historical
-  constituent has 5 archived final realizations.
+- Fifteen constituents have all 10 archived final realizations; one has 8
+  archived final realizations and one has 7.
+- The authoritative inventory is frozen_results/02_constituent_seed_availability.csv
+  and the counts in frozen_results/RUN_SUMMARY.json.
 - Constituent absolute metrics use every archived final realization available for that
   constituent.
 - For pooled-HI versus a constituent, pooled HI is re-aggregated over exactly the same

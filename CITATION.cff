@@ -1,0 +1,15 @@
+cff-version: 1.2.0
+message: >
+  If you use this code, please cite the associated Zenodo V3 data archive
+  and the research article when published.
+type: software
+title: 'Beyond Architecture: Optimization and Hydrologic Regime Reveal Performance Headroom in Deep-Learning Rainfall–Runoff Modelling — CAMELS-US research code'
+authors:
+  - family-names: Hosseini
+    given-names: Farzad
+repository-code: https://github.com/farzadhoseini/Beyond_Architecture_HPO_CAMELS_US
+references:
+  - type: dataset
+    title: 'CAMELS-US research data and model archives, version 3'
+    doi: 10.5281/zenodo.23945464
+    url: https://doi.org/10.5281/zenodo.23945464
