@@ -11,7 +11,7 @@ This is an audit aid; it does **not** change research results or submission file
 
 ## Important distinction: frozen V17 sources versus the submitted manuscript
 
-`codes/revision_2026/figures_tables_v17/canonical_manuscript/main_current.tex` and `supp_current.tex` are archived snapshots used to freeze figure and table mappings. They are **not the approved final Scientific Reports manuscript**.
+`codes/revision_2026/figures_tables_v17/canonical_manuscript/main_current.tex` and `supp_current.tex` are archived snapshots used to freeze figure and table mappings. They are **not the approved final the previous journal format manuscript**.
 
 The *archived snapshot* main LaTeX includes:
 

@@ -1,11 +1,10 @@
 from __future__ import annotations
 
-"""CAMELS-US Scientific Reports revision: Results figure builder (v04, V16-integrated).
+"""CAMELS-US the previous journal format revision: Results figure builder (v04, V16-integrated).
 
 Purpose
 -------
-Regenerate only the *new* revision figures introduced after the rejected
-preprint. Existing manuscript figures (fig04--fig30) are intentionally not
+Regenerate only the *new* revision figures introduced during the 2026 manuscript revision. Existing manuscript figures (fig04--fig30) are intentionally not
 redrawn here; the revised LaTeX continues to reference their historical
 filenames. This script reads the frozen post-Liu benchmark products and the
 pre-Liu Cluster-wise-vs-Top-10 tables, then writes compact publication-ready
