@@ -1,0 +1,214 @@
+{
+  "figures": [
+    {
+      "document": "main",
+      "order": 1,
+      "v17_filename": "fig01_map_clusters.pdf",
+      "hess_filename": "fig01_map_clusters.pdf"
+    },
+    {
+      "document": "main",
+      "order": 2,
+      "v17_filename": "fig02_hydrological_signature_distributions.pdf",
+      "hess_filename": "fig02_hydrological_signature_distributions.pdf"
+    },
+    {
+      "document": "main",
+      "order": 3,
+      "v17_filename": "fig03_cluster_profile_heatmap.pdf",
+      "hess_filename": "fig03_cluster_profile_heatmap.pdf"
+    },
+    {
+      "document": "main",
+      "order": 4,
+      "v17_filename": "fig_results_paired_nse_references.pdf",
+      "hess_filename": "fig04_results_paired_nse_references.pdf"
+    },
+    {
+      "document": "main",
+      "order": 5,
+      "v17_filename": "fig04_BOX_basins__NSE.pdf",
+      "hess_filename": "fig05_BOX_basins__NSE.pdf"
+    },
+    {
+      "document": "main",
+      "order": 6,
+      "v17_filename": "fig05_ECDF_split_basins__NSE.pdf",
+      "hess_filename": "fig06_ECDF_split_basins__NSE.pdf"
+    },
+    {
+      "document": "main",
+      "order": 7,
+      "v17_filename": "fig_results_threshold_coverage.pdf",
+      "hess_filename": "fig07_results_threshold_coverage.pdf"
+    },
+    {
+      "document": "main",
+      "order": 8,
+      "v17_filename": "fig_results_hydro_selection_regimes.pdf",
+      "hess_filename": "fig08_results_hydro_selection_regimes.pdf"
+    },
+    {
+      "document": "main",
+      "order": 9,
+      "v17_filename": "fig06_Trend_water_year__NSE.pdf",
+      "hess_filename": "fig09_Trend_water_year__NSE.pdf"
+    },
+    {
+      "document": "main",
+      "order": 10,
+      "v17_filename": "fig07_Heatmap_year_x_model__NSE.pdf",
+      "hess_filename": "fig10_Heatmap_year_x_model__NSE.pdf"
+    },
+    {
+      "document": "main",
+      "order": 11,
+      "v17_filename": "fig08_Box_basins_per_year__NSE.pdf",
+      "hess_filename": "fig11_Box_basins_per_year__NSE.pdf"
+    },
+    {
+      "document": "main",
+      "order": 12,
+      "v17_filename": "fig09_Heatmap_CLUSTERWISE_ONLY__NSE.pdf",
+      "hess_filename": "fig12_Heatmap_CLUSTERWISE_ONLY__NSE.pdf"
+    },
+    {
+      "document": "main",
+      "order": 13,
+      "v17_filename": "fig10_cluster_metric_heatmap_2x2_NSE.pdf",
+      "hess_filename": "fig13_cluster_metric_heatmap_2x2_NSE.pdf"
+    },
+    {
+      "document": "main",
+      "order": 14,
+      "v17_filename": "fig11_bad_basins_clusterwise_nse_lt_0p5_map.pdf",
+      "hess_filename": "fig14_bad_basins_clusterwise_nse_lt_0p5_map.pdf"
+    },
+    {
+      "document": "main",
+      "order": 15,
+      "v17_filename": "fig12_clusterwise_geo_nse_journal.pdf",
+      "hess_filename": "fig15_clusterwise_geo_nse_journal.pdf"
+    },
+    {
+      "document": "main",
+      "order": 16,
+      "v17_filename": "fig_results_hess_metric_tradeoff.pdf",
+      "hess_filename": "fig16_results_hess_metric_tradeoff.pdf"
+    },
+    {
+      "document": "main",
+      "order": 17,
+      "v17_filename": "fig_results_hess_architecture_context.pdf",
+      "hess_filename": "fig17_results_hess_architecture_context.pdf"
+    },
+    {
+      "document": "supp",
+      "order": 1,
+      "v17_filename": "fig13_climate_topography_distributions.pdf",
+      "hess_filename": "fig_supp01_climate_topography_distributions.pdf"
+    },
+    {
+      "document": "supp",
+      "order": 2,
+      "v17_filename": "fig14_pca_cluster_attribute_space.pdf",
+      "hess_filename": "fig_supp02_pca_cluster_attribute_space.pdf"
+    },
+    {
+      "document": "supp",
+      "order": 3,
+      "v17_filename": "fig15_cluster_huc02_composition.pdf",
+      "hess_filename": "fig_supp03_cluster_huc02_composition.pdf"
+    },
+    {
+      "document": "supp",
+      "order": 4,
+      "v17_filename": "fig16_nse_lt_0p5_effect_sizes.pdf",
+      "hess_filename": "fig_supp04_nse_lt_0p5_effect_sizes.pdf"
+    },
+    {
+      "document": "supp",
+      "order": 5,
+      "v17_filename": "fig17_water_year_nse_lt_0p5_counts_by_cluster.pdf",
+      "hess_filename": "fig_supp05_water_year_nse_lt_0p5_counts_by_cluster.pdf"
+    },
+    {
+      "document": "supp",
+      "order": 6,
+      "v17_filename": "fig18_weak_year_effect_sizes.pdf",
+      "hess_filename": "fig_supp06_weak_year_effect_sizes.pdf"
+    },
+    {
+      "document": "supp",
+      "order": 7,
+      "v17_filename": "fig19_seasonal_nse_lt_0p5_counts_by_cluster.pdf",
+      "hess_filename": "fig_supp07_seasonal_nse_lt_0p5_counts_by_cluster.pdf"
+    },
+    {
+      "document": "supp",
+      "order": 8,
+      "v17_filename": "fig20_jas_lt_0p5_effect_sizes.pdf",
+      "hess_filename": "fig_supp08_jas_lt_0p5_effect_sizes.pdf"
+    },
+    {
+      "document": "supp",
+      "order": 9,
+      "v17_filename": "fig21_seasonality_link_effect_sizes.pdf",
+      "hess_filename": "fig_supp09_seasonality_link_effect_sizes.pdf"
+    },
+    {
+      "document": "supp",
+      "order": 10,
+      "v17_filename": "fig22_water_year_median_nse_ranking.pdf",
+      "hess_filename": "fig_supp10_water_year_median_nse_ranking.pdf"
+    },
+    {
+      "document": "supp",
+      "order": 11,
+      "v17_filename": "fig23_seed_robustness_box_nse.pdf",
+      "hess_filename": "fig_supp11_seed_robustness_box_nse.pdf"
+    },
+    {
+      "document": "supp",
+      "order": 12,
+      "v17_filename": "fig24_seed_robustness_cdf_nse.pdf",
+      "hess_filename": "fig_supp12_seed_robustness_cdf_nse.pdf"
+    },
+    {
+      "document": "supp",
+      "order": 13,
+      "v17_filename": "fig25_wy1992_seed_box_nse.pdf",
+      "hess_filename": "fig_supp13_wy1992_seed_box_nse.pdf"
+    },
+    {
+      "document": "supp",
+      "order": 14,
+      "v17_filename": "fig26_wy1992_seed_cdf_nse.pdf",
+      "hess_filename": "fig_supp14_wy1992_seed_cdf_nse.pdf"
+    },
+    {
+      "document": "supp",
+      "order": 15,
+      "v17_filename": "fig27_wy1998_seed_box_nse.pdf",
+      "hess_filename": "fig_supp15_wy1998_seed_box_nse.pdf"
+    },
+    {
+      "document": "supp",
+      "order": 16,
+      "v17_filename": "fig28_wy1998_seed_cdf_nse.pdf",
+      "hess_filename": "fig_supp16_wy1998_seed_cdf_nse.pdf"
+    },
+    {
+      "document": "supp",
+      "order": 17,
+      "v17_filename": "fig_results_spatial_delta_hess.pdf",
+      "hess_filename": "fig_supp17_results_spatial_delta_hess.pdf"
+    },
+    {
+      "document": "supp",
+      "order": 18,
+      "v17_filename": "fig_supp_hess_cluster_metric_heatmap.pdf",
+      "hess_filename": "fig_supp18_hess_cluster_metric_heatmap.pdf"
+    }
+  ]
+}
