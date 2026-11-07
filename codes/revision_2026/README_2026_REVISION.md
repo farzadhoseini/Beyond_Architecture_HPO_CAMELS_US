@@ -25,6 +25,6 @@ This directory **adds** work performed for the 2026 manuscript to the existing C
 
 ## Source preservation
 
-The original code stays at the original top-level `codes/` paths. This directory is an explicit add-on so that comparisons against the initial benchmark remain possible. The published Zenodo V3 has 10 inherited V2 files plus `CAMELS_US_Revision_2026_Analysis_Data_v3_additions.zip` and `CAMELS_US_Top18_Additional8_Raw_10Seed_v3.zip` (12 total).
+The original code stays at the original top-level `codes/` paths. This directory is an explicit add-on so that comparisons against the initial benchmark remain possible. The published Zenodo V3 contains eight baseline data archives and two analysis archives: `CAMELS_US_Revision_2026_Analysis_Data_v3_additions.zip` and `CAMELS_US_Top18_Additional8_Raw_10Seed_v3.zip` (10 total).
 
-See the root README and `RELEASE_2026_PROVENANCE.md` for citation and release information.
+See the root README for dataset access, citation and usage instructions.

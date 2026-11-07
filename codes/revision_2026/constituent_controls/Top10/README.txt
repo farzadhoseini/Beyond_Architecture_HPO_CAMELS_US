@@ -3,7 +3,7 @@ CAMELS-US Top-10 Constituent Decomposition v1
 
 Purpose
 -------
-This is the reviewer-proof fallback to the Global Rank-1 micro-control when the
+This is a reproducible alternative to the Global Rank-1 micro-control when the
 archived global rank order is not explicitly recoverable.
 
 It does NOT infer Rank-1 from test performance, pickle order, timestamps, cluster

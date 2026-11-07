@@ -346,7 +346,7 @@ Canonical experiment to run:
   each basin -> compute metric per seed
   manuscript basin value -> arithmetic mean across the 10 seed metrics
 
-This directly tests Reviewer #1 Comment 3.
+This evaluates the cluster-local routing control.
 """)
 
 # ------------------------------------------------------------

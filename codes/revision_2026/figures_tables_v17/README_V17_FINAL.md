@@ -1,6 +1,6 @@
 # CAMELS-US final paper asset builder — V17
 
-V17 is locked to the two current the previous journal format LaTeX manuscripts bundled under `canonical_manuscript/`.
+V17 uses two frozen manuscript reference sources under `canonical_manuscript/`.
 It does not renumber figures and does not invent publication filenames.
 
 ## Final deliverable

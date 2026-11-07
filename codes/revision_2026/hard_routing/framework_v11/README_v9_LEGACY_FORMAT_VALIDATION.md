@@ -1,11 +1,11 @@
 # CAMELS Ensemble Framework Bot IHCantabria v9 — LEGACY FORMAT VALIDATION
 
-This version deliberately preserves the old Journal-of-Hydrology submission pickle formats.
+This version deliberately preserves the established baseline ensemble pickle formats.
 
 ## What changed vs v8
 
 - Ensemble outputs are saved as `ensemble[basin][seed]["ensemble"] = xarray.DataArray`, not compact `{basin: array}`.
-- Top10 and old cluster-wise medians are rebuilt from `All_*` and compared against the existing submitted-paper median pickles at basin/seed/timestep level.
+- Top10 and old cluster-wise medians are rebuilt from `All_*` and compared against the archived baseline median pickles at basin/seed/timestep level.
 - New mean ensemble pickles are saved in the same legacy format.
 - Metrics are saved as pickle + CSV DataFrames in legacy-compatible forms:
   - `metrics_all_test_period_seed_level_LEGACY_FORMAT.p/csv`

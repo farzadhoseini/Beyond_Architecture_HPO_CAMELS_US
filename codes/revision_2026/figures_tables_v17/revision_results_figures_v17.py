@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-"""CAMELS-US the previous journal format revision: Results figure builder (v04, V16-integrated).
+"""CAMELS-US results figure builder (v04, V16-integrated).
 
 Purpose
 -------

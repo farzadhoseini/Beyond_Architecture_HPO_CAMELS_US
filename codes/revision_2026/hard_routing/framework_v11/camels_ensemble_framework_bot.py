@@ -9,7 +9,7 @@ Main purpose
 1) Rebuild the old Top10 and old cluster-wise median ensembles from the All_* pickles
    using the exact legacy output structure:
        ensemble[basin][seed]["ensemble"] = xarray.DataArray
-2) Compare rebuilt medians against the existing submitted-paper median pickles at
+2) Compare rebuilt medians against the archived baseline median pickles at
    basin + seed + timestep level. New mean/F4/Top18 results are only scientifically
    usable after this validation passes.
 3) Save newly built ensemble pickles in the same legacy format, not compact format.
