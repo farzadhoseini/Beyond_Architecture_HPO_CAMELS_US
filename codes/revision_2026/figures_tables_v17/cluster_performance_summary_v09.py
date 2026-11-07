@@ -366,113 +366,77 @@ def add_card_frame(ax, pad=0.008, rounding=0.018, facecolor="#fcfcfc", edgecolor
 # =========================================================
 def make_clusterwise_geo_figure(plot_df: pd.DataFrame, output_path: Path) -> None:
     usa = load_us_boundary()
-
-    nse_vmin = float(plot_df[PRIMARY_METRIC].min())
-    nse_vmax = float(plot_df[PRIMARY_METRIC].max())
+    metric_values = pd.to_numeric(plot_df[PRIMARY_METRIC], errors="coerce")
+    nse_vmin = float(metric_values.min())
+    nse_vmax = float(metric_values.max())
     if np.isclose(nse_vmin, nse_vmax):
         nse_vmax = nse_vmin + 1e-6
 
-    fig = plt.figure(figsize=(15.2, 19.2))
-    gs = fig.add_gridspec(6, 2, height_ratios=[0.62, 2.45, 0.62, 2.45, 0.62, 2.45],
-                          hspace=0.28, wspace=0.14, left=0.06, right=0.90, top=0.955, bottom=0.05)
+    fig, axes = plt.subplots(3, 2, figsize=(12.6, 12.6), facecolor="white")
+    fig.subplots_adjust(left=0.055, right=0.855, top=0.905, bottom=0.095,
+                        hspace=0.38, wspace=0.16)
+    ordered_clusters = sorted(plot_df["cluster"].unique())
+    if len(ordered_clusters) != 6:
+        plt.close(fig)
+        raise ValueError(f"Expected six fixed clusters, found {ordered_clusters}")
 
-    table_axes = [fig.add_subplot(gs[r, :]) for r in [0, 2, 4]]
-    for a in table_axes:
-        a.set_axis_off()
-        add_card_frame(a, pad=0.006, rounding=0.018, facecolor="#f7f8fa", edgecolor="0.60", lw=1.0)
-    map_axes = [fig.add_subplot(gs[1, 0]), fig.add_subplot(gs[1, 1]),
-                fig.add_subplot(gs[3, 0]), fig.add_subplot(gs[3, 1]),
-                fig.add_subplot(gs[5, 0]), fig.add_subplot(gs[5, 1])]
-
-    all_points = plot_df.copy()
     last_sc = None
     total_excluded = 0
-    summaries = []
-
-    for cl, ax in zip(sorted(plot_df["cluster"].unique()), map_axes):
-        sub = plot_df[plot_df["cluster"] == cl].copy()
+    summary = []
+    for cl, ax in zip(ordered_clusters, axes.flat):
+        sub = plot_df.loc[plot_df["cluster"] == cl].copy()
         sub_in, sub_out = get_local_zoom_df(sub)
         total_excluded += len(sub_out)
-        ex0, ex1, ey0, ey1 = padded_extent(sub_in, lon_pad_frac=0.12, lat_pad_frac=0.12)
+        ex0, ex1, ey0, ey1 = padded_extent(sub_in, lon_pad_frac=0.12,
+                                           lat_pad_frac=0.12)
 
         if usa is not None:
             try:
-                usa.boundary.plot(ax=ax, color="0.72", linewidth=0.50, zorder=0)
+                usa.boundary.plot(ax=ax, color="0.82", linewidth=0.50, zorder=0)
             except Exception:
                 pass
-
-        ax.scatter(all_points["lon"], all_points["lat"], s=6, color="0.88", edgecolors="none", alpha=0.65, zorder=1)
-        sc = ax.scatter(sub_in["lon"], sub_in["lat"], c=sub_in[PRIMARY_METRIC], cmap="cividis",
-                        vmin=nse_vmin, vmax=nse_vmax, s=28, edgecolors="black", linewidths=0.26, alpha=0.96, zorder=4)
-        last_sc = sc
-
+        ax.scatter(plot_df["lon"], plot_df["lat"], s=7.5,
+                   color="0.86", edgecolors="none", alpha=0.75, zorder=1)
+        last_sc = ax.scatter(sub_in["lon"], sub_in["lat"],
+                             c=sub_in[PRIMARY_METRIC], cmap="cividis",
+                             vmin=nse_vmin, vmax=nse_vmax,
+                             s=43, edgecolors="0.20", linewidths=0.35,
+                             alpha=0.98, zorder=4)
         med = float(sub[PRIMARY_METRIC].median())
         mean_ = float(sub[PRIMARY_METRIC].mean())
-        n = len(sub)
-        summaries.append((cl, n, med, mean_))
+        summary.append((int(cl), int(len(sub)), med, mean_))
 
         ax.set_xlim(ex0, ex1)
         ax.set_ylim(ey0, ey1)
         ax.set_aspect("equal", adjustable="box")
         ax.set_xticks([])
         ax.set_yticks([])
-        add_card_frame(ax, pad=0.005, rounding=0.015, facecolor="#fcfcfc", edgecolor="0.60", lw=1.0)
+        ax.set_facecolor("#fafafa")
         add_panel_frame(ax)
-        ax.set_title(f"Cluster {cl}", fontsize=16, fontweight="bold", pad=5)
+        ax.set_title(f"Cluster {cl}  |  n = {len(sub)}\n"
+                     f"Median NSE = {med:.3f}   Mean NSE = {mean_:.3f}",
+                     fontsize=13.0, fontweight="semibold", pad=8,
+                     linespacing=1.35)
 
-    def add_summary_table(ax_tbl, rows):
-        ax_tbl.axis("off")
-        col_labels = [f"Cluster {r[0]}" for r in rows]
-        cell_text = [
-            [f"n = {r[1]}" for r in rows],
-            [f"median = {r[2]:.3f}" for r in rows],
-            [f"mean = {r[3]:.3f}" for r in rows],
-        ]
-        row_labels = ["Sample", "Median NSE", "Mean NSE"]
-        tbl = ax_tbl.table(
-            cellText=cell_text,
-            rowLabels=row_labels,
-            colLabels=col_labels,
-            cellLoc="center",
-            rowLoc="center",
-            bbox=[0.20, 0.05, 0.60, 0.90],
-        )
-        tbl.auto_set_font_size(False)
-        tbl.set_fontsize(15.5)
-        tbl.scale(1.0, 1.34)
-
-        for (r, c), cell in tbl.get_celld().items():
-            cell.set_edgecolor("0.35")
-            cell.set_linewidth(0.9)
-            if r == 0:  # column headers
-                cell.set_facecolor("#e8ecef")
-                cell.get_text().set_fontweight("bold")
-            elif c == -1:  # row-label column
-                cell.set_facecolor("#f1f3f5")
-                cell.get_text().set_fontweight("bold")
-            else:
-                if r % 2 == 1:
-                    cell.set_facecolor("#fbfbfb")
-                else:
-                    cell.set_facecolor("white")
-        return tbl
-
-    add_summary_table(table_axes[0], summaries[0:2])
-    add_summary_table(table_axes[1], summaries[2:4])
-    add_summary_table(table_axes[2], summaries[4:6])
-
-    cax = fig.add_axes([0.92, 0.24, 0.018, 0.50])
+    cax = fig.add_axes([0.885, 0.225, 0.024, 0.55])
     cbar = fig.colorbar(last_sc, cax=cax)
-    cbar.set_label(f"{PRIMARY_METRIC} (basin seed-mean)", fontsize=14, fontweight="bold")
-    cbar.ax.tick_params(labelsize=13)
-
-    fig.suptitle(f"Geographic distribution of basin-wise {PRIMARY_METRIC} for the hydrologically informed ensemble",
-                 fontsize=20.5, fontweight="bold", y=0.983)
-    fig.text(0.06, 0.02,
-             f"The six panels show local zooms colored by basin-wise seed-averaged NSE; isolated spatial outliers were excluded only from the display windows (excluded basins across clusters: n = {total_excluded}).",
-             fontsize=11.0, ha="left")
-
-    fig.savefig(output_path, dpi=300, bbox_inches="tight")
+    cbar.set_label("NSE (basin seed-mean)", fontsize=13, fontweight="bold", labelpad=11)
+    cbar.ax.tick_params(labelsize=12)
+    fig.suptitle("Geographic distribution of basin-wise NSE\n"
+                 "Hydrologically informed ensemble",
+                 fontsize=17, fontweight="bold", y=0.983)
+    fig.text(0.055, 0.030,
+             "Local display windows only; 29 outlier locations are omitted from the six zoom panels.\n"
+             "All 531 basins are included in the reported cluster statistics.",
+             fontsize=11.0, ha="left", va="bottom")
+    if len(plot_df) == 531 and total_excluded != 29:
+        plt.close(fig)
+        raise ValueError(f"Unexpected local-zoom exclusion count: {total_excluded}")
+    if sum(item[1] for item in summary) != len(plot_df):
+        plt.close(fig)
+        raise ValueError("Cluster counts do not match the plotted basin population")
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    fig.savefig(output_path, dpi=300, bbox_inches="tight", facecolor="white")
     plt.close(fig)
 
 

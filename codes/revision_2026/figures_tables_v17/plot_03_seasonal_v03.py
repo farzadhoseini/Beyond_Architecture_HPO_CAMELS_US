@@ -381,7 +381,7 @@ def main():
             ax.tick_params(which="both", length=0)
             ax.set_title("", pad=2)
             ax.set_xlabel("Season", fontsize=14, fontweight="bold", labelpad=12)
-            ax.set_ylabel("Water year", fontsize=15, fontweight="bold")
+            ax.set_ylabel("Calendar year", fontsize=15, fontweight="bold")
             ax.set_xticks(np.arange(len(SEASONS)))
             ax.set_xticklabels(SEASONS, fontsize=13, fontweight="bold")
             ax.set_yticks(np.arange(len(years)))
@@ -434,7 +434,7 @@ def main():
                 else:
                     cell.set_facecolor("white" if r % 2 == 0 else "#fbfbfb")
 
-            fig.suptitle(f"Seasonal heatmap of median basin-wise {met} across water years\nfor the hydrologically informed ensemble", y=0.968, fontsize=16.5, fontweight="bold")
+            fig.suptitle(f"Seasonal heatmap of median basin-wise {met} by calendar year\nfor the hydrologically informed ensemble", y=0.968, fontsize=16.5, fontweight="bold")
             fig.subplots_adjust(top=0.85, bottom=0.04, left=0.08, right=0.92)
             save_fig(fig, outm / f"Heatmap_CLUSTERWISE_ONLY__{met}.png", dpi=args.dpi)
 
