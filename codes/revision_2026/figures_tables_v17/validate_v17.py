@@ -5,6 +5,7 @@ HERE=Path(__file__).resolve().parent
 FIG=json.loads((HERE/'FIGURES_MANIFEST.json').read_text(encoding='utf-8'))
 TAB=json.loads((HERE/'TABLES_MANIFEST.json').read_text(encoding='utf-8'))
 HASH=json.loads((HERE/'CANONICAL_MANUSCRIPT_SHA256.json').read_text(encoding='utf-8'))
+TABLE_HASHES=json.loads((HERE/'HESS_TABLE_SHA256.json').read_text(encoding='utf-8'))
 
 def source_gate():
     py=list(HERE.glob('*.py'))
@@ -12,11 +13,13 @@ def source_gate():
     print(f'[PASS] Python syntax: {len(py)} files')
     for key,rel in [('main','main_current.tex'),('supp','supp_current.tex')]:
         p=HERE/'canonical_manuscript'/rel
-        h=hashlib.sha256(p.read_bytes()).hexdigest()
+        h=hashlib.sha256(p.read_bytes().replace(b'\r\n',b'\n')).hexdigest()
         if h != HASH[key]['sha256']: raise RuntimeError(f'Canonical manuscript hash mismatch: {key}')
     print('[PASS] canonical manuscript hashes')
     if len(FIG)!=35 or len({r['filename'] for r in FIG})!=35: raise RuntimeError('Figure manifest must contain 35 unique files')
     if len(TAB)!=34 or len({r['label'] for r in TAB})!=34 or len({r['filename'] for r in TAB})!=34: raise RuntimeError('Table manifest must contain 34 unique tables')
+    if TABLE_HASHES.get('table_count') != 34 or {x['filename'] for x in TAB} != set(TABLE_HASHES['tables']):
+        raise RuntimeError('HESS table hash manifest does not match table inventory')
     print('[PASS] manifests: 35 figures + 34 tables')
     rev=(HERE/'revision_results_figures_v17.py').read_text(encoding='utf-8')
     required_snippets=[
@@ -42,6 +45,9 @@ def output_gate(root: Path):
         s=(tabdir/rec['filename']).read_text(encoding='utf-8',errors='replace')
         labs=re.findall(r'\\label\{([^}]+)\}',s)
         if labs != [rec['label']]: raise RuntimeError(f'Table label mismatch {rec["filename"]}: {labs}')
+        digest = hashlib.sha256(s.encode('utf-8')).hexdigest()
+        if digest != TABLE_HASHES['tables'][rec['filename']]['sha256']:
+            raise RuntimeError(f'Table content differs from HESS manuscript: {rec["filename"]}')
     # No extra file types inside the two final Overleaf folders.
     badf=[p.name for p in figdir.iterdir() if p.is_file() and p.suffix.lower()!='.pdf']
     badt=[p.name for p in tabdir.iterdir() if p.is_file() and p.suffix.lower()!='.tex']

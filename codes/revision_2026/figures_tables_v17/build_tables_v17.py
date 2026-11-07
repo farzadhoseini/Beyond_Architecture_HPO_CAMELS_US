@@ -1,9 +1,10 @@
 from __future__ import annotations
-import argparse, json, re, shutil
+import argparse, json, re, shutil, hashlib
 from pathlib import Path
 
 HERE=Path(__file__).resolve().parent
 MANIFEST=json.loads((HERE/'TABLES_MANIFEST.json').read_text(encoding='utf-8'))
+TABLE_HASHES=json.loads((HERE/'HESS_TABLE_SHA256.json').read_text(encoding='utf-8'))
 DOCS={
     'main': HERE/'canonical_manuscript'/'main_current.tex',
     'supp': HERE/'canonical_manuscript'/'supp_current.tex',
@@ -38,16 +39,10 @@ def main():
         if label not in extracted[doc]:
             raise RuntimeError(f'Manifest table missing from canonical {doc}: {label}')
         content=extracted[doc][label]
-        # Explicit V17 reproducibility correction: the current manuscript has
-        # 0.957 for Cluster 1 in tab:hydro_selection_regimes, whereas the
-        # canonical bundled pre-Liu summary gives wilcoxon_p_fdr_bh=0.960420;
-        # at the table's displayed precision this is 0.960.
-        if label == 'tab:hydro_selection_regimes':
-            old="[-0.00155, 0.00157] & 0.957 \\"
-            new="[-0.00155, 0.00157] & 0.960 \\"
-            if content.count(old) != 1:
-                raise RuntimeError('Expected single Cluster-1 FDR transcription target not found')
-            content=content.replace(old,new)
+        expected_hash = TABLE_HASHES['tables'][fn]['sha256']
+        actual_hash = hashlib.sha256(content.encode('utf-8')).hexdigest()
+        if actual_hash != expected_hash:
+            raise RuntimeError(f'Table source does not match the HESS manuscript: {fn}')
         (outdir/fn).write_text(content,encoding='utf-8')
         expected.add(fn)
     actual={p.name for p in outdir.glob('*.tex')}

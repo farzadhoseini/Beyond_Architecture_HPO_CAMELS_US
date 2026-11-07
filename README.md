@@ -35,6 +35,55 @@ The principal search covers **2,000 regional LSTM configurations**. The main com
 
 The repository contains relevant code for both routes, but **it is not an independently tested, one-command end-to-end training distribution**. In particular, it does not bundle the original base YAML, a pinned training environment, or all large input/output archives. Some notebooks and local-run wrappers refer to workstation-specific directories; adapt those to your environment before running. These requirements matter when interpreting reproducibility.
 
+## Reproduction acceptance criteria
+
+To reproduce the manuscript **from HPO**, distinguish two validation tasks:
+
+1. **Study reproduction:** use the original 2,000 HPO configuration files (or a verified
+   candidate manifest), the exact base NeuralHydrology YAML, the same 531-basin CAMELS-US
+   input data and cluster membership, the same temporal splits, optimizer/epoch policy,
+   chosen configurations and 10 final seeds. Retrain, evaluate the same fixed test period,
+   and compare the resulting basin-level metrics and ensemble summaries with the released
+   results. GPU nondeterminism can prevent bitwise-identical weights: numerical agreements
+   must be assessed at reported precision, together with distributions across seeds.
+2. **Manuscript asset reproduction:** regenerate the core and revision plots from the
+   resulting model outputs, then export **35 PDF figures** and **34 LaTeX tables** under the
+   filenames used in the HESS manuscript. The supplied table source is an exact snapshot of
+   the HESS manuscript tables; it validates publication contents but **does not itself
+   recompute their numerical values from observations**.
+
+Run the source/table gates with:
+
+```bash
+python codes/revision_2026/figures_tables_v17/validate_v17.py
+python codes/revision_2026/figures_tables_v17/build_tables_v17.py --outdir ./_table_check
+python tools/capture_repro_environment.py --output ./_my_reproduction_env.json
+```
+
+These commands are platform independent. Do not treat their passing as proof that a full
+HPO-to-results GPU experiment has been repeated.
+
+### Original HPO candidate identity
+
+The notebook defines random sampling, but a new seeded draw does not certify the same
+candidate selection as the original campaign. If the **original** 2,000 generated HPO
+YAMLs are available from the preserved research files, freeze and later verify them:
+
+```bash
+python tools/hpo_candidate_manifest.py --candidate-dir /path/to/original_2000_yamls \
+  --create-manifest /path/to/reproduction/hpo_candidate_sha256.json
+python tools/hpo_candidate_manifest.py --candidate-dir /path/to/original_2000_yamls \
+  --verify-manifest /path/to/reproduction/hpo_candidate_sha256.json
+```
+
+A newly generated manifest is **not** evidence that those YAMLs came from the study;
+verify their provenance and training epoch/seed specification against the released
+research artifacts. The original 2,000-candidate manifest and base HPO YAML are **not
+included in this repository**. Until they are made available and verified, the exact
+original 2,000-model search cannot be independently certified. See
+[`docs/REPRODUCTION_REQUIREMENTS.md`](docs/REPRODUCTION_REQUIREMENTS.md) for the
+required inputs and verification milestones.
+
 ## Route B: from HPO to the manuscript results
 
 ### 1. Obtain the data and configure the workspace

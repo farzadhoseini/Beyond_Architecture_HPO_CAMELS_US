@@ -1,85 +1,5 @@
-\documentclass[lineno,pdflatex,sn-nature]{sn-jnl}
-
-% ============================================================
-% CAMELS-US figure and table reference source
-% ============================================================
-
-\usepackage[T1]{fontenc}
-\usepackage[utf8]{inputenc}
-\usepackage{setspace}
-\usepackage{graphicx}
-\usepackage{amsmath,amssymb,amsfonts}
-\usepackage{booktabs}
-\usepackage{multirow}
-\usepackage{tabularx}
-\usepackage{array}
-\usepackage{siunitx}
-\usepackage{float}
-\usepackage[section]{placeins}
-
-\hypersetup{hidelinks}
-
-\raggedbottom
-
-\begin{document}
-
-
-\title[Systematic HPO and deep-learning architecture benchmarks]{Systematic hyperparameter optimization changes the interpretation of deep-learning architecture benchmarks in hydrology}
-
-
-
-\author*[1]{\fnm{Farzad} \sur{Hosseini}}
-\email{farzad.hosseini@alumnos.unican.es}
-
-\author[1]{\fnm{Cristina} \sur{Prieto}}
-\author[1]{\fnm{Cesar} \sur{Alvarez}}
-
-\affil*[1]{\orgdiv{Instituto de Hidráulica Ambiental}, \orgname{Universidad de Cantabria (IHCantabria)}, \orgaddress{\postcode{39011}, \city{Santander}, \state{Cantabria}, \country{Spain}}}
-
-% ORCID: Farzad Hosseini — https://orcid.org/0000-0001-8606-1952
-
-\abstract{Architecture benchmarks in hydrologic deep learning are difficult to interpret when model classes receive different optimization treatment and aggregate scores mask hydrologic heterogeneity. We establish a systematically optimized regional long short-term memory (LSTM) benchmark on 531 CAMELS-US basins using 2000 random-search configurations, two ensemble strategies, and 10 independent seeds. On the shared 531-basin test period, the hydrologically informed ensemble improved Nash--Sutcliffe efficiency (NSE) in 91.0\% of basins relative to the established regional reference and in 71.2\% relative to the LSTM baseline from a contemporary multi-architecture benchmark. Relative to the established reference, 54 basins crossed NSE=0.8 upward and none downward. Its advantage over global Top-10 selection was concentrated in dry, water-limited regimes, indicating that the effect of hydrologically informed selection is strongly regime dependent. External architecture comparisons were also metric- and regime-dependent: optimized LSTMs improved NSE and $R^2$ relative to the contemporary LSTM benchmark, but not Kling--Gupta efficiency, while non-LSTM rankings changed among hydrologic clusters. Thus, the interpretation of apparent performance ceilings is sensitive to optimization effort, ensemble design, stochastic replication, metric choice, and hydrologic regime. The released multi-seed basin-level predictions provide a reusable reference for future CAMELS-US model comparisons.}
-
-\keywords{Regional modelling, Rainfall--runoff modelling, Ensemble deep learning, Hydrologic regimes, CAMELS-US, Large-sample hydrology}
-
-\maketitle
-\setstretch{2}
-
-\section{Introduction}
-\label{sec:intro}
-
-Large-sample hydrology has changed the way rainfall--runoff models are developed and compared. Instead of calibrating a separate model for each catchment, regional deep-learning models can learn shared hydrologic behavior from many basins while retaining information about basin-specific responses. The Catchment Attributes and Meteorology for Large-sample Studies--United States (CAMELS-US) dataset has been central to this transition by providing long, standardized hydroclimatic records and catchment attributes across a diverse continental-scale sample \cite{Addor_CAMELSUS}. Within this setting, long short-term memory (LSTM) networks \cite{Hochreiter} have become a particularly strong reference model. Early studies established their ability to represent rainfall--runoff dynamics \cite{Kratzert_2018}, and subsequent large-sample experiments showed that a single regional LSTM trained across many basins can outperform basin-specific and traditional hydrologic benchmarks while learning transferable hydrologic behavior \cite{Kratzert_2019,Kratzert_2024}. Consequently, the regional LSTM is no longer only one candidate architecture among many; it is a benchmark against which claims of progress in hydrologic deep learning are routinely interpreted.
-
-The benchmark landscape is now changing rapidly. Attention-based models, Transformers, state-space models, and hybrid sequence architectures have expanded the range of candidate models for runoff prediction \cite{LIU2024_Probing,Liu2025_RNNTransformers,Wang2025_DeepSSM,Xu2026_RMC,Wang2026_MambaMultiScale}. Recent studies have therefore shifted the scientific question from whether deep learning can model rainfall--runoff processes to which architecture performs best, for which task, and under which hydroclimatic conditions. Liu et al. showed that a standard Transformer did not surpass a strong LSTM on the widely used CAMELS-US benchmark, while a modified recurrence-free Transformer approached their LSTM benchmark performance \cite{LIU2024_Probing}. Their subsequent multi-architecture benchmark compared 11 Transformer-based models with LSTM across several hydrologic tasks and found the LSTM benchmark used in their study to remain the strongest standard model for regression tasks, including streamflow prediction \cite{Liu2025_RNNTransformers}. At the same time, newer state-space approaches have reported gains over LSTM in some settings and hydrologic regimes \cite{Wang2025_DeepSSM}. Architecture choice also involves a cost--skill trade-off rather than predictive skill alone. In an independent hourly hydrologic benchmark, tuned Echo State Networks were shown to approach optimized LSTM skill for flood-relevant dynamics at substantially lower computational cost, illustrating that computational efficiency can be informative alongside predictive accuracy when comparing sequence-model families \cite{Hosseini_DelSer_2026}. These results make architecture benchmarking increasingly important, but they also make the experimental meaning of a ``baseline'' more consequential.
-
-A central difficulty is that an architecture comparison is only as informative as the optimization of the models being compared. Deep neural networks are highly sensitive to interacting choices such as hidden-state dimension, sequence length, dropout, learning rate, batch size, regularization, and optimization schedule, and different configurations of the same architecture can yield materially different hydrologic performance \cite{Hosseini_HPO}. Ensembling optimized configurations can further alter accuracy and robustness across basins \cite{Hosseini_ensemble}. Yet large architecture benchmarks necessarily make choices about how much tuning effort is assigned to each model. For example, the recent Liu et al. benchmark used established hyperparameters from previous hydrologic studies for its LSTM baseline while tuning Transformer hyperparameters through validation-based model selection \cite{Liu2025_RNNTransformers}. This is a reasonable design for broad architecture screening, but it addresses a different question from estimating the attainable performance of a model class under systematic optimization. The distinction is important: an apparent performance plateau obtained with a fixed or inherited configuration should not, by itself, be interpreted as an intrinsic performance ceiling of an architecture or dataset. Architecture benchmarking and optimization benchmarking are therefore complementary.
-
-Optimization alone, however, is not sufficient for a hydrologically informative benchmark. CAMELS-US spans pronounced differences in climate, aridity, catchment size, topography, vegetation, snow influence, flow intermittency, and runoff dynamics. A model that performs strongly in aggregate can still fail systematically in particular hydrologic regimes, and a small change in a median score can conceal substantial improvements or degradations in the lower tail of basin performance. This concern is consistent with the long-standing emphasis on the uniqueness of catchments \cite{Beven} and with recent work questioning how effectively regional deep-learning models use static catchment information for generalization \cite{Heudorfer}. It is also reflected in emerging architecture studies in which relative model skill varies with hydrologic regime \cite{Wang2025_DeepSSM}, and in analyses showing that high benchmark skill does not eliminate important limitations under extrapolative or extreme conditions \cite{Baste2025_ExtrapolationLimits}. These observations motivate a second requirement for benchmarking: model selection and evaluation should reveal where performance changes occur across heterogeneous basins and through time.
-
-Two complementary reference points now make this question particularly timely on CAMELS-US. The regional LSTM experiments of Kratzert et al. provide the closest experimental anchor for a strongly established multi-basin baseline, together with openly available model results and a protocol that has become widely reused in large-sample hydrology \cite{Kratzert_2024}. The benchmark of Liu et al. provides a different and equally useful reference: a contemporary comparison across multiple deep-learning architectures on the same 531-basin CAMELS-US regression setting and test period, with publicly available basin-level performance outputs \cite{Liu2025_RNNTransformers}. These benchmarks should not be treated as methodologically identical. The former is most useful as a like-for-like reference for regional LSTM development, whereas the latter places a specific LSTM benchmark within the broader architecture landscape. Using both therefore allows the effect of systematic LSTM optimization to be evaluated without conflating optimization evidence with claims of identical training protocols across studies.
-
-Here, we develop a systematically optimized and reusable regional LSTM benchmark for daily rainfall--runoff modelling across the 531 CAMELS-US basins. We perform a 2000-trial random-search hyperparameter optimization (HPO) over a broad regional search space using validation data only, and construct two complementary ensemble references from the resulting candidate models: a globally ranked ensemble and a hydrologically informed post-HPO ensemble. Importantly, all candidate networks are trained regionally across the full multi-basin training sample; hydrologic grouping is used only after optimization to inform model selection and diagnostic evaluation. Final selected configurations are retrained under a prespecified 10-seed protocol, and the resulting seed-specific ensembles provide a distribution of model outcomes. We also preserve and release the test-period predictions for every basin so that future studies can compare new models directly against the same optimized reference.
-
-The evaluation is designed to test whether improvement is hydrologically meaningful. We therefore combine whole-period multi-metric evaluation with paired basin-wise comparisons, seed-based uncertainty, practical skill-threshold transitions, lower-tail and weak-basin diagnostics, hydrologic-cluster and aridity analyses, spatial assessment, water-year variability, and seasonal behavior. Comparisons with the two external benchmarks are restricted to quantities that are directly supported by their published outputs; detailed time-resolved diagnostics are conducted within the present benchmark where daily predictions are available. This multi-resolution design separates three questions that are often mixed in model leaderboards: how much performance is available through systematic optimization of a mature architecture, where hydrologically informed post-HPO selection changes performance relative to global selection, and whether those changes remain robust across basins, regimes, random seeds, and time.
-
-Accordingly, this study addresses four objectives. First, we quantify the performance headroom available to a mature regional LSTM under systematic configuration search and ensemble construction, using a large random-search experiment across ten interacting hyperparameters with the realized 2,000-configuration candidate set frozen for reproducibility \cite{Bergstra_Bengio_RS,Hosseini_HPO,Hosseini_ensemble}. Second, we test the value and regime dependence of hydrologically informed post-HPO ensemble selection without redefining regional training as cluster-specific modelling; hydrologic clusters enter only at the post-HPO configuration-selection stage. Third, we establish an uncertainty-aware benchmark using 10 independent seeds and evaluate it at basin, hydrologic-regime, seasonal, and water-year scales. Fourth, where direct comparison is supported by public outputs, we position this optimized benchmark against both the established regional LSTM reference and a contemporary multi-architecture benchmark. The intended contribution is therefore not to claim universal outperformance of LSTM, but to provide a stronger experimental reference for determining when apparent architectural gains represent genuine model advances and when they may instead reflect differences in optimization and evaluation protocol.
-
-\section{Methods}
-\label{sec:methods}
-
-\subsection{Study area, CAMELS-US dataset, and hydroclimatic diversity}
-\label{sec:camels_domain}
-
-We use the same 531 minimally impacted catchments from the CAMELS-US \cite{Addor_CAMELSUS} dataset that form the regional benchmark of Kratzert et al. \cite{Kratzert_2024}. CAMELS-US combines daily meteorological forcings and observed streamflow with static catchment attributes describing climate, topography, vegetation, soils, geology, and land cover. The basin set spans the conterminous United States and covers broad hydroclimatic and physiographic gradients, making it suitable both for continental-scale regional modelling and for diagnosing where a common model behaves differently across hydrologic regimes.
-
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.95\textwidth]{fig01_map_clusters.pdf}
-    \caption{Spatial distribution of the 531 CAMELS-US basins and the fixed six-cluster hydrologic partition used for post-HPO model selection and diagnostic evaluation. Cluster assignments are inherited unchanged from Kratzert et al. \cite{Kratzert_2024}; the clusters are not re-fitted in the present study.}
-    \label{fig:camels_clusters_map}
-\end{figure}
-
-The diversity of the full benchmark domain is summarized in Table~\ref{tab:camels_attribute_summary}. Catchment area spans more than an order of magnitude across the central 90\% of the sample, while the basin population also includes pronounced gradients in elevation, precipitation, aridity, snow influence, runoff efficiency, baseflow contribution, and high-, low-, and zero-flow occurrence. These variables are not used to redefine the test set; rather, they characterize the hydrologic domain over which the benchmark is evaluated and later support regime-conditioned diagnostics.
+% HESS publication tables: main manuscript
+% Table environments are source records; numerical results come from the study analyses.
 
 \begin{table}[htbp]
 \centering
@@ -104,10 +24,6 @@ Zero-flow frequency & d yr$^{-1}$ & 0.00 & 0.03 & 0.00 & 0.14 \\
 \bottomrule
 \end{tabular}
 \end{table}
-
-For hydrologically stratified model selection and evaluation, we adopt the basin partition published by Kratzert et al. \cite{Kratzert_2024}. We do not re-fit the clustering algorithm or re-select the number of clusters in the present study. In the reference study, 25 normalized static catchment attributes were clustered using $k$-means with 300 iterations and 10 random initializations. A maximin criterion based on silhouette scores over candidate values $k=3,\ldots,100$ selected six clusters containing 83, 195, 67, 61, 66, and 59 basins, respectively \cite{Kratzert_2024}. We retain those published assignments unchanged. Consequently, neither the present validation results nor the test-period predictions can influence basin membership. The provenance and methodological role of this fixed partition are summarized in Supplementary Table~S4.
-
-Table~\ref{tab:camels_cluster_summary} and Figures~\ref{fig:camels_hydro_signatures}--\ref{fig:camels_cluster_heatmap} describe the resulting hydroclimatic contrasts. The clusters are not simply geographic labels. Cluster~3 is the most water-limited group, with the highest median aridity (1.75), lowest precipitation (1.83~mm~d$^{-1}$), lowest discharge (0.21~mm~d$^{-1}$), lowest runoff ratio (0.11), and highest low-flow frequency (212.4~d~yr$^{-1}$). Cluster~4 represents the wettest and most runoff-efficient regime, whereas Cluster~5 is distinguished by strong snow influence and high elevation. Cluster~1 combines comparatively low runoff efficiency and baseflow contribution with frequent low-flow conditions, Cluster~2 contains the largest number of basins and occupies a more moderate hydroclimatic range, and Cluster~6 is predominantly low elevation with little snow influence. These contrasts provide the physical context for testing whether post-HPO model selection behaves uniformly across the domain or differently in hydrologically difficult regimes.
 
 \begin{table}[htbp]
 \centering
@@ -160,58 +76,6 @@ Aridity follows the CAMELS-US definition as the ratio of potential evapotranspir
 \end{minipage}
 
 \end{table}
-
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=\textwidth]{fig02_hydrological_signature_distributions.pdf}
-    \caption{Distribution of key hydrologic signatures across the fixed six-cluster partition, showing contrasts in runoff efficiency, baseflow contribution, flow-duration-curve slope, mean discharge, and high- and low-flow frequencies.}
-    \label{fig:camels_hydro_signatures}
-\end{figure}
-
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=\textwidth]{fig03_cluster_profile_heatmap.pdf}
-    \caption{Hydroclimatic profile of the six clusters. Cell annotations are raw cluster medians; background values are standardized anomalies obtained by standardizing the six cluster medians separately for each displayed attribute.}
-    \label{fig:camels_cluster_heatmap}
-\end{figure}
-
-The main-text characterization is complemented by the expanded distributions, multivariate attribute-space visualization, HUC-02 composition, and detailed continuous and categorical summaries in Supplementary Figs.~S1--S3 and Supplementary Tables~S1--S4. Throughout the analysis, the cluster identifiers are therefore interpreted as fixed hydrologic strata. They enter model selection only after regional HPO and enter subsequent analyses as diagnostic groups; they never define separate training datasets.
-
-\subsection{Fixed experimental split, inputs, targets, and preprocessing}
-\label{sec:data_split}
-
-To preserve direct comparability with the established regional LSTM benchmark, we use the same basin set and temporal split as Kratzert et al. \cite{Kratzert_2024}:
-\begin{itemize}
-    \item \textbf{training:} 1 October 1999--30 September 2008;
-    \item \textbf{validation:} 1 October 1980--30 September 1989; and
-    \item \textbf{testing:} 1 October 1989--30 September 1999.
-\end{itemize}
-The non-chronological order is retained deliberately because this is a controlled benchmark protocol. The same 1 October 1989--30 September 1999 test interval is also the CAMELS-US temporal-regression test period used in the contemporary Liu et al. architecture benchmark considered later \cite{Liu2025_RNNTransformers}.
-
-For every basin, the prediction target is daily discharge at the basin outlet. Each regional LSTM receives 15 daily meteorological inputs: precipitation, shortwave radiation, maximum air temperature, minimum air temperature, and vapor pressure from each of the Daymet, NLDAS, and Maurer forcing products, together with 26 static CAMELS-US catchment attributes spanning topography, vegetation, soils, geology, and hydroclimatic characteristics. The same ordered predictor set and preprocessing pipeline are used across all HPO candidates and final retraining runs. Time series are aligned at daily resolution, and dynamic-input normalization parameters are estimated from the training period and then applied unchanged to validation and test data. Missing values are handled by the fixed benchmark-compatible data pipeline; only paired valid observations and simulations enter metric calculations \cite{Gauch_missing}. The exact input fields, target definition, forcing products, and preprocessing provenance are reported in Supplementary Table~S23 and preserved in the reproducibility archive.
-
-All decisions capable of changing model membership are made without access to test performance. HPO candidates are trained on the training period, configuration and checkpoint ranking use validation data only, and both the global and hydrologically informed member-selection procedures are completed before final test evaluation. The test period is therefore reserved for the reported out-of-sample benchmark comparisons.
-
-\subsection{Regional LSTM model family}
-\label{sec:lstm_model}
-
-The predictive model class is a regional LSTM network \cite{Hochreiter,Kratzert_2018}. Let $\mathbf{x}_{t-L+1:t}$ denote the dynamic input sequence over a look-back window of length $L$, together with the static catchment information supplied by the common regional configuration. The network maps these inputs to a hidden representation $\mathbf{h}_t$ and a discharge estimate $\hat q_t$,
-\begin{equation}
-\mathbf{h}_t = \mathrm{LSTM}\!\left(\mathbf{x}_{t-L+1:t};\boldsymbol{\theta}\right),
-\qquad
-\hat q_t = f\!\left(\mathbf{h}_t;\boldsymbol{\phi}\right),
-\label{eq:lstm_mapping}
-\end{equation}
-where $\boldsymbol{\theta}$ denotes the recurrent parameters and $f(\cdot)$ the output mapping. A single parameter set is learned jointly from all 531 training basins; no candidate is trained separately for an individual basin or hydrologic cluster \cite{Kratzert_2019,Kratzert_2024}.
-
-The HPO experiment does not introduce a new recurrent architecture. All candidates inherit the same common regional LSTM structure and data pipeline; the recurrent depth and other settings not listed in Table~\ref{tab:hpo_space} remain fixed. The search instead varies ten architectural and training choices that can materially alter the performance of the same model class. This design examines optimization headroom within the regional LSTM model family while holding the architecture class, regional training domain, and data protocol fixed.
-
-\subsection{Systematic 2000-trial random-search hyperparameter optimization}
-\label{sec:hpo}
-
-We perform large-scale HPO by random search \cite{Bergstra_Bengio_RS,Hosseini_HPO}. The discrete search space contains 648,000 possible combinations across ten interacting hyperparameters: sequence length, hidden size, initial forget-gate bias, output dropout, batch size, three learning-rate stages, target-noise standard deviation, and training loss. From this space, 2,000 regional LSTM configurations were sampled and trained using all 531 basins. The search therefore explores configuration sensitivity while keeping the regional training domain, temporal split, input data, and model class fixed.
-
-Table~\ref{tab:hpo_space} preserves the full search space and, for transparency, the values represented among the configurations ultimately retained by the two selection procedures. The final column gives the principal fixed settings of the Kratzert et al. regional LSTM reference where they are directly comparable \cite{Kratzert_2024}. The Kratzert learning-rate schedule differs slightly in timing from the searched schedules: it starts at $10^{-3}$, decreases to $5\times10^{-4}$ at epoch 20, and to $10^{-4}$ at epoch 25 \cite{Kratzert_2024}.
 
 \begin{table}[htbp]
 \centering
@@ -302,157 +166,8 @@ $6\times3=18$ selection slots (17 unique configurations) &
 \vspace{1mm}
 \raggedright
 \footnotesize
-\textsuperscript{a}The Kratzert reference remains at $10^{-3}$ at epoch 10 and changes to $5\times10^{-4}$ at epoch 20 before the epoch-25 reduction to $10^{-4}$ \cite{Kratzert_2024}.
+\textsuperscript{a}The Kratzert reference remains at $10^{-3}$ at epoch 10 and changes to $5\times10^{-4}$ at epoch 20 before the epoch-25 reduction to $10^{-4}$ \citep{Kratzert_2024}.
 \end{table}
-
-Validation outputs were inspected at epochs $e\in\{20,25,30\}$. Let $\mathrm{NSE}_{b,c,e}^{\mathrm{val}}$ denote validation NSE for basin $b$, configuration $c$, and checkpoint $e$. Configuration ranking uses validation NSE only. KGE and test-period metrics are not combined with NSE in the selection objective.
-
-The realized set of 2,000 sampled configurations is treated as the frozen experimental record of the HPO campaign and is released together with its configuration files. Exact replication of the downstream experiment therefore starts from this archived candidate manifest. Configuration ranking, selection, final retraining, and evaluation are reproducible conditional on this frozen candidate set and the final seeds reported below.
-
-\subsection{Global Top-10 post-HPO configuration selection}
-\label{sec:top10_selection}
-
-The global Top-10 family provides a hydrologically unstratified post-HPO reference. The choice of ten members was fixed as a compact global ensemble. Prior regional hydrologic ensemble-learning experiments showed that selecting the ten strongest regional LSTM configurations from validation rankings provides a simple, competitive, and computationally-efficient ensemble reference \cite{Hosseini_ensemble}. We therefore use Top-10 here as a deliberately compact, hydrologically agnostic comparator for testing whether hydrologically informed post-HPO selection adds value beyond a straightforward ranking of the strongest regional configurations. For each configuration and inspected epoch, we compute the spatial mean validation NSE over all 531 basins,
-\begin{equation}
-S^{\mathrm{global}}_{c,e}
-=
-\frac{1}{531}
-\sum_{b=1}^{531}
-\mathrm{NSE}^{\mathrm{val}}_{b,c,e}.
-\label{eq:global_validation_score}
-\end{equation}
-For configuration $c$, the retained validation score is the best value among the three inspected checkpoints,
-\begin{equation}
-S^{\mathrm{global}}_{c}
-=
-\max_{e\in\{20,25,30\}}
-S^{\mathrm{global}}_{c,e}.
-\label{eq:global_best_epoch}
-\end{equation}
-Configurations are then ranked in descending order of $S^{\mathrm{global}}_{c}$, and the ten highest-ranked configurations define the global Top-10 family. Thus, ``Top-10'' has a single reproducible meaning throughout the paper: the ten regional configurations with the highest mean validation NSE over the complete 531-basin domain after allowing each configuration to retain its best inspected validation checkpoint. The test period does not enter this ranking.
-
-As an ensemble-size sensitivity control, the same frozen global validation ranking was additionally extended from the 10 highest-ranked configurations to the 18 highest-ranked configurations. This global Top-18 control uses the same validation-only selection principle as Top-10, introduces no test-period information into member selection, and is treated as a supplementary sensitivity experiment; its detailed evaluation is reported in Supplementary Section~S5.9.
-
-Additional supplementary constituent-level controls evaluate the retained configurations individually for both primary ensemble frameworks using the archived final realizations from the prespecified 10-seed protocol. These controls distinguish single-configuration performance from multi-configuration median aggregation without using test-period performance for constituent selection (Supplementary Section~S5.11).
-
-\subsection{Hydrologically informed post-HPO configuration selection}
-\label{sec:hydro_selection}
-
-The second selection procedure uses the same 2,000 regionally trained candidates and the same validation period but asks whether configuration ranking changes when performance is assessed within different hydrologic regimes. Let $\mathcal{B}_k$ denote the fixed set of basins in cluster $k$, with $n_k=|\mathcal{B}_k|$. For every candidate and inspected epoch, the cluster-conditioned validation score is
-\begin{equation}
-S^{(k)}_{c,e}
-=
-\frac{1}{n_k}
-\sum_{b\in\mathcal{B}_k}
-\mathrm{NSE}^{\mathrm{val}}_{b,c,e},
-\label{eq:cluster_validation_score}
-\end{equation}
-and the retained score is
-\begin{equation}
-S^{(k)}_{c}
-=
-\max_{e\in\{20,25,30\}}
-S^{(k)}_{c,e}.
-\label{eq:cluster_best_epoch}
-\end{equation}
-For each of the six clusters, the three highest-ranked regional configurations are retained, giving $6\times3=18$ cluster-associated selection slots. Because one regional configuration was independently retained by two cluster rankings, these 18 selection slots correspond to 17 unique configuration identities in the pooled hydrologically informed ensemble. Exact configuration identities and the validation checkpoints used to define their ranking scores are frozen in the selection manifest.
-
-The term \emph{hydrologically informed post-HPO selection} is used deliberately. Cluster membership affects only how the already trained candidates are ranked after HPO. Every candidate was trained using all 531 basins, and every selected configuration generates predictions for all 531 test basins. At inference, a basin is therefore not routed only to the three configurations associated with its own cluster. The final hydrologically informed ensemble combines the regionally trained members retained across all six cluster-specific validation rankings. In this sense, the clusters provide hydrologic information to configuration selection without redefining the regional training problem as cluster-specific modelling.
-
-The global Top-10 and hydrologically informed procedures answer related but not identical questions. Their direct comparison is a comparison between two complete post-HPO ensemble frameworks. Because the two procedures retain different numbers of selection slots, this primary comparison is not itself interpreted as an ensemble-size-controlled causal ablation of cluster information alone. Instead, cluster-conditioned results are used to determine where the full hydrologically informed selection framework redistributes skill relative to global selection. The supplementary Top-18 control then evaluates how much of this contrast can be reproduced by increasing global ensemble size alone, without altering the two primary selection frameworks. A second supplementary control evaluates the stricter alternative of routing each basin only to the three regionally trained configurations selected for its own hydrologic cluster, while leaving the regional training procedure unchanged (Supplementary Section~S5.10).
-
-\subsection{Final ensembles and 10-seed protocol}
-\label{sec:ensemble_protocol}
-
-After configuration selection, the retained configurations are retrained from scratch under 10 prespecified random seeds, similar to Kratzert et al. \cite{Kratzert_2024}:
-\[
-\{191889,\,307443,\,328237,\,385445,\,473461,\,643969,\,665980,\,845563,\,985957,\,993061\}.
-\]
-The same seed set is used for both primary ensemble families and for the supplementary Top-18 control. No seed is selected or discarded according to test performance. The archived final-run manifests record the exact selected configuration, seed, and evaluated model artifact for every run.
-
-For a model family $F$, random seed $s$, and basin, let $\hat q^{(m,s)}_t$ be the daily prediction of selected member $m$ at time $t$, and let $\mathcal{M}_{F,s}$ denote the retained members with completed predictions for that seed. The seed-specific ensemble hydrograph is the pointwise median
-
-\begin{equation}
-\hat q^{(F,s)}_t
-=
-\operatorname{median}_{m\in\mathcal{M}_{F,s}}
-\left(\hat q^{(m,s)}_t\right).
-\label{eq:median_ensemble}
-\end{equation}
-
-For Top-10 and Top-18, $\mathcal{M}_{F,s}$ contains the 10 and 18 globally selected configurations, respectively. For the hydrologically informed framework, it contains the unique regional configurations represented by the 18 cluster-associated selection slots. Median aggregation is fixed before inspection of test performance, has no learned weights, and reduces the influence of an occasional extreme member prediction. We therefore use it as a robust aggregation operator \cite{Hosseini_ensemble}. The median operator was fixed a priori based on our previous regional ensemble experiments and was not selected by comparing aggregation rules on the present test period; weighted or learned aggregation was deliberately excluded because it would introduce an additional fitted selection layer.
-
-This procedure yields 10 ensemble prediction series per basin and model family. Performance metrics are computed separately from each seed-specific ensemble hydrograph. For each basin, seed-level metrics are then summarized by their mean and median across the 10 seeds; the complete seed distribution is retained for uncertainty and robustness analyses. We never select the best test seed, and the primary basin-level benchmark is not computed from a single cherry-picked realization.
-
-\subsection{Evaluation framework}
-\label{sec:evaluation}
-
-The evaluation is designed to distinguish changes in overall predictive skill from changes that occur only in particular basins, hydrologic regimes, seeds, seasons, or water years. Unless otherwise stated, all comparisons use matched basin identifiers and the fixed test period.
-
-\subsubsection{Whole-period metrics and hydrologic diagnostics}
-
-The core whole-period metrics are Nash--Sutcliffe efficiency (NSE) \cite{NASH}, Kling--Gupta efficiency (KGE) \cite{GUPTA}, root mean squared error (RMSE), and Pearson correlation. These describe complementary aspects of fit: NSE measures squared-error skill relative to observed variance; KGE combines correlation, variability, and bias components; RMSE retains the magnitude of daily error; and correlation quantifies temporal covariation. For comparisons with Liu et al. requiring $R^2$, we use $R^2=r^2$, where $r$ is Pearson correlation, consistent with that benchmark's published definition \cite{Liu2025_RNNTransformers}.
-
-Where daily prediction series are available, the evaluation also includes the high-, middle-, and low-flow duration-curve biases (FHV, FMS, and FLV) \cite{Yilmaz_2008}, together with peak-magnitude, peak-timing, and missed-peak diagnostics. These secondary metrics are used to identify whether similar whole-period scores mask different flow-regime behaviour. Their exact implementations and valid-data masks are centralized in the reproducibility code so that manuscript tables and figures are generated from the same metric functions as the released benchmark tables.
-
-\subsubsection{Paired basin effects and practical skill transitions}
-
-Aggregate mean and median scores are retained as descriptive summaries, but the primary comparisons are basin-paired. For NSE, we additionally report the proportions of basins above 0.5, 0.7, 0.8, and 0.9. For a pair of models, a \emph{threshold rescue} occurs when the first model moves a basin from below to at or above a threshold; a \emph{threshold degradation} is the reverse transition. Basins with NSE $<0.5$ are also examined as a transparent lower-skill subset. These thresholds are diagnostic summaries of changes in the performance distribution.
-
-Regime dependence is examined across the six fixed clusters and across quartiles of the CAMELS-US aridity index. Additional stratified analyses use basin area (below versus at least 500~km$^2$) and comparator skill to determine whether gains are concentrated in small, dry, or otherwise difficult catchments. Spatial maps are diagnostic only and never enter model selection.
-
-\subsubsection{Water-year and seasonal robustness}
-
-Time-resolved evaluation is performed only for model families for which daily test predictions are available. Water years run from October through September. Seasonal analysis uses four fixed three-month periods: January--March (JFM), April--June (AMJ), July--September (JAS), and October--December (OND). Basin-wise metrics are recomputed within each water year and season, and their distributions are examined across the full sample and hydrologic clusters. These analyses test whether whole-period differences persist through time and whether residual weakness is concentrated in particular seasonal conditions.
-
-\subsubsection{Statistical analysis}
-\label{sec:statistics}
-
-For each matched-basin comparison and metric $M$, we define a direction-aware paired effect $\Delta_M$ so that positive values always indicate better performance by the first model. For metrics for which larger values are better (NSE, KGE, $R^2$, and correlation),
-\begin{equation}
-\Delta_M=M_{\mathrm{first}}-M_{\mathrm{reference}},
-\end{equation}
-whereas for error metrics for which smaller values are better (RMSE and ubRMSE),
-\begin{equation}
-\Delta_M=M_{\mathrm{reference}}-M_{\mathrm{first}}.
-\end{equation}
-For signed flow-bias diagnostics whose optimum is zero, comparisons are based on distance from zero. Each comparison reports the number of paired basins, win/loss/tie fractions, mean and median paired effect, and interquartile range.
-
-Because no Gaussian form is assumed for basin-wise paired effects, inferential comparisons use non-parametric paired procedures. A two-sided Wilcoxon signed-rank test is applied to non-zero paired effects. A complementary two-sided exact sign test evaluates whether positive and negative effects occur with equal probability, with zero differences excluded from that test. A 95\% percentile bootstrap confidence interval for the median paired effect is estimated from 10,000 basin-level resamples with replacement using bootstrap seed 20260826. Statistical tests use $\alpha=0.05$. When several Wilcoxon tests belong to the same comparison family, $P$ values are adjusted by the Benjamini--Hochberg false-discovery-rate procedure \cite{Benjamini_Hochberg_1995}. Corresponding $P$ values are reported in the results tables.
-
-These inferential procedures treat the basin as the analysis unit and do not explicitly model spatial dependence among catchments. Accordingly, the reported confidence intervals and $P$ values quantify the consistency of paired effects within the fixed 531-basin CAMELS-US benchmark and are not interpreted as population-level inference to an independent set of unsampled catchments.
-
-\subsection{External benchmark framework}
-\label{sec:external_benchmarks}
-
-We use two external benchmarks with different experimental roles. The regional LSTM benchmark of Kratzert et al. is the closest reference for the present model class because it uses the same 531 CAMELS-US basins, the same temporal split, and the same regional multi-basin modelling paradigm \cite{Kratzert_2024}. Its released regional-model outputs are retained as the principal established LSTM reference, and comparisons are performed on matched basins without selecting a best repetition.
-
-The benchmark of Liu et al. provides contemporary architecture context \cite{Liu2025_RNNTransformers}. Its CAMELS-US temporal-regression experiment uses the same 531 test basins and the same 1 October 1989--30 September 1999 test period, but the study asks a broader architecture-screening question: its LSTM uses established hydrologic hyperparameters, whereas Transformer hyperparameters are selected through the validation procedure reported by Liu et al. \cite{Liu2025_RNNTransformers}. We therefore restrict the external comparison to quantities directly supported by the published article, Supplementary Information, public code/configuration material, and public basin-level outputs; we do not retrain the Liu architectures and present those new runs as the published benchmark.
-
-The primary Liu comparisons use the published LSTM as the recurrent reference and Crossformer as the principal attention-based comparator, while the remaining published architectures provide supplementary context. Public whole-test-period basin outputs support comparisons for NSE, KGE, unbiased RMSE (ubRMSE), and Pearson correlation, with $R^2=r^2$ derived only where required to match the published definition. The Liu CAMELS regression result is treated as a single published realization, whereas each present-study model is represented by both mean and median basin metrics across its 10 final seeds. This difference in stochastic replication is made explicit.
-
-To examine whether the external architecture ordering was hydrologically uniform, we additionally stratified every public HESS regression model by the same fixed six-cluster partition used throughout the present study. For each architecture and cluster, we computed across-basin medians of the publicly available whole-test-period NSE and KGE values. These cluster-conditioned summaries are descriptive comparisons of released benchmark outputs; they do not imply matched training, validation, or optimization protocols across architectures or studies.
-
-Equivalent published daily test trajectories and prediction checkpoints for the Liu architecture benchmark are not available in the public artifacts used here. We therefore do not construct Liu-vs.-ours water-year, seasonal, JAS, event, peak, FHV/FLV, or other time-resolved comparisons. Those analyses are restricted to model families for which the exact daily predictions are available. This boundary avoids presenting a newly retrained approximation as if it were the originally published Liu benchmark.
-
-\subsection{Reproducibility and benchmark artifacts}
-\label{sec:reproducibility}
-
-The benchmark is organized as a single reproducibility chain from experimental records to manuscript outputs. The final release contains: (i) the frozen 531-basin list and master attribute/cluster table; (ii) the realized 2,000-configuration HPO manifest and configuration files; (iii) validation metrics at the inspected epochs and the exact Top-10, Top-18, and hydrologically informed selection manifests; (iv) final run configurations and the 10 prespecified seeds; (v) raw test-period predictions for the two primary ensembles, the Top-18 control, and the retained Kratzert reference; (vi) basin--seed and seed-aggregated metric tables; (vii) the recoverable Liu basin-level outputs together with source and derivation provenance; and (viii) code and frozen provenance records that regenerate the statistical
-comparisons, sensitivity controls, main-text tables and figures, and
-Supplementary Information.
-
-Raw daily prediction series are retained only where they genuinely exist. For the Liu benchmark, for which equivalent published daily trajectories are unavailable, the archive contains the public basin-level metrics and their provenance rather than a synthetic reconstruction labelled as published predictions. Intermediate duplicate files are excluded from the compact release. Manuscript numbers, tables, and figures are generated from frozen data products, so changes to source data, metric definitions, seed treatment, or comparison rules require a new reproducibility freeze.
-
-\section{Results}
-\label{sec:results}
-
-\subsection{Performance gains are distributed across basins}
-\label{sec:results_paired}
-
-We first evaluated whether the two primary optimized regional LSTM ensembles improve basin-level skill broadly across the 531-basin test set. Using the mean of the 10 final seed-level metrics for each basin, the hydrologically informed ensemble exceeded the Kratzert et al. reference \cite{Kratzert_2024} in NSE in 483 of 531 basins (91.0\%), with a median paired $\Delta$NSE of $+0.01935$ and a 95\% bootstrap confidence interval (CI) of $[+0.01777,+0.02026]$. The global Top-10 ensemble exceeded the same reference in 437 basins (82.3\%), with a median paired $\Delta$NSE of $+0.01803$ (95\% CI $[+0.01559,+0.01973]$). Both paired distributions were strongly different from zero after false-discovery-rate (FDR) correction of the two-sided Wilcoxon tests (Table~\ref{tab:paired_nse_references}).
-
-The comparison with the contemporary HESS-LSTM benchmark of Liu et al. \cite{Liu2025_RNNTransformers} yielded the same qualitative conclusion, although with smaller effects. The hydrologically informed ensemble exceeded HESS-LSTM in NSE in 378 of 531 basins (71.2\%), with a median paired gain of $+0.01385$ (95\% CI $[+0.01150,+0.01634]$; FDR-adjusted $P=5.25\times10^{-27}$). The Top-10 ensemble exceeded HESS-LSTM in 363 basins (68.4\%), with a median paired gain of $+0.01206$ (95\% CI $[+0.00901,+0.01449]$; FDR-adjusted $P=1.98\times10^{-16}$). Figure~\ref{fig:paired_nse_references} shows these effects directly on a common paired scale.
 
 \begin{table}[htbp]
 \centering
@@ -504,7 +219,7 @@ Top-10 &
 [0.01559, 0.01973] &
 $3.18\times10^{-43}$ \\
 
-HESS-LSTM &
+Liu-LSTM &
 Hydrologically informed &
 378/531 &
 71.2\% &
@@ -513,7 +228,7 @@ Hydrologically informed &
 [0.01150, 0.01634] &
 $5.25\times10^{-27}$ \\
 
-HESS-LSTM &
+Liu-LSTM &
 Top-10 &
 363/531 &
 68.4\% &
@@ -527,43 +242,9 @@ $1.98\times10^{-16}$ \\
 
 \end{table}
 
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.88\textwidth]{fig_results_paired_nse_references.pdf}
-    \caption{Basin-paired NSE gains against the two external references. Points show median paired $\Delta$NSE and horizontal bars show 95\% bootstrap confidence intervals across the 531 basins; labels report the fraction of basins with positive differences. The primary comparison uses the mean across the 10 final seeds for each of the two primary optimized ensembles.}
-    \label{fig:paired_nse_references}
-\end{figure}
-
-The conclusion was insensitive to whether the 10 seeds were summarized by their mean or median. With median-across-seed aggregation, the hydrologically informed ensemble exceeded HESS-LSTM in 71.8\% of basins and had a median paired $\Delta$NSE of $+0.01420$ (95\% CI $[+0.01162,+0.01614]$), compared with 68.9\% and $+0.01205$ for Top-10. The corresponding Kratzert comparisons were likewise stable (Supplementary Table~S6). Seed-level global summaries also showed narrow variation across the 10 final realizations (Supplementary Table~S5; Supplementary Figs.~S11--S12).
-
-The full-hydrograph distributions provide complementary absolute context. The across-basin median NSE was 0.7920 for the Kratzert reference, 0.8122 for Top-10, and 0.8154 for the hydrologically informed ensemble, while the corresponding mean NSE values were 0.7533, 0.7690, and 0.7760. Figures~\ref{fig:results_box_basins_nse} and \ref{fig:results_ecdf_split_nse} provide complementary distributional views, whereas the complete multi-metric absolute summaries are reported in Supplementary Table~S7. These absolute scores are therefore consistent with, but not the sole basis for, the paired evidence above.
-
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.82\textwidth]{fig04_BOX_basins__NSE.pdf}
-    \caption{Distribution of basin-wise NSE for the Kratzert reference, global Top-10 ensemble, and hydrologically informed ensemble over the fixed test period. The figure provides the absolute distributional context complementary to the paired analysis.}
-    \label{fig:results_box_basins_nse}
-\end{figure}
-
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.96\textwidth]{fig05_ECDF_split_basins__NSE.pdf}
-    \caption{Empirical cumulative distributions of basin-wise NSE, separated at the diagnostic NSE=0.5 threshold. The figure shows the lower-skill tail and the distribution above the threshold.}
-    \label{fig:results_ecdf_split_nse}
-\end{figure}
-
-A supplementary constituent-level decomposition showed that the gains of both primary ensemble frameworks are not reproduced by any single selected configuration in isolation. For global Top-10, the ten validation-selected constituents had across-basin mean NSE values of 0.6880--0.7420 and median NSE values of 0.7608--0.7863; none exceeded the Kratzert reference in either whole-domain mean or median NSE. The Top-10 median ensemble instead reached 0.7690 mean NSE and 0.8122 median NSE and improved NSE relative to every constituent in 90.2--97.7\% of basins.
-
-An analogous decomposition of the 17 unique configurations represented in the hydrologically informed selection produced the same ensemble-level pattern. Individual constituent mean NSE ranged from 0.6880 to 0.7547 and median NSE from 0.7636 to 0.7941, whereas the pooled hydrologically informed ensemble reached 0.7760 mean NSE and 0.8154 median NSE. In seed-matched comparisons, the pooled ensemble improved NSE relative to every constituent in 87.6--98.3\% of basins, with median paired gains of $+0.01703$ to $+0.04140$. Complete paired statistics and multi-metric results are reported in Supplementary Section~S5.11 and Supplementary Table~S22.
-
-\subsection{Practical skill transitions}
-\label{sec:results_practical}
-
-We next examined whether the paired improvements move basins across practically interpretable NSE levels. At NSE$\geq0.5$, the Kratzert reference, HESS-LSTM, Top-10, and hydrologically informed ensemble covered 93.8\%, 93.4\%, 94.4\%, and 94.4\% of the basin set, respectively. Differences widened at higher skill levels. At NSE$\geq0.7$, coverage increased from 78.2\% for Kratzert and 78.0\% for HESS-LSTM to 80.8\% for Top-10 and 82.3\% for the hydrologically informed ensemble. At NSE$\geq0.8$, the respective shares were 46.3\%, 49.5\%, 55.0\%, and 56.5\% (Table~\ref{tab:threshold_coverage}). At the most stringent NSE$\geq0.9$ threshold, Top-10 retained the largest count (55 basins, 10.36\%), followed by the hydrologically informed ensemble (53, 9.98\%), HESS-LSTM (34, 6.40\%), and Kratzert (29, 5.46\%). Thus, hydrologically informed selection did not dominate every threshold, despite providing the strongest coverage at NSE$\geq0.7$ and NSE$\geq0.8$.
-
 \begin{table}[htbp]
 \centering
-\caption{Coverage of four NSE skill thresholds across the 531 CAMELS-US basins. Our two primary optimized ensembles use the mean across the 10 final seed-level NSE values for each basin. HESS-LSTM is the published single-run basin-level benchmark.}
+\caption{Coverage of four NSE skill thresholds across the 531 CAMELS-US basins. Our two primary optimized ensembles use the mean across the 10 final seed-level NSE values for each basin. Liu-LSTM is the published single-run basin-level benchmark.}
 \label{tab:threshold_coverage}
 \small
 \renewcommand{\arraystretch}{1.14}
@@ -572,28 +253,12 @@ We next examined whether the paired improvements move basins across practically 
 Framework & NSE$\geq0.5$ & NSE$\geq0.7$ & NSE$\geq0.8$ & NSE$\geq0.9$ \\
 \midrule
 Kratzert reference & 498 (93.79\%) & 415 (78.15\%) & 246 (46.33\%) & 29 (5.46\%) \\
-HESS-LSTM & 496 (93.41\%) & 414 (77.97\%) & 263 (49.53\%) & 34 (6.40\%) \\
+Liu-LSTM & 496 (93.41\%) & 414 (77.97\%) & 263 (49.53\%) & 34 (6.40\%) \\
 Top-10 & 501 (94.35\%) & 429 (80.79\%) & 292 (54.99\%) & \textbf{55 (10.36\%)} \\
 Hydrologically informed & 501 (94.35\%) & \textbf{437 (82.30\%)} & \textbf{300 (56.50\%)} & 53 (9.98\%) \\
 \bottomrule
 \end{tabular}
 \end{table}
-
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.90\textwidth]{fig_results_threshold_coverage.pdf}
-    \caption{Practical NSE threshold coverage across the 531 basins. Bars show the percentage of basins meeting each threshold for the two external references and the two primary optimized ensembles.}
-    \label{fig:threshold_coverage}
-\end{figure}
-
-Threshold transitions show how these coverage differences arise at the basin level. Relative to Kratzert, the hydrologically informed ensemble moved 54 basins from below to at least NSE=0.8 and moved no basin in the opposite direction; Top-10 rescued 47 and degraded one. Relative to HESS-LSTM at the same threshold, the hydrologically informed ensemble rescued 46 basins and degraded nine, whereas Top-10 rescued 42 and degraded 13. At NSE=0.7, the corresponding hydrologically informed transitions were 23 rescues versus one degradation relative to Kratzert and 33 versus 10 relative to HESS-LSTM. Complete transitions for all four thresholds are reported in Supplementary Table~S8. These results show that the improvement changes the composition of the higher-skill basin population.
-
-\subsection{Hydrologically informed post-HPO selection has regime-dependent value}
-\label{sec:results_hydro_selection}
-
-The direct comparison between the hydrologically informed and globally selected Top-10 ensembles was deliberately treated as a regime diagnostic rather than an ensemble-size-controlled ablation. Across all 531 basins, the hydrologically informed ensemble had a small median paired $\Delta$NSE of $+0.00068$ relative to Top-10, with a 95\% bootstrap CI of $[-0.00007,+0.00176]$. It had higher NSE in 54.0\% of basins. Although the two-sided Wilcoxon test was significant after FDR correction ($P=1.36\times10^{-4}$), the exact sign test was not ($P=0.0683$), emphasizing that the all-basin central advantage is small and non-uniform. The purpose of hydrologic stratification is therefore not to claim a large universal gain, but to determine where the selection rule changes performance.
-
-That stratification reveals pronounced heterogeneity (Table~\ref{tab:hydro_selection_regimes}; Fig.~\ref{fig:hydro_selection_regimes}). Cluster~3 shows the clearest positive contrast: the hydrologically informed ensemble exceeds Top-10 in 73.1\% of its 67 basins, with mean $\Delta$NSE $=+0.03345$ and median $\Delta$NSE $=+0.01449$ (95\% CI $[+0.00688,+0.02627]$; FDR-adjusted $P=5.11\times10^{-4}$). Positive effects are also observed in Clusters~5 and~6. Conversely, Cluster~4 modestly favors Top-10: only 26.2\% of its basins favor the hydrologically informed ensemble and the median difference is $-0.00263$ (95\% CI $[-0.00330,-0.00153]$). Clusters~1 and~2 show little systematic difference.
 
 \begin{table}[htbp]
 \centering
@@ -606,7 +271,7 @@ That stratification reveals pronounced heterogeneity (Table~\ref{tab:hydro_selec
 \toprule
 Stratum & $n$ & Win rate & Mean $\Delta$NSE & Median $\Delta$NSE & 95\% CI & FDR $P$ \\
 \midrule
-Cluster 1 & 83 & 44.6\% & +0.00318 & -0.00065 & [-0.00155, 0.00157] & 0.957 \\
+Cluster 1 & 83 & 44.6\% & +0.00318 & -0.00065 & [-0.00155, 0.00157] & 0.960 \\
 Cluster 2 & 195 & 50.3\% & +0.00150 & +0.00003 & [-0.00062, 0.00153] & 0.122 \\
 Cluster 3 & 67 & 73.1\% & +0.03345 & +0.01449 & [0.00688, 0.02627] & $5.11\times10^{-4}$ \\
 Cluster 4 & 61 & 26.2\% & -0.00261 & -0.00263 & [-0.00330, -0.00153] & $7.10\times10^{-5}$ \\
@@ -621,25 +286,9 @@ Q4 (driest) & 133 & 73.7\% & +0.02317 & +0.00683 & [0.00408, 0.01337] & $9.36\ti
 \end{tabular}
 \end{table}
 
-The aridity gradient is particularly clear. In the wettest quartile (Q1), the hydrologically informed ensemble is slightly weaker than Top-10 (median $\Delta$NSE $=-0.00172$; 31.6\% wins). The difference is approximately neutral in Q2, becomes positive in Q3, and is largest in the driest quartile (Q4), where the hydrologically informed ensemble wins in 73.7\% of basins, with mean $\Delta$NSE $=+0.02317$ and median $\Delta$NSE $=+0.00683$ (95\% CI $[+0.00408,+0.01337]$; FDR-adjusted $P=9.36\times10^{-7}$). This monotonic shift from a small disadvantage in wet basins to a clear advantage in dry basins is the main evidence that hydrologic information changes post-HPO selection in a regime-dependent way.
-
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.96\textwidth]{fig_results_hydro_selection_regimes.pdf}
-    \caption{Regime dependence of hydrologically informed post-HPO selection relative to global Top-10 selection. Points show median basin-paired $\Delta$NSE and 95\% bootstrap confidence intervals within (a) the six fixed hydrologic clusters and (b) aridity quartiles. Labels report the percentage of basins favoring hydrologically informed selection.}
-    \label{fig:hydro_selection_regimes}
-\end{figure}
-
-The same contrast is visible against HESS-LSTM in the driest quartile: the hydrologically informed ensemble has mean $\Delta$NSE $=+0.02089$ and wins in 61.7\% of basins (FDR-adjusted $P=0.00185$), whereas Top-10 has mean $\Delta$NSE $=-0.00228$, a 50.4\% win rate, and no detectable paired shift ($P=0.827$). Additional HESS-defined difficult subsets are reported in Supplementary Table~S11. These external strata support the same broad regime pattern, but are not used to claim identical training protocols between studies.
-
-\subsection{Interannual gains persist across water years}
-\label{sec:results_wateryear}
-
-The principal time-resolved comparison is restricted to the two primary optimized ensembles and the Kratzert reference; Top-18 is treated separately as an ensemble-size sensitivity control, while daily HESS predictions were not available in the public benchmark artifacts used here. Across the ten complete water years of the fixed test interval, both primary optimized ensembles exceeded Kratzert in median basin-wise NSE in every year (Table~\ref{tab:wy_nse_by_year}). The hydrologically informed ensemble ranked first in eight of ten water years; Top-10 ranked first in 1993 and 1996 by margins of 0.001 and 0.002 NSE, respectively. Averaged over the ten annual medians, NSE was 0.788 for Kratzert, 0.813 for Top-10, and 0.817 for the hydrologically informed ensemble.
-
 \begin{table}[htbp]
 \centering
-\caption{Median basin-wise NSE by water year for the Kratzert \cite{Kratzert_2024} reference and the two primary optimized ensembles used in the time-resolved analysis under the common test-period protocol. Bold values denote the highest value within each water year.}
+\caption{Median basin-wise NSE by water year for the Kratzert \citep{Kratzert_2024} reference and the two primary optimized ensembles used in the time-resolved analysis under the common test-period protocol. Bold values denote the highest value within each water year.}
 \label{tab:wy_nse_by_year}
 \small
 \renewcommand{\arraystretch}{1.12}
@@ -663,41 +312,6 @@ Mean of yearly medians & 0.788 & 0.813 & \textbf{0.817} \\
 \end{tabular}
 \end{table}
 
-Figures~\ref{fig:wy_trend_nse}--\ref{fig:wy_box_all_nse} provide complementary views of the temporal result. The trajectory plot and year-by-framework heatmap show that the two primary optimized frameworks follow the same broad interannual difficulty structure as the reference while remaining at higher NSE levels, and the annual basin distributions show that the advantage is not restricted to the yearly median. Supplementary Fig.~S10 provides the corresponding ranking of water years for the hydrologically informed benchmark; seed-level views for representative weaker and stronger years are retained in Supplementary Figs.~S13--S16.
-
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.88\textwidth]{fig06_Trend_water_year__NSE.pdf}
-    \caption{Water-year evolution of basin-wise NSE for the Kratzert \cite{Kratzert_2024} reference and the two primary optimized ensembles. Lines show the median basin-wise NSE in each water year, and shaded bands denote the interquartile range (Q25--Q75)
-across basins.}
-    \label{fig:wy_trend_nse}
-\end{figure}
-
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.76\textwidth]{fig07_Heatmap_year_x_model__NSE.pdf}
-    \caption{Year-by-framework heatmap of median basin-wise NSE over the fixed test period.}
-    \label{fig:wy_heatmap_nse}
-\end{figure}
-
-\begin{figure}[p]
-    \centering
-    \includegraphics[
-        width=\textwidth,
-        height=0.82\textheight,
-        keepaspectratio
-    ]{fig08_Box_basins_per_year__NSE.pdf}
-    \caption{Water-year distributions of basin-wise NSE for the three frameworks used in the time-resolved comparison.}
-    \label{fig:wy_box_all_nse}
-\end{figure}
-
-\FloatBarrier
-
-\subsection{Seasonal gains are systematic, but JAS remains the dominant temporal challenge}
-\label{sec:results_seasonal}
-
-Seasonal analysis produced a stable ordering across the three time-resolved frameworks: AMJ was strongest, JFM also performed well, OND was intermediate, and JAS was the most difficult season. Under one consistent aggregation procedure across water years, the Kratzert seasonal median NSE values were 0.685 (JFM), 0.696 (AMJ), 0.368 (JAS), and 0.565 (OND). The corresponding values increased to 0.737, 0.751, 0.488, and 0.634 for Top-10, and to 0.744, 0.760, 0.494, and 0.644 for the hydrologically informed ensemble (Table~\ref{tab:seasonal_nse_frameworks}). Thus, both primary optimized frameworks improved seasonal NSE in all four seasons, while the hydrologically informed ensemble retained the highest seasonal summary in each case.
-
 \begin{table}[htbp]
 \centering
 \caption{Seasonal median NSE summarized consistently across water years for the three primary frameworks used in the time-resolved analysis. The final column is the arithmetic mean of the four unrounded seasonal summaries.}
@@ -714,20 +328,6 @@ Hydrologically informed & \textbf{0.744} & \textbf{0.760} & \textbf{0.494} & \te
 \bottomrule
 \end{tabular}
 \end{table}
-
-The largest absolute seasonal increase relative to Kratzert occurred in JAS: $+0.120$ NSE for Top-10 and $+0.126$ for the hydrologically informed ensemble. Nevertheless, JAS remained substantially below the other seasons for every framework. Figure~\ref{fig:seasonal_clusterwise_heatmap_nse} shows that this warm-season weakness persists across individual water years. Supplementary Figs.~S7--S9 show that lower-skill JAS cases are concentrated in more arid, lower-runoff, and more intermittent basin-season conditions. Importantly, all seasonal values reported here use the same aggregation definition; no alternative JAS summary is mixed into the comparison.
-
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.78\textwidth]{fig09_Heatmap_CLUSTERWISE_ONLY__NSE.pdf}
-    \caption{Seasonal heatmap of median basin-wise NSE across water years for the hydrologically informed ensemble. The figure provides a time-resolved view of the persistent JAS weakness and the stronger JFM/AMJ regimes.}
-    \label{fig:seasonal_clusterwise_heatmap_nse}
-\end{figure}
-
-\subsection{Residual failures are concentrated in specific hydrologic and geographic regimes}
-\label{sec:results_failures}
-
-Absolute skill remains strongly heterogeneous across the six fixed hydrologic clusters. For the hydrologically informed ensemble, median NSE ranges from 0.684 in Cluster~3 to 0.881 in Cluster~4, with Cluster~5 also high at 0.872 (Table~\ref{tab:cluster_absolute_nse}). Cluster~3 is not only weakest in central tendency but also contains the lowest individual basin value ($-0.346$) and 21 of the 30 basins with NSE$<0.5$ (70\% of the lower-skill subset). In contrast, no basin in Clusters~4 or~6 falls below 0.5 under this evaluation. These differences reproduce the hydrologic organization introduced in the study-area characterization and explain why a nationwide median alone is insufficient to describe benchmark behavior.
 
 \begin{table}[htbp]
 \centering
@@ -749,34 +349,6 @@ C6 & 59  & 0.775 & 0.760 & 0.703 & 0.833 & 0.518 & 0.903 & 0 \\
 \end{tabular}
 \end{table}
 
-Figs.~\ref{fig:cluster_nse_summary_2x2}--\ref{fig:clusterwise_geo_nse} provide complementary cluster-level and spatial diagnostics. Figure~\ref{fig:cluster_nse_summary_2x2} shows that the between-cluster ordering is evident across multiple distributional summaries, while Figs.~\ref{fig:bad_basins_map} and \ref{fig:clusterwise_geo_nse} locate the lower-skill basins geographically. Supplementary Fig.~S4 provides the associated standardized hydroclimatic contrasts: lower-skill basins are characterized by higher aridity and intermittency and by lower runoff efficiency and mean discharge. The water-year and seasonal diagnostics in Supplementary Figs.~S5--S9 show the same difficult-regime signature through time.
-
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.96\textwidth]{fig10_cluster_metric_heatmap_2x2_NSE.pdf}
-    \caption{Cluster-level summaries of basin-wise NSE for the Kratzert reference and the two primary optimized ensembles. The four panels compare median, mean, minimum, and maximum NSE across the six fixed hydrologic clusters.}
-    \label{fig:cluster_nse_summary_2x2}
-\end{figure}
-
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.88\textwidth]{fig11_bad_basins_clusterwise_nse_lt_0p5_map.pdf}
-    \caption{Geographic distribution of basins with NSE$<0.5$ under the hydrologically informed benchmark. The threshold is used diagnostically to localize the remaining lower-skill subset.}
-    \label{fig:bad_basins_map}
-\end{figure}
-
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.96\textwidth]{fig12_clusterwise_geo_nse_journal.pdf}
-    \caption{Geographic distribution of basin-wise NSE for the hydrologically informed benchmark, shown within the six fixed hydrologic clusters. Local display windows exclude 29 isolated spatial outliers for visualization only; all basins remain included in the quantitative analyses.}
-    \label{fig:clusterwise_geo_nse}
-\end{figure}
-
-\subsection{Contemporary architecture context reveals metric-dependent benchmark conclusions}
-\label{sec:results_hess_context}
-
-The HESS benchmark of Liu et al. \cite{Liu2025_RNNTransformers} provides an external architecture context for the whole-test-period metrics that can be compared directly from public basin-level outputs. Among the HESS standard regression models, its LSTM has the highest median NSE (0.7982), while Crossformer is the strongest attention-based comparator in median NSE (0.7164) and KGE (0.7275). Against these public outputs, the two primary optimized LSTM ensembles reach median NSE values of 0.8122 (Top-10) and 0.8154 (hydrologically informed), and median $R^2$ values of 0.8317 and 0.8369, respectively (Table~\ref{tab:selected_architecture_context}). These values place the optimized regional LSTM references above the public HESS-LSTM and Crossformer outputs in NSE and $R^2$ under the shared basin/test-period comparison boundary.
-
 \begin{table}[htbp]
 \centering
 \caption{Selected whole-test-period architecture context on the common 531-basin CAMELS-US test set. Our entries use the mean across 10 seed-level metrics per basin before taking the across-basin median; HESS entries are the published public single-run basin metrics.}
@@ -788,51 +360,13 @@ The HESS benchmark of Liu et al. \cite{Liu2025_RNNTransformers} provides an exte
 Model/reference & Median NSE & Median KGE & Median $R^2$ \\
 \midrule
 Kratzert reference & 0.7920 & 0.7891 & 0.8132 \\
-HESS-LSTM & 0.7982 & \textbf{0.8020} & 0.8173 \\
+Liu-LSTM & 0.7982 & \textbf{0.8020} & 0.8173 \\
 HESS-Crossformer & 0.7164 & 0.7275 & 0.7487 \\
 Top-10 & 0.8122 & 0.7733 & 0.8317 \\
 Hydrologically informed & \textbf{0.8154} & 0.7835 & \textbf{0.8369} \\
 \bottomrule
 \end{tabular}
 \end{table}
-
-The external comparison is explicitly metric-dependent. Relative to HESS-LSTM, the hydrologically informed ensemble has positive median paired differences for NSE ($+0.01385$) and $R^2$ ($+0.01661$), winning in 71.2\% and 83.8\% of basins, respectively. In contrast, KGE decreases: the median paired $\Delta$KGE is $-0.02135$, and only 36.0\% of basins favor the hydrologically informed ensemble. Top-10 shows the same direction of trade-off (median $\Delta$KGE $=-0.02460$; 34.1\% wins). Figure~\ref{fig:hess_metric_tradeoff} visualizes this metric dependence, and Supplementary Table~S9 reports the complete paired statistics.
-
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.88\textwidth]{fig_results_hess_metric_tradeoff.pdf}
-    \caption{Metric-dependent paired effects relative to HESS-LSTM. Points show median basin-paired differences for NSE, $R^2$, and KGE; horizontal bars are 95\% bootstrap confidence intervals. Positive values favor the two primary optimized ensembles.}
-    \label{fig:hess_metric_tradeoff}
-\end{figure}
-
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.92\textwidth]{fig_results_hess_architecture_context.pdf}
-    \caption{Public HESS architecture context in median NSE. Bars show the HESS regression-model medians; vertical lines show the optimized Top-10 and hydrologically informed LSTM references from the present study. Full HESS metric rankings are reported in Supplementary Table~S12.}
-    \label{fig:hess_architecture_context}
-\end{figure}
-
-Stratifying the public architecture outputs by the six fixed hydrologic clusters revealed that the architecture hierarchy itself is regime dependent (Supplementary Tables~S15--S16; Supplementary Fig.~S18). In NSE, HESS-LSTM retained a higher cluster-median score than every non-LSTM HESS architecture in all six clusters, but the magnitude of this advantage varied markedly. In Cluster~4, the Transformer reached a median NSE of 0.8565, close to HESS-LSTM at 0.8676, whereas in the dry and water-limited Cluster~3 the strongest non-LSTM comparator, Crossformer, decreased to 0.4275 compared with 0.6302 for HESS-LSTM. In the same Cluster~3, the hydrologically informed ensemble reached 0.6838, while Top-10 and the Kratzert reference reached 0.6286 and 0.6249, respectively. The identity of the strongest non-LSTM NSE model also changed across regimes: Crossformer ranked highest in Clusters~1, 3, and~5, the Non-stationary Transformer in Clusters~2 and~6, and the standard Transformer in Cluster~4. The pattern changed again under KGE. In Cluster~4, the Transformer achieved a median KGE of 0.8849, exceeding HESS-LSTM (0.8703), Top-10 (0.8672), the hydrologically informed ensemble (0.8658), and the Kratzert reference (0.8651). Thus, architecture rankings in this benchmark are conditioned jointly by hydrologic regime and evaluation metric.
-
-Finally, the geographic pattern of the paired HESS comparison is heterogeneous (Supplementary Fig.~S17). This is consistent with the aridity- and cluster-conditioned results above. Because the public HESS release used here does not provide the equivalent daily prediction archive required for the present time-resolved diagnostics, no HESS water-year, seasonal, JAS, peak-event, or hydrograph-level comparison is inferred from these whole-period metrics. The external benchmark therefore strengthens the architecture context while leaving the within-study temporal analyses anchored to the directly available Kratzert and optimized-ensemble prediction series.
-
-\section{Discussion}
-\label{sec:discussion}
-
-The central result of this study is that systematic configuration search, validation-based selection, and multi-configuration ensembling change the  performance distribution of a mature regional LSTM benchmark across a large fraction of the CAMELS-US domain, while the remaining differences are strongly structured by hydrologic regime. This is important because regional LSTMs are already high-performing models on CAMELS-US \cite{Kratzert_2019,Kratzert_2024}. Against such a mature reference, a small change in median NSE can appear incremental if considered in isolation. The basin-paired analysis gives a different view. The hydrologically informed ensemble improves NSE relative to the Kratzert reference in 483 of 531 basins (91.0\%), while the globally selected Top-10 ensemble improves 437 basins (82.3\%). Against the contemporary HESS-LSTM outputs of Liu et al. \cite{Liu2025_RNNTransformers}, the corresponding proportions are 71.2\% and 68.4\%. These gains are therefore distributed across the basin population (Table~\ref{tab:paired_nse_references}; Fig.~\ref{fig:paired_nse_references}). The threshold analysis reinforces the practical meaning of this result: relative to Kratzert, the hydrologically informed ensemble moves 54 basins from below to at least NSE=0.8 without moving any basin in the opposite direction, and relative to HESS-LSTM it produces 46 such upward transitions versus nine downward transitions. Thus, the main evidence for performance headroom under the optimized-ensemble framework is distributional and basin-paired, not the difference between 0.7920 and 0.8154 in across-basin median NSE alone.
-
-This finding supports a broader point about benchmarking in hydrologic deep learning. Hyperparameter choices define a substantial part of the effective model being compared \cite{Hosseini_HPO, Bergstra_Bengio_RS}, particularly for recurrent networks in which sequence length, hidden dimension, dropout, learning-rate schedule, batch size, regularization, and loss interact. The global Top-10 result is especially informative because it does not depend on hydrologically informed post-HPO selection: after the same 2,000-trial search, a purely global validation ranking already improves NSE over Kratzert in 82.3\% of basins and over HESS-LSTM in 68.4\%. The multi-seed analysis further shows that this ordering is not tied to one favorable initialization.
-
-Constituent-level controls clarify where the final performance gain is realized. None of the ten global Top-10 configurations individually exceeded the Kratzert reference in either whole-domain mean or median NSE, whereas the Top-10 median ensemble improved NSE relative to every constituent in 90.2--97.7\% of basins. The same aggregation-dependent pattern was reproduced within the hydrologically informed framework: although a small number of its 17 unique selected configurations individually reached or slightly exceeded the Kratzert reference in some whole-domain summaries, the pooled ensemble outperformed every constituent in seed-matched basin comparisons, improving NSE in 87.6--98.3\% of basins with median paired gains of $+0.01703$ to $+0.04140$. For both frameworks, Pearson correlation and RMSE also favored the pooled ensemble relative to every constituent, whereas KGE effects were less uniform (Supplementary Section~S5.11; Supplementary Table~S22). These controls therefore show that the final test-period gains are not reproduced by a single retained configuration in isolation, but are realized through multi-configuration aggregation. They do not constitute a causal ablation of HPO itself, because all constituents are already validation-selected outputs of the same configuration search. The supported interpretation is therefore that the benchmark improvement reflects the complete configuration-search, validation-selection, and ensemble framework rather than single-configuration optimization alone. This distinction complements recent architecture benchmarks such as Liu et al. \cite{Liu2025_RNNTransformers}: broad architecture screening and systematic within-architecture benchmarking answer different experimental questions.
-
-The hydrologically informed post-HPO selection results add a second, more nuanced conclusion. Across all 531 basins, its advantage over global Top-10 selection is small: the median paired difference is only $+0.00068$ NSE, the 95\% bootstrap interval includes zero, and the exact sign test does not reject equal win probability. It would therefore be inappropriate to present the nationwide difference as evidence of a large universal selection advantage. More importantly, the two ensembles contain different numbers of members, so their direct comparison is not an ensemble-size-matched causal ablation. The present evidence supports a more specific claim: validation rankings among already optimized regional configurations change with hydrologic regime, and a selection rule that retains this information can be advantageous in parts of the domain where global ranking is least representative.
-
-That regime dependence is difficult to reconcile with a purely uniform ``more members is better'' interpretation, although it does not by itself isolate ensemble-size effects. In Cluster~3, hydrologically informed selection exceeds Top-10 in 73.1\% of basins, with mean and median paired gains of $+0.03345$ and $+0.01449$ NSE, respectively. In the driest aridity quartile, the win rate is 73.7\%, with a mean gain of $+0.02317$ and median gain of $+0.00683$. The direction reverses in the wettest quartile, where the median effect is $-0.00172$, and in Cluster~4, where Top-10 is modestly better (Table~\ref{tab:hydro_selection_regimes}; Fig.~\ref{fig:hydro_selection_regimes}). The sign changes are scientifically more informative than the all-basin average: they indicate that a single nationwide validation ranking is not equally representative of every hydrologic regime. The external HESS comparison provides compatible, but more limited, evidence. In the driest quartile, the hydrologically informed ensemble has a mean $\Delta$NSE of $+0.02089$ and a 61.7\% win rate relative to HESS-LSTM, whereas Top-10 shows essentially no systematic shift. By contrast, the HESS-defined Cluster~3 comparison is not statistically conclusive and should not be used as external confirmation of the within-study Cluster~3 effect (Supplementary Table~S11). This separation between strong internal regime evidence and bounded external context is important for avoiding over-interpretation.
-
-\paragraph{Ensemble-size control and diminishing returns.}
-To test whether the regime-dependent difference between hydrologically informed selection and Top-10 could be explained primarily by the larger number of retained configurations, we performed an additional global Top-18 sensitivity experiment. The same validation ranking used for Top-10 was extended from ranks 1--10 to ranks 1--18, with the same 10 final random seeds and the same pointwise median ensemble operator; no test-period information entered member selection. Because the global ranking was drawn from a large 2000-configuration random-search pool, configurations beyond the first ten can still represent strong validation-ranked solutions. Some incremental gain from retaining additional high-ranked configurations is therefore plausible, although it is not guaranteed by the validation ranking alone. Relative to Top-10, Top-18 yielded a median paired NSE effect of $+0.00199$, with 78.7\% of basins improving, while Pearson correlation and RMSE showed similarly modest improvements and KGE showed no significant gain. The two controls share the same 2,000-candidate HPO campaign; the additional cost arises at the post-HPO final-model training and inference stages, where the nominal number of member--seed runs increases from 100 to 180. Top-10 therefore retains a substantial post-HPO efficiency advantage as a compact global reference, whereas Top-18 shows diminishing whole-domain returns from extending the global validation ranking.
-
-The more important result concerns where the two 18-selection-scale strategies differ. Top-18 is slightly stronger than the hydrologically informed ensemble in several clusters, but these differences are small, whereas hydrologically informed selection produces a much larger advantage in the difficult dry Cluster~3. The Cluster~3 median NSE is $+0.04233$ higher for hydrologically informed selection than for Top-18, while the largest opposing cluster-level difference is substantially smaller. At the whole-domain level, hydrologically informed selection improves NSE in only 44.8\% of basins and has a slightly negative median paired effect relative to Top-18, yet its mean paired effect is positive. This asymmetry indicates that its value does not arise from small, broadly distributed improvements across the basin population, but from larger gains concentrated in hydrologically difficult regimes. The Top-18 control therefore supports two complementary conclusions: compact global selection already captures most of the broadly transferable benefit available from the large HPO pool, whereas hydrologically informed selection can redirect ensemble capacity toward regimes in which globally ranked configurations are less representative.
 
 \begin{table}[htbp]
 \centering
@@ -851,52 +385,3 @@ RMSE & $+0.00587$ & 78.53\% & $1.07\times10^{-44}$ \\
 \bottomrule
 \end{tabular}
 \end{table}
-
-\FloatBarrier
-
-\paragraph{Hard own-cluster Top-3 routing is not supported as a replacement strategy.}
-A complementary control tested the stricter alternative of routing each basin only to the three regionally trained configurations selected from validation performance within its own hydrologic cluster. In a matched-seed sensitivity analysis, hard-routed Top-3 attained an across-basin median NSE of 0.80285, compared with 0.81605 for the pooled hydrologically informed ensemble and 0.81138 for global Top-10. Relative to the pooled ensemble, routing improved only 12.4\% of basins and produced a median paired $\Delta$NSE of $-0.00982$ (95\% CI $[-0.01099,-0.00893]$); relative to Top-10, only 23.2\% of basins improved and the median paired effect was $-0.00869$ (95\% CI $[-0.00983,-0.00765]$). Pearson correlation and RMSE showed the same clear disadvantage. KGE was essentially unchanged relative to the pooled hydrologically informed ensemble and showed a small improvement relative to Top-10, so the disadvantage was not identical across metrics (Supplementary Section~S5.10; Supplementary Table~S20).
-
-This control evaluates the proposed own-cluster Top-3 strategy as a complete inference rule rather than as a member-count-matched causal ablation: routing changes both the identities of contributing configurations and the number of predictions aggregated for each basin. Subject to that distinction, the cluster-conditioned results provide no evidence that exclusive own-cluster assignment is a better replacement for regional pooling. Routed Top-3 had a lower median NSE than the pooled hydrologically informed ensemble in all six clusters. In Cluster~3, where hydrologically informed selection provides its largest primary benefit, median NSE decreased from 0.68454 for the pooled ensemble to 0.65339 under routing. Although this routed median remained above the Top-10 cluster median of 0.62921, the basin-paired routed-versus-Top-10 effect in Cluster~3 was not consistently positive (median $\Delta$NSE $=-0.00187$, 95\% CI $[-0.01477,+0.01095]$). Hard routing also does not reduce the dominant 2,000-candidate HPO campaign or the need to obtain the cluster-selected regional model pool, although it does reduce inference-time aggregation to three members. Global Top-10 is more compact at the final-model stage and nevertheless performs better than routed Top-3 in NSE, Pearson correlation, and RMSE. The results are therefore consistent with using hydrologic information to broaden regional ensemble composition rather than as a hard basin-to-model assignment. This interpretation also aligns with the broader regional-learning principle emphasized by Kratzert et al. \cite{Kratzert_2024}, while remaining a distinct experiment because every LSTM in the routing control was itself trained regionally on all 531 basins.
-
-Hydrologically, the regime-conditioned behavior is consistent with where the benchmark remains difficult. Of the 30 basins with NSE$<0.5$ under the hydrologically informed benchmark, 21 are in Cluster~3. This cluster is the driest and most water-limited group in the fixed CAMELS-US partition and has low runoff ratio, low mean discharge, frequent low-flow conditions, and greater flow intermittency. In contrast, Clusters~4 and~5 have the strongest absolute skill: Cluster~4 combines high precipitation and runoff efficiency, while Cluster~5 is strongly snow-influenced and high-elevation. The supplementary diagnostics show the same contrast at the basin level: lower-skill cases tend toward lower runoff efficiency and discharge and higher aridity and zero-flow behavior (Supplementary Fig.~S4). A plausible interpretation is that regional LSTMs are most reliable where the forcing--response signal is persistent and well organized, and more vulnerable where runoff generation is episodic, threshold-sensitive, or strongly conditioned by latent storage states that are not directly observed. This interpretation is consistent with the broader hydrologic principle that catchments occupy heterogeneous hydroclimatic and physiographic settings \cite{Addor_CAMELSUS,Beven} and with recent evidence that strong regional deep-learning skill does not guarantee that static catchment information and extrapolative behavior are fully resolved \cite{Heudorfer,Baste2025_ExtrapolationLimits}.
-
-The same difficult-regime signature appears in time as well as space. Both primary optimized ensembles exceed the Kratzert reference in median basin-wise NSE in every one of the ten water years, showing that the optimized-ensemble gain is not created by full-period aggregation. The hydrologically informed ensemble ranks first in eight of the ten years, while Top-10 is marginally higher in 1993 and 1996. Seasonal behavior is even more diagnostic. JAS remains the weakest season for all frameworks, but its median NSE increases from 0.368 for Kratzert to 0.488 for Top-10 and 0.494 for the hydrologically informed ensemble, the largest absolute seasonal improvement observed in the study. Lower-skill JAS cases are concentrated in low-runoff, more arid and intermittent conditions (Supplementary Figs.~S7--S9), paralleling the basin-level pattern seen in Cluster~3 and the driest aridity quartile. This spatial--temporal consistency suggests that the principal challenge is not ``summer'' as a calendar category, but the shift toward sparse and weak runoff signals that summer produces in many water-limited basins. Likewise, weaker water years contain disproportionate numbers of difficult basin-year cases in the same hydrologic regimes (Supplementary Figs.~S5--S6). These analyses diagnostically support a coherent interpretation: performance degrades when the hydrograph enters conditions where runoff generation becomes less continuous and less identifiable from the available forcing history \cite{Hosseini_xAI, Heudorfer}.
-
-The relatively strong performance of snow-influenced basins deserves equally cautious interpretation. Cluster~5 has high absolute skill, and lower-skill seasonal cases generally show weaker snow influence. This does not demonstrate that the LSTM has learned snow accumulation and melt in a process-consistent way. A more limited interpretation is that snow-influenced basins in this benchmark often possess a strong and repeatable seasonal organization that is predictable from the available inputs. Predictive skill and process adequacy are not equivalent \cite{Refsgaard_Hydrology}. Distinguishing genuine representation of snow-storage dynamics from exploitation of regular seasonal signals would require process-oriented diagnostics, state observations, or targeted perturbation experiments that are outside the scope of the present benchmark.
-
-The contemporary HESS comparison introduces a third important constraint on interpretation: benchmark conclusions depend on the metric used. The two primary optimized ensembles are higher than HESS-LSTM in NSE and $R^2$ for most basins. For the hydrologically informed ensemble, the median paired differences are $+0.01385$ NSE and $+0.01661$ in $R^2$, with positive effects in 71.2\% and 83.8\% of basins, respectively. KGE moves in the opposite direction: the median paired $\Delta$KGE is $-0.02135$, and only 36.0\% of basins favor the hydrologically informed ensemble. Top-10 shows the same trade-off (Fig.~\ref{fig:hess_metric_tradeoff}; Supplementary Tables~S9--S10). This is not a peripheral caveat. NSE, KGE, correlation, variance, and bias emphasize different aspects of hydrograph behavior \cite{GUPTA,Gauch_metrics}; optimizing configurations by validation NSE can therefore change the balance among these properties. The present benchmark should consequently be read as establishing stronger NSE- and correlation-oriented reference performance under its stated selection criterion, not as demonstrating universal improvement under every hydrologic metric. Future benchmark studies would benefit from reporting Pareto-type trade-offs or explicitly multi-objective selection when no single metric adequately represents the intended application.
-
-Cluster conditioning sharpens this metric dependence further. The public HESS architectures do not preserve a single relative ordering across the six hydrologic regimes. Under NSE, the LSTM advantage over non-LSTM architectures is comparatively small in Cluster~4 but becomes much larger in Cluster~3, where several attention-based models deteriorate strongly. Under KGE, the ordering can change more fundamentally: the standard Transformer reaches 0.8849 in Cluster~4, exceeding the HESS-LSTM and all three LSTM-based references used in the present comparison, while its median KGE falls to $-0.7086$ in Cluster~3. The strongest non-LSTM architecture also changes between clusters (Supplementary Tables~S15--S16; Supplementary Fig.~S18). These results extend the aggregate metric trade-off into a metric-by-regime interaction: an all-basin leaderboard can obscure both the magnitude of architecture gaps and local reversals in model ordering.
-
-At the all-basin level, these findings also sharpen how the recent architecture literature should be interpreted. In the public HESS regression results, LSTM remains the strongest standard model in median NSE and KGE, while Crossformer is the strongest attention-based comparator in those aggregate metrics \cite{Liu2025_RNNTransformers}. The present optimized LSTM ensembles raise the median NSE reference from 0.7982 for HESS-LSTM to 0.8122 for Top-10 and 0.8154 for the hydrologically informed ensemble, while the median $R^2$ rises from 0.8173 to 0.8317 and 0.8369. However, their median KGE remains below the HESS-LSTM value of 0.8020. These results neither establish that LSTM is intrinsically more powerful than newer architectures nor invalidate the architecture ordering reported by Liu et al. under their experimental protocol. Instead, they demonstrate that the numerical position of a mature baseline can move when optimization effort, ensembling, seed treatment, and evaluation strategy change. An apparent plateau obtained from a fixed or inherited configuration should therefore not be interpreted as an intrinsic architecture or dataset ceiling without first examining sensitivity to configuration search, selection, ensembling, stochastic variability, metric dependence, and hydrologic heterogeneity. The strongest future architecture comparisons would place competing model classes under transparent and, as far as practical, matched optimization budgets, use multiple random seeds, and release basin-level predictions so that improvements can be tested beyond aggregate leaderboards.
-
-Several limitations define the boundary of these conclusions. First, the primary hydrologically informed-versus-Top-10 comparison differs in member count. The additional Top-18 control substantially narrows this ambiguity: increasing the global ensemble to the same nominal 18-selection scale yields only modest whole-domain gains and does not reproduce the hydrologically informed advantage in Cluster~3. However, because Top-18 and the hydrologically informed ensemble retain different configuration identities, this control provides evidence against a purely size-based explanation instead of a complete causal decomposition of hydrologic information and ensemble size. Accordingly, the study does not claim a universal ensemble-size-independent advantage of the hydrologically informed strategy. Second, the HESS comparison is intentionally limited to public whole-test-period basin metrics. The public artifacts used here do not provide the daily prediction archive required for matched water-year, seasonal, JAS, event, or hydrograph diagnostics, and the public configuration evidence does not justify an assumption of identical optimization or validation protocols (Supplementary Tables~S13--S14). The comparison therefore concerns released benchmark outputs, not a fully controlled architecture experiment. Third, the fixed six-cluster partition is inherited from Kratzert et al. \cite{Kratzert_2024}; the present study does not claim that six clusters are uniquely optimal. The hard-routing control shows that the tested own-cluster Top-3 strategy does not improve predictive skill under this partition and benchmark. Because this strategy changes both member identity and ensemble size at inference, it should not be interpreted as a member-count-matched causal ablation of routing alone. The negative result therefore applies to the tested hard-routing strategy and does not exclude softer or continuous forms of basin conditioning in which information can be shared across hydrologic regimes. Fourth, the hydrologic diagnostics are observational associations. They identify coherent signatures of difficult prediction but do not demonstrate that aridity, intermittency, storage, geology, or snow processes are causal mechanisms of model error. The basin-level inferential procedures also do not explicitly account for spatial dependence among catchments; their statistical interpretation is therefore restricted to paired consistency within the fixed CAMELS-US benchmark. Finally, the conclusions are tied to the 531 CAMELS-US basins, the fixed test period, the selected forcing/attribute set, and the explored LSTM search space; transfer to other large-sample datasets or strongly human-impacted basins remains to be tested.
-
-These limitations also identify the most useful next steps. Dry and intermittent basins should be treated as explicit model-development targets rather than as residual outliers. Incorporating more direct information about catchment state---for example soil moisture, groundwater or storage proxies, remotely sensed variables, or hybrid state-aware formulations---may be particularly valuable where precipitation-to-runoff conversion is episodic. The regime-dependent post-HPO results also motivate testing soft basin-conditioned weighting or mixture-of-experts strategies that preserve cross-regime information sharing, instead of the hard own-cluster routing tested here. Equally important, future architecture benchmarks should examine temporal stability, lower-tail performance, metric trade-offs, and difficult-regime behavior alongside central scores. The open multi-seed prediction archive produced here is intended to make such tests possible without requiring future studies to reconstruct the reference from summary statistics alone. In this sense, the contribution of the benchmark is not to close the question of which architecture is ``best'', but to raise the evidential standard for answering it: optimization effort, hydrologic heterogeneity, uncertainty, and evaluation protocol are all part of the benchmark being compared.
-
-\section{Conclusions}
-\label{sec:conclusions}
-
-This study establishes that a mature regional LSTM benchmark can retain substantial performance headroom under systematic configuration search, validation-based selection, and multi-configuration ensembling, even after the architecture itself has become well established in large-sample hydrology. Under the fixed 531-basin CAMELS-US protocol, the 2,000-trial HPO campaign, ensemble construction, and evaluation across multiple prespecified final realizations produced improvements that were broad across the basin population. The hydrologically informed ensemble improved NSE relative to the Kratzert reference in 91.0\% of basins and relative to the contemporary HESS-LSTM benchmark in 71.2\% of basins. The practical effect was also visible in skill transitions: relative to Kratzert, 54 basins moved from below to at least NSE$=0.8$ with no basin crossing that threshold in the opposite direction. These results show that the performance associated with a widely used architecture depends materially on how that architecture is optimized, selected, ensembled, and replicated across random seeds. Constituent-level controls further showed that the full pooled performance of both primary frameworks was not reproduced by any individual selected configuration in isolation and was observed only after multi-configuration aggregation under the evaluated design.
-
-Hydrologically informed post-HPO selection adds a second, more specific result. Its all-basin advantage over global Top-10 selection should not be interpreted as a universal gain. The Top-18 control shows that extending the global validation ranking from 10 to 18 configurations yields only modest whole-domain improvement and does not reproduce the hydrologically informed advantage in the dry, difficult Cluster~3. A complementary hard-routing control tests the operational alternative of restricting each basin to the three regionally trained configurations selected for its own cluster. The tested routed Top-3 strategy produced lower whole-domain NSE, Pearson correlation, and RMSE performance than both the pooled hydrologically informed ensemble and global Top-10; only KGE showed a small advantage over Top-10. Routed Top-3 improved NSE in only 12.4\% of basins relative to the pooled hydrologically informed ensemble and in 23.2\% relative to Top-10, and its cluster-median NSE was lower than that of the pooled ensemble in all six hydrologic clusters.
-
-Together, these controls substantially constrain the interpretation of the hydrologically informed result. The Cluster~3 advantage is not reproduced by simply extending the global ranking to 18 configurations, and the tested hard own-cluster Top-3 strategy is not supported as an outperforming replacement for pooling. The results are most consistent with cluster-conditioned validation helping identify complementary regional configurations whose pooled predictions retain skill across heterogeneous hydrologic regimes. Because the hard-routing control also changes ensemble size, however, it does not isolate pooling, configuration identity, and member count as separate causal mechanisms. The interpretation remains consistent with the broader value of multi-basin regional learning emphasized by Kratzert et al. \cite{Kratzert_2024}, while the routing experiment itself remains distinct: every constituent LSTM was trained regionally on all 531 basins. The strongest positive effects of the pooled hydrologically informed framework remain concentrated in the dry and water-limited parts of the domain, particularly Cluster~3 and the driest aridity quartile.
-
-The external architecture comparison further shows that benchmark conclusions are conditional on both metric and hydrologic regime. The two primary optimized LSTM ensembles occupy a stronger position than the released HESS-LSTM and attention-based references in NSE and $R^2$, but not in KGE, and the relative ordering of the Liu et al. architectures changes among the six hydrologic clusters. In particular, architecture gaps widen markedly in the dry Cluster~3, while some Transformer variants become much more competitive in the wetter Cluster~4; under KGE, local ranking reversals also occur. These findings do not establish universal outperformance of LSTM, nor do they invalidate architecture rankings obtained under different experimental protocols. They establish a narrower but important benchmark principle: an apparent plateau obtained from a fixed or inherited configuration should not be treated as an intrinsic architecture or dataset ceiling without first examining optimization headroom, stochastic variability, metric dependence, and hydrologic heterogeneity.
-
-The main contribution of this work is therefore both methodological and infrastructural. It provides a systematically optimized, multi-seed regional LSTM reference together with basin-level test predictions and the information needed to reproduce its evaluation across whole-period, basin, regime, seasonal, and water-year scales. This creates a reusable experimental reference against which future models can be compared directly. Future architecture studies on CAMELS-US can build on this benchmark by applying similarly transparent optimization budgets, multiple random seeds, multi-metric and regime-conditioned diagnostics, and open prediction archives. Under such a standard, the relevant question is no longer simply which architecture ranks first overall, but whether an apparent improvement remains when optimization effort, uncertainty, hydrologic regime, and evaluation protocol are all made explicit.
-
-
-\backmatter
-
-\section*{Codes and data availability}
-The code developed for this study is publicly available at \url{https://github.com/farzadhoseini/Cluster-Wise-HPO-CAMELS-US}. The benchmark results generated during the current work are publicly available at \url{https://doi.org/10.5281/zenodo.20421012}.
-
-\section*{Acknowledgements}
-This research was supported by the Instituto de Hidráulica Ambiental de la Universidad de Cantabria (IHCantabria), which funded the investigation and provided the essential computational resources. The authors also gratefully acknowledge the developers of the NeuralHydrology Python library for their valuable open-source contributions. We further thank the researchers who developed and made the CAMELS-US dataset publicly available, thereby providing an essential foundation for large-sample hydrology and comparative rainfall--runoff research.
-
-\bibliography{biblio_SR_revision_master_v02}
-
-\end{document}

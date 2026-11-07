@@ -1,0 +1,175 @@
+{
+  "table_count": 34,
+  "tables": {
+    "tab_camels_attribute_summary.tex": {
+      "document": "main",
+      "label": "tab:camels_attribute_summary",
+      "sha256": "2bcadcbc7dd40510205beeccd8b204608fe00320949b4d52a916a18911708458"
+    },
+    "tab_camels_cluster_summary.tex": {
+      "document": "main",
+      "label": "tab:camels_cluster_summary",
+      "sha256": "1dbd2b4c9ec9b0003270cd1d7c576e9c7782f36b88350b152bb2dd4da6811dcc"
+    },
+    "tab_hpo_space.tex": {
+      "document": "main",
+      "label": "tab:hpo_space",
+      "sha256": "4b4c76cdacfd82b010843e566297426b6c75e0275655457ccdd6d47a75e9ca52"
+    },
+    "tab_paired_nse_references.tex": {
+      "document": "main",
+      "label": "tab:paired_nse_references",
+      "sha256": "4eb6c297e9779499b04f195b359b138471288990179fdacd98d267e6455d8bd9"
+    },
+    "tab_threshold_coverage.tex": {
+      "document": "main",
+      "label": "tab:threshold_coverage",
+      "sha256": "9bdb314149738d7d3bf74b0d5483fa7fd876d493ad7aab97e837fffcb445917a"
+    },
+    "tab_hydro_selection_regimes.tex": {
+      "document": "main",
+      "label": "tab:hydro_selection_regimes",
+      "sha256": "0314c9cedbbe655f82adf2f239e3549078d0d74b061ad3ba6f1f31f10daf642a"
+    },
+    "tab_wy_nse_by_year.tex": {
+      "document": "main",
+      "label": "tab:wy_nse_by_year",
+      "sha256": "a7d2e0264884b0671149295ce73350351c8749e5bcec547a0ce017c368243f87"
+    },
+    "tab_seasonal_nse_frameworks.tex": {
+      "document": "main",
+      "label": "tab:seasonal_nse_frameworks",
+      "sha256": "0e6f9a2783fb80d7e6bda395dc0614b7642521b905f6f33d5259fae5552453b3"
+    },
+    "tab_cluster_absolute_nse.tex": {
+      "document": "main",
+      "label": "tab:cluster_absolute_nse",
+      "sha256": "f53ae7c95380d944c53d0fd1e847a2745afbb9fcf3680eb8939ca12aeaa567a7"
+    },
+    "tab_selected_architecture_context.tex": {
+      "document": "main",
+      "label": "tab:selected_architecture_context",
+      "sha256": "ea1177ed0d4d6fef9fa6b183f49a441cc21cc7ed02d3d852c78313295344edb0"
+    },
+    "tab_top18_size_control.tex": {
+      "document": "main",
+      "label": "tab:top18_size_control",
+      "sha256": "7d8fa91d6f56efbef792ed649bcf39134fde09d00b1d2e2c4cef80b31e09d840"
+    },
+    "tab_supp_overall_summary.tex": {
+      "document": "supp",
+      "label": "tab:supp_overall_summary",
+      "sha256": "1c1d784b2bf71ec50799e99fb0dcee82e97611dc5a3baca49f9126d2e4ad0de3"
+    },
+    "tab_supp_cluster_summary_long.tex": {
+      "document": "supp",
+      "label": "tab:supp_cluster_summary_long",
+      "sha256": "47b8cc9b53e019e04fa8a8da61e11f43f3304b5d936e9c7c6a0ddcbb4cc82d0b"
+    },
+    "tab_supp_cluster_categorical.tex": {
+      "document": "supp",
+      "label": "tab:supp_cluster_categorical",
+      "sha256": "6a99aa330b883696cd4ab39f6ac85d23a2ac0dd6c1652f9bb52b8d35d291add1"
+    },
+    "tab_supp_cluster_provenance.tex": {
+      "document": "supp",
+      "label": "tab:supp_cluster_provenance",
+      "sha256": "4ddc47115304ae202691112549ed4f2545d8eec74fa228f12340c013f8c81e7f"
+    },
+    "tab_supp_seed_robustness_exact.tex": {
+      "document": "supp",
+      "label": "tab:supp_seed_robustness_exact",
+      "sha256": "27d1aab88e0f00e669f81c1cc38581c69c4d979a43d0c0b2d2087c115945d762"
+    },
+    "tab_supp_paired_nse_seed_sensitivity.tex": {
+      "document": "supp",
+      "label": "tab:supp_paired_nse_seed_sensitivity",
+      "sha256": "5753e3e62fb73e9a2c7fadd3219808179cd00b8e582b963bb6739078370a9902"
+    },
+    "tab_supp_absolute_wholeperiod.tex": {
+      "document": "supp",
+      "label": "tab:supp_absolute_wholeperiod",
+      "sha256": "049e0995eeb86b9d980d8f11f7883ecc1fd80dc0dde772d5aa719a2b2f4d1dac"
+    },
+    "tab_supp_threshold_transitions.tex": {
+      "document": "supp",
+      "label": "tab:supp_threshold_transitions",
+      "sha256": "39fd16bf91a47b353874416e4b50383782b1192943327510af0e0a4b2c4f01cf"
+    },
+    "tab_supp_paired_hess_allmetrics.tex": {
+      "document": "supp",
+      "label": "tab:supp_paired_hess_allmetrics",
+      "sha256": "e5044565c774334f446d1c759867e3a72f0c6d74ab3585fa8bb837c6a345de74"
+    },
+    "tab_supp_paired_kratzert_allmetrics.tex": {
+      "document": "supp",
+      "label": "tab:supp_paired_kratzert_allmetrics",
+      "sha256": "65a3163c82c589eafb99ac0cb59240b07c0c11a0748c7ab5d2d787a099eee645"
+    },
+    "tab_supp_hess_regime_effects.tex": {
+      "document": "supp",
+      "label": "tab:supp_hess_regime_effects",
+      "sha256": "da5879015a5b758dcb3d6f2f458e8542b698be5e24258c287f74f3c70c62de3e"
+    },
+    "tab_supp_hess_architecture_all.tex": {
+      "document": "supp",
+      "label": "tab:supp_hess_architecture_all",
+      "sha256": "b4ec43e14c2f1f984f6f0b1e15674cb9b0e26a281c9c4021c53582517e5d2b67"
+    },
+    "tab_supp_hess_kratzert_fingerprint.tex": {
+      "document": "supp",
+      "label": "tab:supp_hess_kratzert_fingerprint",
+      "sha256": "5ed4ed675cf2c7fccff871bf744f6014649895037fb9f0dab96477f79dc12bfc"
+    },
+    "tab_supp_hess_protocol_audit.tex": {
+      "document": "supp",
+      "label": "tab:supp_hess_protocol_audit",
+      "sha256": "d2139042834dfbb73a7b1c2cc6c117494f0bafea08571efe9e62dfe3591b3e81"
+    },
+    "tab_supp_hess_cluster_nse.tex": {
+      "document": "supp",
+      "label": "tab:supp_hess_cluster_nse",
+      "sha256": "3b43523d5802614403b4651fb17462b4e9bf4c3d5ff2fb251b52d55cc41796a3"
+    },
+    "tab_supp_hess_cluster_kge.tex": {
+      "document": "supp",
+      "label": "tab:supp_hess_cluster_kge",
+      "sha256": "46a534b0ce49b6489f5f9cd7e3f0d363a3a1531202d688485ac6afdd982ed958"
+    },
+    "tab_supp_top18_paired.tex": {
+      "document": "supp",
+      "label": "tab:supp_top18_paired",
+      "sha256": "edb9d0b013cf366bd24d3565cb69d73f0f5abc263912af5361a3c04fe444ab56"
+    },
+    "tab_supp_top18_seeds.tex": {
+      "document": "supp",
+      "label": "tab:supp_top18_seeds",
+      "sha256": "c9afdcba8de86a9648bdb12b0927a2e064d7b5d4e6fbb0592cee5e6ebe0a57dd"
+    },
+    "tab_supp_top18_clusters.tex": {
+      "document": "supp",
+      "label": "tab:supp_top18_clusters",
+      "sha256": "ae02b5c4651f3f0577ad4c0f51d7496835135440bfeb37e90ada2146dcba0cf1"
+    },
+    "tab_supp_cluster_routing_overall.tex": {
+      "document": "supp",
+      "label": "tab:supp_cluster_routing_overall",
+      "sha256": "ec6529214d751f101e8d3324a74e9fad84c024b0b13e25ea0ceacba4c7aaed7e"
+    },
+    "tab_supp_cluster_routing_clusters.tex": {
+      "document": "supp",
+      "label": "tab:supp_cluster_routing_clusters",
+      "sha256": "152f785843235db89eb869be794f7fa57ba548650f0a81ba17233caedccbcf22"
+    },
+    "tab_supp_constituent_decomposition.tex": {
+      "document": "supp",
+      "label": "tab:supp_constituent_decomposition",
+      "sha256": "b60d8213345ce688ae90fa914307b47643ae87ac929c4a99e5f6dc87ef7b42ca"
+    },
+    "tab_fixed_inputs.tex": {
+      "document": "supp",
+      "label": "tab:fixed_inputs",
+      "sha256": "1ce9b7ea22033be78bf2abe78733764282f3102202fceda9b0cc7bb35c4050c2"
+    }
+  }
+}
